@@ -1,0 +1,11 @@
+# Node
+*.log
+*.log.*
+node_modules
+
+# Mac
+.DS_Store
+
+# Project
+out/
+dist/
