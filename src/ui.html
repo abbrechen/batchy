@@ -1,0 +1,29 @@
+<input type="text" name="nameField" id="name">
+<button id="download-button">Download</button>
+<script>
+
+  const downloadButton = document.getElementById('download-button');
+
+  downloadButton.addEventListener('click', () => {
+    parent.postMessage({
+      pluginMessage: {
+        download: true
+      }
+    }, '*');
+  });
+
+window.onmessage = (msg) => {
+  const name = document.getElementById('name').value;
+  const raw = msg.data.pluginMessage.bytes;
+  var binaryData = [];
+  binaryData.push(raw);
+  const blob = new Blob(binaryData, {type: 'image/png'})
+  const blobURL = window.URL.createObjectURL(blob);
+  const linkEl = document.createElement('a');
+  linkEl.href = blobURL;
+  linkEl.download = `${name}.png`;
+  linkEl.click();
+  linkEl.setAttribute('download', `${name}.png`);
+  }
+
+</script>
