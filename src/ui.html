@@ -7,13 +7,15 @@
   downloadButton.addEventListener('click', () => {
     parent.postMessage({
       pluginMessage: {
-        download: true
+        download: true,
+        name: document.getElementById('name').value
       }
     }, '*');
   });
 
 window.onmessage = (msg) => {
-  const name = document.getElementById('name').value;
+  // const name = document.getElementById('name').value;
+  const name = msg.data.pluginMessage.name;
   const raw = msg.data.pluginMessage.bytes;
   var binaryData = [];
   binaryData.push(raw);

@@ -1,10 +1,13 @@
 // import DateFormatter from '@date-js/date-formatter';
 
 const message = (name: string) => {
-  let date;
-  let layerName;
+  let date: string;
+  let layerName: string;
+  let exportName: string = '';
+  let testName: string = name;
 
   if(name.includes('{{date}}')) {
+    console.log('date condition triggered')
     /* --- DATE FORMAT 01 --- */
     const dateObj = new Date();
     var year: string|number;
@@ -18,10 +21,22 @@ const message = (name: string) => {
     day = day < 10 ? '0' + day : day;
 
     date = `${year}-${month}-${day}`;
+
     /* --- DATE FORMAT 01 --- */
+
+    exportName += date;
+    testName.replace('{{date}}', date);
   }
-  console.log(date)
+
+  if(name.includes('{{name}}')) {
+    console.log('name condition triggered')
+    layerName = figma.currentPage.selection[0].name;
+
+    exportName += layerName;
+    testName.replace('{{name}}', layerName)
+  }
   // return `name module has been loaded with the message: ${msg}`;
+  return exportName;
   };
   
 export default message;

@@ -1,5 +1,5 @@
 import message from './modules/name-module';
-message('yes, this includes {{date}}');
+
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
@@ -17,17 +17,17 @@ figma.showUI(__html__);
 // posted message.
 // figma.ui.onmessage =  (msg: {type: string, count: number}) => {
 
-figma.ui.onmessage =  (msg: {download: boolean}) => {
+figma.ui.onmessage =  (msg: {download: boolean, name: string}) => {
 
   if(msg.download) {
       (async () => {
         var selection = figma.currentPage.selection[0];
+        console.log('name from html: ', msg.name, 'name from func: ', message(msg.name));
         var bytes = await selection.exportAsync({
           format: 'PNG',
           constraint: { type: 'SCALE', value: 1 }
         });
-        console.log(2);
-        figma.ui.postMessage({bytes});
+        figma.ui.postMessage({bytes, name: message(msg.name)});
       })();
     } else {
       console.log('download is', msg.download)
