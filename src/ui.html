@@ -1,31 +1,56 @@
 <input type="text" name="nameField" id="name">
 <button id="download-button">Download</button>
+<script type="text/javascript" src="../node_modules/@zip.js/zip.js/dist/zip.min.js"></script>
 <script>
+const downloadButton = document.getElementById('download-button');
 
-  const downloadButton = document.getElementById('download-button');
+downloadButton.addEventListener('click', () => {
+  parent.postMessage({
+    pluginMessage: {
+      download: true,
+      name: document.getElementById('name').value
+    }
+  }, '*');
+});
 
-  downloadButton.addEventListener('click', () => {
-    parent.postMessage({
-      pluginMessage: {
-        download: true,
-        name: document.getElementById('name').value
-      }
-    }, '*');
-  });
+// MULTIPLE FILE EXPORT AS ZIP
+const downloadZip = async (exportBundle) => {
+  let zipWriter;
 
-window.onmessage = (msg) => {
-  // const name = document.getElementById('name').value;
-  const name = msg.data.pluginMessage.name;
-  const raw = msg.data.pluginMessage.bytes;
-  var binaryData = [];
-  binaryData.push(raw);
-  const blob = new Blob(binaryData, {type: 'image/png'})
+  for(let img of exportBundle) {
+    var fileName = img.name;
+    const blob = new Blob(img.binaryData, {type: 'image/png'});
+    zipWriter.add(fileName, blob);
+  }
+
+  // make and click a temporary link to download the Blob
+  const blobURL = window.URL.createObjectURL(await zipWriter.close());
+  const linkEl = document.createElement('a');
+  linkEl.href = blobURL;
+  // linkEl.download = `${name}.png`;
+  linkEl.download = 'assets.zip';
+  linkEl.click();
+  // linkEl.setAttribute('download', `${name}.png`);
+  linkEl.setAttribute('download', 'assets.zip');
+};
+
+// SINGLE FILE EXPORT
+const downloadSingleFile = (file) => {
+  const blob = new Blob(file.binaryData, {type: 'image/png'});
+  // make and click a temporary link to download the Blob
   const blobURL = window.URL.createObjectURL(blob);
   const linkEl = document.createElement('a');
   linkEl.href = blobURL;
-  linkEl.download = `${name}.png`;
+  linkEl.download = `${file.name}.png`;
   linkEl.click();
-  linkEl.setAttribute('download', `${name}.png`);
-  }
+  linkEl.setAttribute('download', `${file.name}.png`);
+  window.URL.revokeObjectURL(blobURL);
+  linkEl.remove();
+}
+
+window.onmessage = (msg) => {
+  const exportBundle = msg.data.pluginMessage;
+  exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+}
 
 </script>

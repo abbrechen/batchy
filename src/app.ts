@@ -17,17 +17,36 @@ figma.showUI(__html__);
 // posted message.
 // figma.ui.onmessage =  (msg: {type: string, count: number}) => {
 
-figma.ui.onmessage =  (msg: {download: boolean, name: string}) => {
+interface exportObj {
+  name: string,
+  binaryData: object
+}
 
+interface exportBundle extends Array<exportObj> {}
+
+var exportBundle:exportBundle = [];
+
+figma.ui.onmessage =  (msg: {download: boolean, name: string}) => {
   if(msg.download) {
       (async () => {
-        var selection = figma.currentPage.selection[0];
-        console.log('name from html: ', msg.name, 'name from func: ', message(msg.name));
-        var bytes = await selection.exportAsync({
-          format: 'PNG',
-          constraint: { type: 'SCALE', value: 1 }
-        });
-        figma.ui.postMessage({bytes, name: message(msg.name)});
+        var selection = figma.currentPage.selection;
+
+        for(let i = 0; i < selection.length; i++) {
+          var bytes = await selection[i].exportAsync({
+            format: 'PNG',
+            constraint: { type: 'SCALE', value: 1 }
+          });
+          var binaryData = [];
+          binaryData.push(bytes);
+          var name = message(msg.name, i);
+          exportBundle.push({
+            name,
+            binaryData
+          })
+        }
+        // figma.ui.postMessage({binaryData, name});
+        figma.ui.postMessage(exportBundle);
+        exportBundle = [];
       })();
     } else {
       console.log('download is', msg.download)
