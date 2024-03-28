@@ -32,6 +32,8 @@ const downloadZip = async (exportBundle) => {
   linkEl.click();
   // linkEl.setAttribute('download', `${name}.png`);
   linkEl.setAttribute('download', 'assets.zip');
+  window.URL.revokeObjectURL(blobURL);
+  linkEl.remove();
 };
 
 // SINGLE FILE EXPORT
