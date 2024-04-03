@@ -3,6 +3,7 @@
 const message = (name: string, index: number) => {
   let date: string;
   let layerName: string;
+  let fileName: string;
   let exportName: string = name;
 
   if(name.includes('{{date}}')) {
@@ -27,9 +28,14 @@ const message = (name: string, index: number) => {
 
   if(name.includes('{{name}}')) {
     layerName = figma.currentPage.selection[index].name;
-
     exportName = exportName.replace('{{name}}', layerName)
   }
+
+  if(name.includes('{{file}}')) {
+    fileName = figma.root.name;
+    exportName = exportName.replace('{{file}}', fileName);
+  }
+
   // return `name module has been loaded with the message: ${msg}`;
   return exportName;
   };

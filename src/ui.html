@@ -1,13 +1,43 @@
 <input type="text" name="nameField" id="name">
 <button id="download-button">Download</button>
-<script type="text/javascript" src="../node_modules/@zip.js/zip.js/dist/zip.min.js"></script>
+<ul>Existing syntax:
+  <li>{{name}}</li>
+  <li>{{date}}</li>
+  <li>{{file}}</li>
+</ul>
+<!-- <button id="btn1">say hello</button>
+<button id="btn2">say bye</button> -->
+<!-- <script type="text/javascript" src="../node_modules/@zip.js/zip.js/dist/zip.min.js"></script> -->
+<!-- <script type="module" src="../dist/jszip.js"></script> -->
 <script>
 const downloadButton = document.getElementById('download-button');
+
+// ====== EXAMPLE COMMUNICATION
+// const btn1 = document.getElementById('btn1');
+// const btn2 = document.getElementById('btn2');
+
+// btn1.addEventListener('click', () => {
+//   parent.postMessage({ pluginMessage: {type: 'say-hello', txt:'hello from UI'} }, '*');
+// });
+// btn2.addEventListener('click', () => {
+//   parent.postMessage({ pluginMessage: {type: 'say-bye', txt:'bye from UI'} }, '*');
+// });
+
+// window.onmessage = msg => {
+//   const m = msg.data.pluginMessage
+//   if(m.type === 'say-hello') {
+//     console.log(m.txt);
+//   }
+//   if(m.type === 'say-bye') {
+//     console.log(m.txt);
+//   }
+// };
+// ==================
 
 downloadButton.addEventListener('click', () => {
   parent.postMessage({
     pluginMessage: {
-      download: true,
+      type: 'collect-data',
       name: document.getElementById('name').value
     }
   }, '*');
@@ -51,8 +81,11 @@ const downloadSingleFile = (file) => {
 }
 
 window.onmessage = (msg) => {
-  const exportBundle = msg.data.pluginMessage;
-  exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+  const m = msg.data.pluginMessage;
+  if(m.type === 'export-bundle') {
+    const exportBundle = m.exportBundle;
+    exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+  }
 }
 
 </script>

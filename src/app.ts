@@ -1,4 +1,6 @@
 import message from './modules/name-module';
+// import JSZip from '../node_modules/@types/jszip';
+const JsZip = require('jszip');
 
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
@@ -26,8 +28,21 @@ interface exportBundle extends Array<exportObj> {}
 
 var exportBundle:exportBundle = [];
 
-figma.ui.onmessage =  (msg: {download: boolean, name: string}) => {
-  if(msg.download) {
+// figma.ui.onmessage = msg => {
+//   console.log(msg.type)
+//   if (msg.type === 'say-hello') {
+//     console.log(msg.txt)
+//     figma.ui.postMessage({type: 'say-hello', txt:'hello from TS'});
+//   }
+//   if (msg.type === 'say-bye') {
+//     console.log(msg.txt)
+//     figma.ui.postMessage({type: 'say-bye', txt:'bye from TS'});
+//   }
+// }
+
+figma.ui.onmessage =  (msg: {type: string, name: string}) => {
+
+  if(msg.type === 'collect-data') {
       (async () => {
         var selection = figma.currentPage.selection;
 
@@ -45,11 +60,11 @@ figma.ui.onmessage =  (msg: {download: boolean, name: string}) => {
           })
         }
         // figma.ui.postMessage({binaryData, name});
-        figma.ui.postMessage(exportBundle);
+        figma.ui.postMessage({type: 'export-bundle', exportBundle});
         exportBundle = [];
       })();
     } else {
-      console.log('download is', msg.download)
+      console.error('known onmessage type');
     }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
