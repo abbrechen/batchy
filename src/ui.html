@@ -7,8 +7,7 @@
 </ul>
 <!-- <button id="btn1">say hello</button>
 <button id="btn2">say bye</button> -->
-<!-- <script type="text/javascript" src="../node_modules/@zip.js/zip.js/dist/zip.min.js"></script> -->
-<!-- <script type="module" src="../dist/jszip.js"></script> -->
+<script src="./app.js"></script>
 <script>
 const downloadButton = document.getElementById('download-button');
 
@@ -35,40 +34,60 @@ const downloadButton = document.getElementById('download-button');
 // ==================
 
 downloadButton.addEventListener('click', () => {
+  const pluginMessage = JSON.stringify({
+    type: 'collect-data',
+    name: document.getElementById('name').value
+  })
   parent.postMessage({
-    pluginMessage: {
-      type: 'collect-data',
-      name: document.getElementById('name').value
-    }
+    pluginMessage
   }, '*');
 });
 
 // MULTIPLE FILE EXPORT AS ZIP
-const downloadZip = async (exportBundle) => {
-  let zipWriter;
+const downloadZip = async (files) => {
 
-  for(let img of exportBundle) {
-    var fileName = img.name;
-    const blob = new Blob(img.binaryData, {type: 'image/png'});
-    zipWriter.add(fileName, blob);
-  }
+  let blobData = [];
 
-  // make and click a temporary link to download the Blob
-  const blobURL = window.URL.createObjectURL(await zipWriter.close());
-  const linkEl = document.createElement('a');
-  linkEl.href = blobURL;
-  // linkEl.download = `${name}.png`;
-  linkEl.download = 'assets.zip';
-  linkEl.click();
-  // linkEl.setAttribute('download', `${name}.png`);
-  linkEl.setAttribute('download', 'assets.zip');
-  window.URL.revokeObjectURL(blobURL);
-  linkEl.remove();
+  files.forEach(file => {
+    const blob = new Blob(file.binaryData, {type: 'image/png'});
+    // const blobURL = window.URL.createObjectURL(blob);
+    blobData.push({
+      name: file.name,
+      blob
+    });
+  });
+
+  const blobDataString = JSON.stringify(blobData);
+
+  parent.postMessage({
+    pluginMessage: {
+      type: 'create-zip',
+      blobDataString
+    }
+  }, '*');
+
+  // for(let img of exportBundle) {
+  //   var fileName = img.name;
+  //   const blob = new Blob(img.binaryData, {type: 'image/png'});
+  // }
+
+  // // make and click a temporary link to download the Blob
+  // const blobURL = window.URL.createObjectURL(await zipWriter.close());
+  // const linkEl = document.createElement('a');
+  // linkEl.href = blobURL;
+  // // linkEl.download = `${name}.png`;
+  // linkEl.download = 'assets.zip';
+  // linkEl.click();
+  // // linkEl.setAttribute('download', `${name}.png`);
+  // linkEl.setAttribute('download', 'assets.zip');
+  // window.URL.revokeObjectURL(blobURL);
+  // linkEl.remove();
 };
 
 // SINGLE FILE EXPORT
 const downloadSingleFile = (file) => {
   const blob = new Blob(file.binaryData, {type: 'image/png'});
+
   // make and click a temporary link to download the Blob
   const blobURL = window.URL.createObjectURL(blob);
   const linkEl = document.createElement('a');
@@ -85,6 +104,19 @@ window.onmessage = (msg) => {
   if(m.type === 'export-bundle') {
     const exportBundle = m.exportBundle;
     exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+  } else if(m.type === 'send-zip') {
+    console.log(m)
+  } else if (m.type = 'test-img') {
+    // ---- TEST ----
+
+    console.log(m.testImg)
+    const imgEl = document.createElement('img');
+    const base64Data = btoa(String.fromCharCode.apply(null, m.testImg[0]));
+    imgEl.src = `data:image/png;base64,${base64Data}`
+
+    document.body.appendChild(imgEl);
+
+    // ---- TEST END ----
   }
 }
 
