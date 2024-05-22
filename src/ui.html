@@ -6,15 +6,20 @@
   </head>
   <body>
     <input type="text" name="nameField" id="name">
-    <button id="download-button">Download</button>
-    <ul>Existing syntax:
-      <li>{{name}}</li>
-      <li>{{date}}</li>
-      <li>{{file}}</li>
+    <p>Choosable syntax</p>
+    <ul class="chips">
+      <li onclick="addTextToInput('{{name}}')">name</li>
+      <li onclick="addTextToInput('{{date}}')">date</li>
+      <li onclick="addTextToInput('{{file}}')">file</li>
     </ul>
-    <script src="./app.js"></script>
+    <button id="download-button">Download</button>
     <script>
     const downloadButton = document.getElementById('download-button');
+
+    const addTextToInput = (text) => {
+      const input = document.getElementById('name');
+      input.value += text
+    }
 
     downloadButton.addEventListener('click', () => {
       const pluginMessage = JSON.stringify({
@@ -32,7 +37,6 @@
 
     // MULTIPLE FILE EXPORT AS ZIP
     const downloadZip = async (files) => {
-      // console.log('FILES --->', files)
 
       const zip = new JSZip();
 
@@ -82,19 +86,25 @@
       } else if(m.type === 'send-zip') {
         console.log(m)
       }
-      // } else if (m.type = 'test-img') {
-      //   // ---- TEST ----
-
-      //   console.log(m.testImg)
-      //   const imgEl = document.createElement('img');
-      //   const base64Data = btoa(String.fromCharCode.apply(null, m.testImg[0]));
-      //   imgEl.src = `data:image/png;base64,${base64Data}`
-
-      //   document.body.appendChild(imgEl);
-
-      //   // ---- TEST END ----
-      // }
     }
     </script>
   </body>
+  <style>
+    .chips {
+      list-style: none;
+    }
+    .chips {
+      li {
+        display: inline-block;
+        width: 60px;
+        height: 24px;
+        text-align: center;
+        border-radius: 18px;
+        background-color: hsl(0deg 0% 0% / 20%);
+        &:hover {
+          background-color: hsl(0deg 0% 0% / 40%);
+        }
+      }
+    }
+  </style>
 </html>

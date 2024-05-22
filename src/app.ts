@@ -42,38 +42,6 @@ interface exportBundle extends Array<exportObj> {}
 
 var exportBundle:exportBundle = [];
 
-// ---- TEST ----
-
-let testImg:any = [];
-
-// async function test () {
-//   var selection = figma.currentPage.selection;
-//   var bytes = await selection[0].exportAsync({
-//     format: 'PNG',
-//     constraint: { type: 'SCALE', value: 1 }
-//   });
-//   testImg.push(bytes);
-
-//   console.log(testImg)
-
-//   figma.ui.postMessage({type: 'test-img', testImg});
-// }
-// test();
-
-// ---- TEST END ----
-
-// figma.ui.onmessage = msg => {
-//   console.log(msg.type)
-//   if (msg.type === 'say-hello') {
-//     console.log(msg.txt)
-//     figma.ui.postMessage({type: 'say-hello', txt:'hello from TS'});
-//   }
-//   if (msg.type === 'say-bye') {
-//     console.log(msg.txt)
-//     figma.ui.postMessage({type: 'say-bye', txt:'bye from TS'});
-//   }
-// }
-
 const createBlob = (binaryData:any) => {
   return new Promise<Blob>((resolve, reject) => {
     if(binaryData) {
