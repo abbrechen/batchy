@@ -46,19 +46,19 @@ var exportBundle:exportBundle = [];
 
 let testImg:any = [];
 
-async function test () {
-  var selection = figma.currentPage.selection;
-  var bytes = await selection[0].exportAsync({
-    format: 'PNG',
-    constraint: { type: 'SCALE', value: 1 }
-  });
-  testImg.push(bytes);
+// async function test () {
+//   var selection = figma.currentPage.selection;
+//   var bytes = await selection[0].exportAsync({
+//     format: 'PNG',
+//     constraint: { type: 'SCALE', value: 1 }
+//   });
+//   testImg.push(bytes);
 
-  console.log(testImg)
+//   console.log(testImg)
 
-  figma.ui.postMessage({type: 'test-img', testImg});
-}
-test();
+//   figma.ui.postMessage({type: 'test-img', testImg});
+// }
+// test();
 
 // ---- TEST END ----
 
