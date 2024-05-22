@@ -1,6 +1,19 @@
-import message from './modules/name-module';
 // import JSZip from '../node_modules/@types/jszip';
-const JsZip = require('jszip');
+// const JsZip = require('jszip');
+// import {
+//   BlobReader,
+//   BlobWriter,
+//   TextReader,
+//   TextWriter,
+//   ZipReader,
+//   ZipWriter,
+// } from '@zip.js/zip.js';
+
+import JSZip from 'jszip';
+
+var zip = new JSZip();
+
+import message from './modules/name-module';
 
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
@@ -21,12 +34,33 @@ figma.showUI(__html__);
 
 interface exportObj {
   name: string,
+  // blob: Blob
   binaryData: object
 }
 
 interface exportBundle extends Array<exportObj> {}
 
 var exportBundle:exportBundle = [];
+
+// ---- TEST ----
+
+let testImg:any = [];
+
+// async function test () {
+//   var selection = figma.currentPage.selection;
+//   var bytes = await selection[0].exportAsync({
+//     format: 'PNG',
+//     constraint: { type: 'SCALE', value: 1 }
+//   });
+//   testImg.push(bytes);
+
+//   console.log(testImg)
+
+//   figma.ui.postMessage({type: 'test-img', testImg});
+// }
+// test();
+
+// ---- TEST END ----
 
 // figma.ui.onmessage = msg => {
 //   console.log(msg.type)
@@ -40,9 +74,21 @@ var exportBundle:exportBundle = [];
 //   }
 // }
 
-figma.ui.onmessage =  (msg: {type: string, name: string}) => {
+const createBlob = (binaryData:any) => {
+  return new Promise<Blob>((resolve, reject) => {
+    if(binaryData) {
+      var blob:Blob = new Blob(binaryData, {type: 'image/png'});
+      resolve(blob)
+    } else {
+      reject('no binaryData found')
+    }
+  });
+}
 
-  if(msg.type === 'collect-data') {
+// figma.ui.onmessage =  (msg: {type: string, name: string, blobData:[]}) => {
+figma.ui.onmessage =  (msg: string) => {
+  const Msg = JSON.parse(msg);
+  if(Msg.type === 'collect-data') {
       (async () => {
         var selection = figma.currentPage.selection;
 
@@ -53,7 +99,16 @@ figma.ui.onmessage =  (msg: {type: string, name: string}) => {
           });
           var binaryData = [];
           binaryData.push(bytes);
-          var name = message(msg.name, i);
+
+          // createBlob(binaryData).then((blob) => {
+          //   var name = message(msg.name, i);
+          //   exportBundle.push({
+          //     name,
+          //     blob
+          //   })
+          // });
+
+          var name = message(Msg.name, i);
           exportBundle.push({
             name,
             binaryData
@@ -63,8 +118,18 @@ figma.ui.onmessage =  (msg: {type: string, name: string}) => {
         figma.ui.postMessage({type: 'export-bundle', exportBundle});
         exportBundle = [];
       })();
+    } else if (Msg.type === 'create-zip') {
+      return new Promise(async resolve => {
+        Msg.blobData.forEach((file: {name: string, blob: string}) => {
+          console.log(file)
+          // zip.file(`${file.name}.png`, blob);
+          // zip.generateAsync({type: 'blob'}).then(content => {
+          //   console.log(content)
+          // })
+        })
+      })
     } else {
-      console.error('known onmessage type');
+      console.error(`unknown onmessage type "${Msg.type}"`);
     }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
