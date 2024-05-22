@@ -11,7 +11,7 @@
   "ui": "src/ui.html",
   "networkAccess": {
     "allowedDomains": [
-      "none"
+      "https://cdn.jsdelivr.net"
     ]
   },
   "documentAccess": "dynamic-page"

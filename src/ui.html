@@ -1,123 +1,131 @@
-<input type="text" name="nameField" id="name">
-<button id="download-button">Download</button>
-<ul>Existing syntax:
-  <li>{{name}}</li>
-  <li>{{date}}</li>
-  <li>{{file}}</li>
-</ul>
-<!-- <button id="btn1">say hello</button>
-<button id="btn2">say bye</button> -->
-<script src="./app.js"></script>
-<script>
-const downloadButton = document.getElementById('download-button');
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.1.5/dist/jszip.min.js"></script>
+  </head>
+  <body>
+    <input type="text" name="nameField" id="name">
+    <button id="download-button">Download</button>
+    <ul>Existing syntax:
+      <li>{{name}}</li>
+      <li>{{date}}</li>
+      <li>{{file}}</li>
+    </ul>
+    <!-- <button id="btn1">say hello</button>
+    <button id="btn2">say bye</button> -->
+    <script src="./app.js"></script>
+    <script>
+    const downloadButton = document.getElementById('download-button');
 
-// ====== EXAMPLE COMMUNICATION
-// const btn1 = document.getElementById('btn1');
-// const btn2 = document.getElementById('btn2');
+    // ====== EXAMPLE COMMUNICATION
+    // const btn1 = document.getElementById('btn1');
+    // const btn2 = document.getElementById('btn2');
 
-// btn1.addEventListener('click', () => {
-//   parent.postMessage({ pluginMessage: {type: 'say-hello', txt:'hello from UI'} }, '*');
-// });
-// btn2.addEventListener('click', () => {
-//   parent.postMessage({ pluginMessage: {type: 'say-bye', txt:'bye from UI'} }, '*');
-// });
+    // btn1.addEventListener('click', () => {
+    //   parent.postMessage({ pluginMessage: {type: 'say-hello', txt:'hello from UI'} }, '*');
+    // });
+    // btn2.addEventListener('click', () => {
+    //   parent.postMessage({ pluginMessage: {type: 'say-bye', txt:'bye from UI'} }, '*');
+    // });
 
-// window.onmessage = msg => {
-//   const m = msg.data.pluginMessage
-//   if(m.type === 'say-hello') {
-//     console.log(m.txt);
-//   }
-//   if(m.type === 'say-bye') {
-//     console.log(m.txt);
-//   }
-// };
-// ==================
+    // window.onmessage = msg => {
+    //   const m = msg.data.pluginMessage
+    //   if(m.type === 'say-hello') {
+    //     console.log(m.txt);
+    //   }
+    //   if(m.type === 'say-bye') {
+    //     console.log(m.txt);
+    //   }
+    // };
+    // ==================
 
-downloadButton.addEventListener('click', () => {
-  const pluginMessage = JSON.stringify({
-    type: 'collect-data',
-    name: document.getElementById('name').value
-  })
-  parent.postMessage({
-    pluginMessage
-  }, '*');
-});
-
-// MULTIPLE FILE EXPORT AS ZIP
-const downloadZip = async (files) => {
-
-  let blobData = [];
-
-  files.forEach(file => {
-    const blob = new Blob(file.binaryData, {type: 'image/png'});
-    // const blobURL = window.URL.createObjectURL(blob);
-    blobData.push({
-      name: file.name,
-      blob
+    downloadButton.addEventListener('click', () => {
+      const pluginMessage = JSON.stringify({
+        type: 'collect-data',
+        name: document.getElementById('name').value
+      })
+      parent.postMessage({
+        pluginMessage
+      }, '*');
     });
-  });
 
-  const blobDataString = JSON.stringify(blobData);
+    // MULTIPLE FILE EXPORT AS ZIP
+    const downloadZip = async (files) => {
 
-  parent.postMessage({
-    pluginMessage: {
-      type: 'create-zip',
-      blobDataString
+      let blobData = [];
+
+      files.forEach(file => {
+        const blob = new Blob(file.binaryData, {type: 'image/png'});
+        // const blobURL = window.URL.createObjectURL(blob);
+        blobData.push({
+          name: file.name,
+          blob
+        });
+      });
+
+      const blobDataString = JSON.stringify(blobData);
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'create-zip',
+          blobDataString
+        }
+      }, '*');
+
+      // for(let img of exportBundle) {
+      //   var fileName = img.name;
+      //   const blob = new Blob(img.binaryData, {type: 'image/png'});
+      // }
+
+      // // make and click a temporary link to download the Blob
+      // const blobURL = window.URL.createObjectURL(await zipWriter.close());
+      // const linkEl = document.createElement('a');
+      // linkEl.href = blobURL;
+      // // linkEl.download = `${name}.png`;
+      // linkEl.download = 'assets.zip';
+      // linkEl.click();
+      // // linkEl.setAttribute('download', `${name}.png`);
+      // linkEl.setAttribute('download', 'assets.zip');
+      // window.URL.revokeObjectURL(blobURL);
+      // linkEl.remove();
+    };
+
+    // SINGLE FILE EXPORT
+    const downloadSingleFile = (file) => {
+      const blob = new Blob(file.binaryData, {type: 'image/png'});
+
+      // make and click a temporary link to download the Blob
+      const blobURL = window.URL.createObjectURL(blob);
+      const linkEl = document.createElement('a');
+      linkEl.href = blobURL;
+      linkEl.download = `${file.name}.png`;
+      linkEl.click();
+      linkEl.setAttribute('download', `${file.name}.png`);
+      window.URL.revokeObjectURL(blobURL);
+      linkEl.remove();
     }
-  }, '*');
 
-  // for(let img of exportBundle) {
-  //   var fileName = img.name;
-  //   const blob = new Blob(img.binaryData, {type: 'image/png'});
-  // }
+    window.onmessage = (msg) => {
+      const m = msg.data.pluginMessage;
+      if(m.type === 'export-bundle') {
+        const exportBundle = m.exportBundle;
+        exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+      } else if(m.type === 'send-zip') {
+        console.log(m)
+      } else if (m.type = 'test-img') {
+        // ---- TEST ----
 
-  // // make and click a temporary link to download the Blob
-  // const blobURL = window.URL.createObjectURL(await zipWriter.close());
-  // const linkEl = document.createElement('a');
-  // linkEl.href = blobURL;
-  // // linkEl.download = `${name}.png`;
-  // linkEl.download = 'assets.zip';
-  // linkEl.click();
-  // // linkEl.setAttribute('download', `${name}.png`);
-  // linkEl.setAttribute('download', 'assets.zip');
-  // window.URL.revokeObjectURL(blobURL);
-  // linkEl.remove();
-};
+        console.log(m.testImg)
+        const imgEl = document.createElement('img');
+        const base64Data = btoa(String.fromCharCode.apply(null, m.testImg[0]));
+        imgEl.src = `data:image/png;base64,${base64Data}`
 
-// SINGLE FILE EXPORT
-const downloadSingleFile = (file) => {
-  const blob = new Blob(file.binaryData, {type: 'image/png'});
+        document.body.appendChild(imgEl);
 
-  // make and click a temporary link to download the Blob
-  const blobURL = window.URL.createObjectURL(blob);
-  const linkEl = document.createElement('a');
-  linkEl.href = blobURL;
-  linkEl.download = `${file.name}.png`;
-  linkEl.click();
-  linkEl.setAttribute('download', `${file.name}.png`);
-  window.URL.revokeObjectURL(blobURL);
-  linkEl.remove();
-}
-
-window.onmessage = (msg) => {
-  const m = msg.data.pluginMessage;
-  if(m.type === 'export-bundle') {
-    const exportBundle = m.exportBundle;
-    exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
-  } else if(m.type === 'send-zip') {
-    console.log(m)
-  } else if (m.type = 'test-img') {
-    // ---- TEST ----
-
-    console.log(m.testImg)
-    const imgEl = document.createElement('img');
-    const base64Data = btoa(String.fromCharCode.apply(null, m.testImg[0]));
-    imgEl.src = `data:image/png;base64,${base64Data}`
-
-    document.body.appendChild(imgEl);
-
-    // ---- TEST END ----
-  }
-}
-
-</script>
+        // ---- TEST END ----
+      }
+    }
+    </script>
+  </body>
+</html>
