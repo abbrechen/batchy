@@ -1,18 +1,3 @@
-// import JSZip from '../node_modules/@types/jszip';
-// const JsZip = require('jszip');
-// import {
-//   BlobReader,
-//   BlobWriter,
-//   TextReader,
-//   TextWriter,
-//   ZipReader,
-//   ZipWriter,
-// } from '@zip.js/zip.js';
-
-import JSZip from 'jszip';
-
-var zip = new JSZip();
-
 import message from './modules/name-module';
 
 // This plugin will open a window to prompt the user to enter a number, and
@@ -34,7 +19,6 @@ figma.showUI(__html__);
 
 interface exportObj {
   name: string,
-  // blob: Blob
   binaryData: object
 }
 
@@ -68,21 +52,12 @@ figma.ui.onmessage =  (msg: string) => {
           var binaryData = [];
           binaryData.push(bytes);
 
-          // createBlob(binaryData).then((blob) => {
-          //   var name = message(msg.name, i);
-          //   exportBundle.push({
-          //     name,
-          //     blob
-          //   })
-          // });
-
-          var name = message(Msg.name, i);
+          var name = message(Msg.name, i, Msg.dateFormat);
           exportBundle.push({
             name,
             binaryData
           })
         }
-        // figma.ui.postMessage({binaryData, name});
         figma.ui.postMessage({type: 'export-bundle', exportBundle});
         exportBundle = [];
       })();
@@ -90,10 +65,6 @@ figma.ui.onmessage =  (msg: string) => {
       return new Promise(async resolve => {
         Msg.blobData.forEach((file: {name: string, blob: string}) => {
           console.log(file)
-          // zip.file(`${file.name}.png`, blob);
-          // zip.generateAsync({type: 'blob'}).then(content => {
-          //   console.log(content)
-          // })
         })
       })
     } else {

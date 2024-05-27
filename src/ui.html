@@ -6,15 +6,22 @@
   </head>
   <body>
     <input type="text" name="nameField" id="name">
+    <button id="download-button">Download</button>
     <p>Choosable syntax</p>
     <ul class="chips">
       <li onclick="addTextToInput('{{name}}')">name</li>
       <li onclick="addTextToInput('{{date}}')">date</li>
       <li onclick="addTextToInput('{{file}}')">file</li>
     </ul>
-    <button id="download-button">Download</button>
+    <select name="dateFormat" id="dateFormat">
+      <option value="date-01">YYMMDD</option>
+      <option value="date-02">YYYY-MM-DD</option>
+      <option value="date-03">DD-MM-YYYY</option>
+      <option value="date-04">MM-DD-YYYY</option>
+    </select>
     <script>
     const downloadButton = document.getElementById('download-button');
+    const dateFormatObj = document.getElementById('dateFormat');
 
     const addTextToInput = (text) => {
       const input = document.getElementById('name');
@@ -22,9 +29,11 @@
     }
 
     downloadButton.addEventListener('click', () => {
+      const dateFormat = dateFormatObj.selectedIndex
       const pluginMessage = JSON.stringify({
         type: 'collect-data',
-        name: document.getElementById('name').value
+        name: document.getElementById('name').value,
+        dateFormat
       })
       parent.postMessage({
         pluginMessage
