@@ -26,24 +26,15 @@ interface exportBundle extends Array<exportObj> {}
 
 var exportBundle:exportBundle = [];
 
-const createBlob = (binaryData:any) => {
-  return new Promise<Blob>((resolve, reject) => {
-    if(binaryData) {
-      var blob:Blob = new Blob(binaryData, {type: 'image/png'});
-      resolve(blob)
-    } else {
-      reject('no binaryData found')
-    }
-  });
-}
-
-// figma.ui.onmessage =  (msg: {type: string, name: string, blobData:[]}) => {
+// General message receiver
 figma.ui.onmessage =  (msg: string) => {
   const Msg = JSON.parse(msg);
-  if(Msg.type === 'collect-data') {
+  // get all config data to bind them to the image information
+  if(Msg.type === '01-collect-data') {
       (async () => {
         var selection = figma.currentPage.selection;
 
+        // get the image binary data
         for(let i = 0; i < selection.length; i++) {
           var bytes = await selection[i].exportAsync({
             format: 'PNG',
@@ -52,21 +43,18 @@ figma.ui.onmessage =  (msg: string) => {
           var binaryData = [];
           binaryData.push(bytes);
 
+          // create an asset set, including the image and config data and push it to the bundle, that will later be exported
           var name = message(Msg.name, i, Msg.dateFormat);
           exportBundle.push({
             name,
             binaryData
           })
         }
-        figma.ui.postMessage({type: 'export-bundle', exportBundle});
+
+        // Start the next step by providing config+image information to the frontend
+        figma.ui.postMessage({type: '02-export-bundle', exportBundle});
         exportBundle = [];
       })();
-    } else if (Msg.type === 'create-zip') {
-      return new Promise(async resolve => {
-        Msg.blobData.forEach((file: {name: string, blob: string}) => {
-          console.log(file)
-        })
-      })
     } else {
       console.error(`unknown onmessage type "${Msg.type}"`);
     }

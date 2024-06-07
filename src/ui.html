@@ -31,7 +31,7 @@
     downloadButton.addEventListener('click', () => {
       const dateFormat = dateFormatObj.selectedIndex
       const pluginMessage = JSON.stringify({
-        type: 'collect-data',
+        type: '01-collect-data',
         name: document.getElementById('name').value,
         dateFormat
       })
@@ -49,14 +49,17 @@
 
       const zip = new JSZip();
 
+      // each asset in the bundle will be added as seperated images to the zip
       files.forEach(file => {
         zip.file(`${file.name}.png`, byteDataToBlob(file.binaryData[0]), {base64: true});
       });
 
+      // zip file will be generated here
       zip.generateAsync({ type: 'blob' })
       .then((content) => {
         const zipName = 'assets';
 
+        // create and click a temporary link to download the Blob
         const blobURL = window.URL.createObjectURL(content);
         const link = document.createElement('a');
         link.className = 'button button--primary';
@@ -65,9 +68,9 @@
         link.click()
         link.setAttribute('download', `${zipName}.zip`);
 
+        // clean up the blobURL and link element
         window.URL.revokeObjectURL(blobURL);
         link.remove();
-        console.log('end');
       });
 
     };
@@ -76,24 +79,27 @@
     const downloadSingleFile = (file) => {
       const blob = new Blob(file.binaryData, {type: 'image/png'});
 
-      // make and click a temporary link to download the Blob
+      // create and click a temporary link to download the Blob
       const blobURL = window.URL.createObjectURL(blob);
       const linkEl = document.createElement('a');
       linkEl.href = blobURL;
       linkEl.download = `${file.name}.png`;
       linkEl.click();
       linkEl.setAttribute('download', `${file.name}.png`);
+
+      // clean up the blobURL and link element
       window.URL.revokeObjectURL(blobURL);
       linkEl.remove();
     }
 
+    // General message receiver
     window.onmessage = (msg) => {
       const m = msg.data.pluginMessage;
-      if(m.type === 'export-bundle') {
+      // get the bundled information, including image data + config information
+      if(m.type === '02-export-bundle') {
         const exportBundle = m.exportBundle;
+        // depending on if the user has selected one or multiple images, start a function that downloads a single image or a zip file
         exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
-      } else if(m.type === 'send-zip') {
-        console.log(m)
       }
     }
     </script>
