@@ -5,11 +5,13 @@ Means, if the top-level frame of a 50x50px rectangle is 200x200px large, the exp
 ======
 */
 
-export async function parentSize(selection: SceneNode[]) {
+export async function parentSize(selection: SceneNode[], exportSettings: ExportSettings) {
   const highestParents = selection.map(getMainParent);
 
   for (let index = 0; index < highestParents.length; index++) {
     const parent = highestParents[index];
+
+    // settings = await fileFormat(exportSettings.format, exportSettings.scaling);
 
     if (parent) {
       // console.log(`Layer ${selection[index].name} is in top-level frame/section: ${parent.name}`);
@@ -25,10 +27,7 @@ export async function parentSize(selection: SceneNode[]) {
       clone.x = positionInParent.x;
       clone.y = positionInParent.y;
 
-      var bytes = await newFrame.exportAsync({
-        format: 'PNG',
-        constraint: { type: 'SCALE', value: 1 }
-      });
+      var bytes = await newFrame.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
       newFrame.remove();

@@ -1,6 +1,6 @@
 // import DateFormatter from '@date-js/date-formatter';
 
-const message = (name: string, index: number, dateFormat: number) => {
+const message = (name: string, index: number, dateFormat: number, scaling: number) => {
   let date: string;
   let layerName: string;
   let fileName: string;
@@ -57,6 +57,10 @@ const message = (name: string, index: number, dateFormat: number) => {
   if (name.includes('{{file}}')) {
     fileName = figma.root.name;
     exportName = exportName.replace('{{file}}', fileName);
+  }
+
+  if (name.includes('{{scaling}}')) {
+    exportName = exportName.replace('{{scaling}}', `${scaling}`);
   }
 
   // return `name module has been loaded with the message: ${msg}`;

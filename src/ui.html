@@ -14,6 +14,7 @@
     <li onclick="addTextToInput('{{name}}')">name</li>
     <li onclick="addTextToInput('{{date}}')">date</li>
     <li onclick="addTextToInput('{{file}}')">file</li>
+    <li onclick="addTextToInput('{{scaling}}')">scaling</li>
   </ul>
   <select name="dateFormat" id="dateFormat">
     <option value="date-01">YYMMDD</option>
@@ -23,9 +24,23 @@
   </select>
   <input type="checkbox" id="exportFrameSize" name="exportFrameSize">
   <label for="exportFrameSize">export in frame size</label><br>
+  <select name="fileFormat" id="fileFormat">
+    <option value="file-01">PNG</option>
+    <option value="file-02">JPG</option>
+    <option value="file-03">SVG</option>
+    <option value="file-04">PDF</option>
+  </select>
+  <select name="scaling" id="scaling">
+    <option value="scaling-01">x1</option>
+    <option value="scaling-02">x2</option>
+    <option value="scaling-03">x3</option>
+    <option value="scaling-04">x4</option>
+  </select>
   <script>
     const downloadButton = document.getElementById('download-button');
     const dateFormatObj = document.getElementById('dateFormat');
+    const fileFormatObj = document.getElementById('fileFormat');
+    const scalingObj = document.getElementById('scaling');
     const exportFrameSize = document.getElementById('exportFrameSize');
 
     const addTextToInput = (text) => {
@@ -34,12 +49,16 @@
     }
 
     downloadButton.addEventListener('click', () => {
-      const dateFormat = dateFormatObj.selectedIndex
-      const isExportFrameSizeChecked = exportFrameSize.checked
+      const dateFormat = dateFormatObj.selectedIndex;
+      const fileFormat = fileFormatObj.selectedIndex;
+      const scaling = scalingObj.selectedIndex + 1;
+      const isExportFrameSizeChecked = exportFrameSize.checked;
       const pluginMessage = JSON.stringify({
         type: '01-collect-data',
         name: document.getElementById('name').value,
         dateFormat,
+        fileFormat,
+        scaling,
         isExportFrameSizeChecked
       })
       parent.postMessage({
@@ -84,15 +103,28 @@
 
     // SINGLE FILE EXPORT
     const downloadSingleFile = (file) => {
-      const blob = new Blob(file.binaryData, { type: 'image/png' });
+
+      // the blob type is file specific
+      let blob;
+      if(file.format === 'PNG') {
+        blob = new Blob(file.binaryData, { type: 'image/png' });
+      } else if (file.format === 'JPG') {
+        blob = new Blob(file.binaryData, { type: 'image/jpg' });
+      } else if (file.format === 'SVG') {
+        blob = new Blob(file.binaryData, { type: 'image/svg+xml' });
+      } else if (file.format === 'PDF') {
+        blob = new Blob(file.binaryData, { type: 'application/pdf' });
+      } else {
+        console.error('undefined or unknown file format')
+      }
 
       // create and click a temporary link to download the Blob
       const blobURL = window.URL.createObjectURL(blob);
       const linkEl = document.createElement('a');
       linkEl.href = blobURL;
-      linkEl.download = `${file.name}.png`;
+      linkEl.download = `${file.name}.${file.format}`;
       linkEl.click();
-      linkEl.setAttribute('download', `${file.name}.png`);
+      linkEl.setAttribute('download', `${file.name}.${file.format}`);
 
       // clean up the blobURL and link element
       window.URL.revokeObjectURL(blobURL);
