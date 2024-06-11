@@ -7,7 +7,10 @@
 </head>
 
 <body>
-  <input type="text" name="nameField" id="name">
+
+  <div id="app"></div>
+
+  <!-- <input type="text" name="nameField" id="name">
   <button id="download-button">Download</button>
   <p>Choosable syntax</p>
   <ul class="chips">
@@ -35,116 +38,116 @@
     <option value="scaling-02">x2</option>
     <option value="scaling-03">x3</option>
     <option value="scaling-04">x4</option>
-  </select>
+  </select> -->
   <script>
-    const downloadButton = document.getElementById('download-button');
-    const dateFormatObj = document.getElementById('dateFormat');
-    const fileFormatObj = document.getElementById('fileFormat');
-    const scalingObj = document.getElementById('scaling');
-    const exportFrameSize = document.getElementById('exportFrameSize');
+    // const downloadButton = document.getElementById('download-button');
+    // const dateFormatObj = document.getElementById('dateFormat');
+    // const fileFormatObj = document.getElementById('fileFormat');
+    // const scalingObj = document.getElementById('scaling');
+    // const exportFrameSize = document.getElementById('exportFrameSize');
 
-    const addTextToInput = (text) => {
-      const input = document.getElementById('name');
-      input.value += text
-    }
+    // const addTextToInput = (text) => {
+    //   const input = document.getElementById('name');
+    //   input.value += text
+    // }
 
-    downloadButton.addEventListener('click', () => {
-      const dateFormat = dateFormatObj.selectedIndex;
-      const fileFormat = fileFormatObj.selectedIndex;
-      const scaling = scalingObj.selectedIndex + 1;
-      const isExportFrameSizeChecked = exportFrameSize.checked;
-      const pluginMessage = JSON.stringify({
-        type: '01-collect-data',
-        name: document.getElementById('name').value,
-        dateFormat,
-        fileFormat,
-        scaling,
-        isExportFrameSizeChecked
-      })
-      parent.postMessage({
-        pluginMessage
-      }, '*');
-    });
+    // downloadButton.addEventListener('click', () => {
+    //   const dateFormat = dateFormatObj.selectedIndex;
+    //   const fileFormat = fileFormatObj.selectedIndex;
+    //   const scaling = scalingObj.selectedIndex + 1;
+    //   const isExportFrameSizeChecked = exportFrameSize.checked;
+    //   const pluginMessage = JSON.stringify({
+    //     type: '01-collect-data',
+    //     name: document.getElementById('name').value,
+    //     dateFormat,
+    //     fileFormat,
+    //     scaling,
+    //     isExportFrameSizeChecked
+    //   })
+    //   parent.postMessage({
+    //     pluginMessage
+    //   }, '*');
+    // });
 
-    function byteDataToBlob(byteData) {
-      return new Blob([new Uint8Array(byteData)], { type: 'image/png' });
-    }
+    // function byteDataToBlob(byteData) {
+    //   return new Blob([new Uint8Array(byteData)], { type: 'image/png' });
+    // }
 
-    // MULTIPLE FILE EXPORT AS ZIP
-    const downloadZip = async (files) => {
+    // // MULTIPLE FILE EXPORT AS ZIP
+    // const downloadZip = async (files) => {
 
-      const zip = new JSZip();
+    //   const zip = new JSZip();
 
-      // each asset in the bundle will be added as seperated images to the zip
-      files.forEach(file => {
-        zip.file(`${file.name}.png`, byteDataToBlob(file.binaryData[0]), { base64: true });
-      });
+    //   // each asset in the bundle will be added as seperated images to the zip
+    //   files.forEach(file => {
+    //     zip.file(`${file.name}.png`, byteDataToBlob(file.binaryData[0]), { base64: true });
+    //   });
 
-      // zip file will be generated here
-      zip.generateAsync({ type: 'blob' })
-        .then((content) => {
-          const zipName = 'assets';
+    //   // zip file will be generated here
+    //   zip.generateAsync({ type: 'blob' })
+    //     .then((content) => {
+    //       const zipName = 'assets';
 
-          // create and click a temporary link to download the Blob
-          const blobURL = window.URL.createObjectURL(content);
-          const link = document.createElement('a');
-          link.className = 'button button--primary';
-          link.href = blobURL;
-          link.download = `${zipName}.zip`
-          link.click()
-          link.setAttribute('download', `${zipName}.zip`);
+    //       // create and click a temporary link to download the Blob
+    //       const blobURL = window.URL.createObjectURL(content);
+    //       const link = document.createElement('a');
+    //       link.className = 'button button--primary';
+    //       link.href = blobURL;
+    //       link.download = `${zipName}.zip`
+    //       link.click()
+    //       link.setAttribute('download', `${zipName}.zip`);
 
-          // clean up the blobURL and link element
-          window.URL.revokeObjectURL(blobURL);
-          link.remove();
-        });
+    //       // clean up the blobURL and link element
+    //       window.URL.revokeObjectURL(blobURL);
+    //       link.remove();
+    //     });
 
-    };
+    // };
 
-    // SINGLE FILE EXPORT
-    const downloadSingleFile = (file) => {
+    // // SINGLE FILE EXPORT
+    // const downloadSingleFile = (file) => {
 
-      // the blob type is file specific
-      let blob;
-      if(file.format === 'PNG') {
-        blob = new Blob(file.binaryData, { type: 'image/png' });
-      } else if (file.format === 'JPG') {
-        blob = new Blob(file.binaryData, { type: 'image/jpg' });
-      } else if (file.format === 'SVG') {
-        blob = new Blob(file.binaryData, { type: 'image/svg+xml' });
-      } else if (file.format === 'PDF') {
-        blob = new Blob(file.binaryData, { type: 'application/pdf' });
-      } else {
-        console.error('undefined or unknown file format')
-      }
+    //   // the blob type is file specific
+    //   let blob;
+    //   if(file.format === 'PNG') {
+    //     blob = new Blob(file.binaryData, { type: 'image/png' });
+    //   } else if (file.format === 'JPG') {
+    //     blob = new Blob(file.binaryData, { type: 'image/jpg' });
+    //   } else if (file.format === 'SVG') {
+    //     blob = new Blob(file.binaryData, { type: 'image/svg+xml' });
+    //   } else if (file.format === 'PDF') {
+    //     blob = new Blob(file.binaryData, { type: 'application/pdf' });
+    //   } else {
+    //     console.error('undefined or unknown file format')
+    //   }
 
-      // create and click a temporary link to download the Blob
-      const blobURL = window.URL.createObjectURL(blob);
-      const linkEl = document.createElement('a');
-      linkEl.href = blobURL;
-      linkEl.download = `${file.name}.${file.format}`;
-      linkEl.click();
-      linkEl.setAttribute('download', `${file.name}.${file.format}`);
+    //   // create and click a temporary link to download the Blob
+    //   const blobURL = window.URL.createObjectURL(blob);
+    //   const linkEl = document.createElement('a');
+    //   linkEl.href = blobURL;
+    //   linkEl.download = `${file.name}.${file.format}`;
+    //   linkEl.click();
+    //   linkEl.setAttribute('download', `${file.name}.${file.format}`);
 
-      // clean up the blobURL and link element
-      window.URL.revokeObjectURL(blobURL);
-      linkEl.remove();
-    }
+    //   // clean up the blobURL and link element
+    //   window.URL.revokeObjectURL(blobURL);
+    //   linkEl.remove();
+    // }
 
-    // General message receiver
-    window.onmessage = (msg) => {
-      const m = msg.data.pluginMessage;
-      // get the bundled information, including image data + config information
-      if (m.type === '02-export-bundle') {
-        const exportBundle = m.exportBundle;
-        // depending on if the user has selected one or multiple images, start a function that downloads a single image or a zip file
-        exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
-      }
-    }
+    // // General message receiver
+    // window.onmessage = (msg) => {
+    //   const m = msg.data.pluginMessage;
+    //   // get the bundled information, including image data + config information
+    //   if (m.type === '02-export-bundle') {
+    //     const exportBundle = m.exportBundle;
+    //     // depending on if the user has selected one or multiple images, start a function that downloads a single image or a zip file
+    //     exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+    //   }
+    // }
   </script>
 </body>
 <style>
-
+/*
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -178,6 +181,7 @@ body {
       }
     }
   }
+  */
 </style>
 
 </html>
