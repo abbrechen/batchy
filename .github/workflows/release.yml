@@ -1,0 +1,36 @@
+name: Publish Figma Plugin
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Publish to Figma
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+        run: |
+          curl -X POST https://api.figma.com/v1/plugins/YOUR_PLUGIN_ID/publish \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $FIGMA_ACCESS_TOKEN" \
+          -d '{
+                "version": "v1.0.0",
+                "description": "New release description"
+              }'
