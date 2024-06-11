@@ -6,13 +6,13 @@ const message = (name: string, index: number, dateFormat: number) => {
   let fileName: string;
   let exportName: string = name;
 
-  if(name.includes('{{date}}')) {
+  if (name.includes('{{date}}')) {
     /* --- DATE START --- */
     const newDate = new Date();
-    var year: string|number;
-    var year_short: string|number;
-    var month: string|number;
-    var day: string|number;
+    var year: string | number;
+    var year_short: string | number;
+    var month: string | number;
+    var day: string | number;
 
     year = newDate.getFullYear();
     year_short = year % 100
@@ -24,22 +24,22 @@ const message = (name: string, index: number, dateFormat: number) => {
     month = month < 10 ? '0' + month : month;
     day = day < 10 ? '0' + day : day;
 
-    switch(dateFormat) {
+    switch (dateFormat) {
       default:
         date = `${year_short}${month}${day}`;
       case 0:
-    /* --- DATE FORMAT 01 --- */
+        /* --- DATE FORMAT 01 --- */
         date = `${year_short}${month}${day}`;
         break;
       case 1:
-    /* --- DATE FORMAT 02 --- */
+        /* --- DATE FORMAT 02 --- */
         date = `${year}-${month}-${day}`;
         break;
-    /* --- DATE FORMAT 03 --- */
+      /* --- DATE FORMAT 03 --- */
       case 2:
         date = `${day}-${month}-${year}`;
         break;
-    /* --- DATE FORMAT 04 --- */
+      /* --- DATE FORMAT 04 --- */
       case 3:
         date = `${month}-${day}-${year}`;
     }
@@ -49,18 +49,18 @@ const message = (name: string, index: number, dateFormat: number) => {
     exportName = exportName.replace('{{date}}', date);
   }
 
-  if(name.includes('{{name}}')) {
+  if (name.includes('{{name}}')) {
     layerName = figma.currentPage.selection[index].name;
     exportName = exportName.replace('{{name}}', layerName)
   }
 
-  if(name.includes('{{file}}')) {
+  if (name.includes('{{file}}')) {
     fileName = figma.root.name;
     exportName = exportName.replace('{{file}}', fileName);
   }
 
   // return `name module has been loaded with the message: ${msg}`;
   return exportName;
-  };
-  
+};
+
 export default message;

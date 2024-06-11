@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.1.5/dist/jszip.min.js"></script>
-  </head>
-  <body>
-    <input type="text" name="nameField" id="name">
-    <button id="download-button">Download</button>
-    <p>Choosable syntax</p>
-    <ul class="chips">
-      <li onclick="addTextToInput('{{name}}')">name</li>
-      <li onclick="addTextToInput('{{date}}')">date</li>
-      <li onclick="addTextToInput('{{file}}')">file</li>
-    </ul>
-    <select name="dateFormat" id="dateFormat">
-      <option value="date-01">YYMMDD</option>
-      <option value="date-02">YYYY-MM-DD</option>
-      <option value="date-03">DD-MM-YYYY</option>
-      <option value="date-04">MM-DD-YYYY</option>
-    </select>
-    <script>
+
+<head>
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.1.5/dist/jszip.min.js"></script>
+</head>
+
+<body>
+  <input type="text" name="nameField" id="name">
+  <button id="download-button">Download</button>
+  <p>Choosable syntax</p>
+  <ul class="chips">
+    <li onclick="addTextToInput('{{name}}')">name</li>
+    <li onclick="addTextToInput('{{date}}')">date</li>
+    <li onclick="addTextToInput('{{file}}')">file</li>
+  </ul>
+  <select name="dateFormat" id="dateFormat">
+    <option value="date-01">YYMMDD</option>
+    <option value="date-02">YYYY-MM-DD</option>
+    <option value="date-03">DD-MM-YYYY</option>
+    <option value="date-04">MM-DD-YYYY</option>
+  </select>
+  <input type="checkbox" id="exportFrameSize" name="exportFrameSize">
+  <label for="exportFrameSize">export in frame size</label><br>
+  <script>
     const downloadButton = document.getElementById('download-button');
     const dateFormatObj = document.getElementById('dateFormat');
+    const exportFrameSize = document.getElementById('exportFrameSize');
 
     const addTextToInput = (text) => {
       const input = document.getElementById('name');
@@ -30,10 +35,12 @@
 
     downloadButton.addEventListener('click', () => {
       const dateFormat = dateFormatObj.selectedIndex
+      const isExportFrameSizeChecked = exportFrameSize.checked
       const pluginMessage = JSON.stringify({
         type: '01-collect-data',
         name: document.getElementById('name').value,
-        dateFormat
+        dateFormat,
+        isExportFrameSizeChecked
       })
       parent.postMessage({
         pluginMessage
@@ -51,33 +58,33 @@
 
       // each asset in the bundle will be added as seperated images to the zip
       files.forEach(file => {
-        zip.file(`${file.name}.png`, byteDataToBlob(file.binaryData[0]), {base64: true});
+        zip.file(`${file.name}.png`, byteDataToBlob(file.binaryData[0]), { base64: true });
       });
 
       // zip file will be generated here
       zip.generateAsync({ type: 'blob' })
-      .then((content) => {
-        const zipName = 'assets';
+        .then((content) => {
+          const zipName = 'assets';
 
-        // create and click a temporary link to download the Blob
-        const blobURL = window.URL.createObjectURL(content);
-        const link = document.createElement('a');
-        link.className = 'button button--primary';
-        link.href = blobURL;
-        link.download = `${zipName}.zip`
-        link.click()
-        link.setAttribute('download', `${zipName}.zip`);
+          // create and click a temporary link to download the Blob
+          const blobURL = window.URL.createObjectURL(content);
+          const link = document.createElement('a');
+          link.className = 'button button--primary';
+          link.href = blobURL;
+          link.download = `${zipName}.zip`
+          link.click()
+          link.setAttribute('download', `${zipName}.zip`);
 
-        // clean up the blobURL and link element
-        window.URL.revokeObjectURL(blobURL);
-        link.remove();
-      });
+          // clean up the blobURL and link element
+          window.URL.revokeObjectURL(blobURL);
+          link.remove();
+        });
 
     };
 
     // SINGLE FILE EXPORT
     const downloadSingleFile = (file) => {
-      const blob = new Blob(file.binaryData, {type: 'image/png'});
+      const blob = new Blob(file.binaryData, { type: 'image/png' });
 
       // create and click a temporary link to download the Blob
       const blobURL = window.URL.createObjectURL(blob);
@@ -96,30 +103,33 @@
     window.onmessage = (msg) => {
       const m = msg.data.pluginMessage;
       // get the bundled information, including image data + config information
-      if(m.type === '02-export-bundle') {
+      if (m.type === '02-export-bundle') {
         const exportBundle = m.exportBundle;
         // depending on if the user has selected one or multiple images, start a function that downloads a single image or a zip file
         exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
       }
     }
-    </script>
-  </body>
-  <style>
-    .chips {
-      list-style: none;
-    }
-    .chips {
-      li {
-        display: inline-block;
-        width: 60px;
-        height: 24px;
-        text-align: center;
-        border-radius: 18px;
-        background-color: hsl(0deg 0% 0% / 20%);
-        &:hover {
-          background-color: hsl(0deg 0% 0% / 40%);
-        }
+  </script>
+</body>
+<style>
+  .chips {
+    list-style: none;
+  }
+
+  .chips {
+    li {
+      display: inline-block;
+      width: 60px;
+      height: 24px;
+      text-align: center;
+      border-radius: 18px;
+      background-color: hsl(0deg 0% 0% / 20%);
+
+      &:hover {
+        background-color: hsl(0deg 0% 0% / 40%);
       }
     }
-  </style>
+  }
+</style>
+
 </html>
