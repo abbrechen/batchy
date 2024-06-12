@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const { DefinePlugin } = require('webpack');
 
 module.exports = (env, argv) => ({
   mode: argv.mode === 'production' ? 'production' : 'development',
@@ -25,7 +26,10 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          hotReload: true
+        }
       },
       {
         test: /\.css$/,
@@ -61,6 +65,11 @@ module.exports = (env, argv) => ({
       htmlMatchPattern: [/ui.html/],
       scriptMatchPattern: [/.js$/],
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+    })
   ]
 });

@@ -5,4 +5,4 @@ console.log('Starting Vue app...');
 
 createApp(App).mount('#app');
 
-console.log('Vue app mounted.');
+console.log('Vue app mounted.', Math.random());
