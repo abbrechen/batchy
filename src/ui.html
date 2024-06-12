@@ -8,6 +8,7 @@
 
 <body>
   <input type="text" name="nameField" id="name">
+  <button id="clearInput">X</button>
   <button id="download-button">Download</button>
   <p>Choosable syntax</p>
   <ul class="chips">
@@ -24,11 +25,11 @@
   </select>
   <input type="checkbox" id="exportFrameSize" name="exportFrameSize">
   <label for="exportFrameSize">export in frame size</label><br>
-  <select name="fileFormat" id="fileFormat">
-    <option value="file-01">PNG</option>
-    <option value="file-02">JPG</option>
-    <option value="file-03">SVG</option>
-    <option value="file-04">PDF</option>
+  <select name="fileFormat" id="fileFormat" onchange="showScaling(this.options[this.selectedIndex].value)">
+    <option value="png">PNG</option>
+    <option value="jpg">JPG</option>
+    <option value="svg">SVG</option>
+    <option value="pdf">PDF</option>
   </select>
   <select name="scaling" id="scaling">
     <option value="scaling-01">x1</option>
@@ -42,11 +43,39 @@
     const fileFormatObj = document.getElementById('fileFormat');
     const scalingObj = document.getElementById('scaling');
     const exportFrameSize = document.getElementById('exportFrameSize');
+    const input = document.getElementById('name');
+    const clearInputButton = document.getElementById('clearInput');
 
+    // this function adds syntax text to the input field
     const addTextToInput = (text) => {
-      const input = document.getElementById('name');
-      input.value += text
+      // this sub function adds the text to the cursor position.
+      // used from https://stackoverflow.com/a/11077016
+      function insertAtCursor(myField, myValue) {
+        //IE support
+        if (document.selection) {
+          myField.focus();
+          sel = document.selection.createRange();
+          sel.text = myValue;
+        }
+        //MOZILLA and others
+        else if (myField.selectionStart || myField.selectionStart == '0') {
+          var startPos = myField.selectionStart;
+          var endPos = myField.selectionEnd;
+          myField.value = myField.value.substring(0, startPos)
+            + myValue
+            + myField.value.substring(endPos, myField.value.length);
+        } else {
+          myField.value += myValue;
+        }
+      }
+      insertAtCursor(input, text)
+      // input.value += text
     }
+
+    // clear the name input field
+    clearInputButton.addEventListener('click', () => {
+      input.value = '';
+    });
 
     downloadButton.addEventListener('click', () => {
       const dateFormat = dateFormatObj.selectedIndex;
@@ -106,7 +135,7 @@
 
       // the blob type is file specific
       let blob;
-      if(file.format === 'PNG') {
+      if (file.format === 'PNG') {
         blob = new Blob(file.binaryData, { type: 'image/png' });
       } else if (file.format === 'JPG') {
         blob = new Blob(file.binaryData, { type: 'image/jpg' });
@@ -139,16 +168,39 @@
         const exportBundle = m.exportBundle;
         // depending on if the user has selected one or multiple images, start a function that downloads a single image or a zip file
         exportBundle.length > 1 ? downloadZip(exportBundle) : downloadSingleFile(exportBundle[0]);
+        // react if there is no selection
+      } else if (m.type === 'selection-empty') {
+        const isSelectionEmpty = m.isSelectionEmpty;
+        if (isSelectionEmpty) {
+          // downloadButton.style.opacity = 0.5;
+          downloadButton.setAttribute('disabled', '');
+        } else {
+          // downloadButton.style.opacity = 1;
+          downloadButton.removeAttribute('disabled', '');
+        }
+      }
+    }
+
+    // ====== REACTIVITY FUNCTIONS ======
+    // Might be that some reactivity functions are living in window.onmessage();
+
+    // enable / disable scaling option if not supported by the selected file format
+    const showScaling = (e) => {
+      if (e === 'png' || e === 'jpg') {
+        scalingObj.style.opacity = 1;
+        scalingObj.removeAttribute('disabled', '');
+      } else {
+        scalingObj.style.opacity = 0;
+        scalingObj.setAttribute('disabled', '');
       }
     }
   </script>
 </body>
 <style>
-
-body {
-  background-color: var(--bg);
-  color: var(--text);
-}
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
 
   .figma-dark {
     --text: #e9e9e9;
