@@ -7,6 +7,8 @@
 </head>
 
 <body>
+  <h1 id="test">test</h1>
+  <div id="app"></div>
   <input type="text" name="nameField" id="name">
   <button id="clearInput">X</button>
   <button id="download-button">Download</button>
@@ -38,6 +40,7 @@
     <option value="scaling-04">x4</option>
   </select>
   <script>
+    console.log('direct script tag inside the .ui.html')
     const downloadButton = document.getElementById('download-button');
     const dateFormatObj = document.getElementById('dateFormat');
     const fileFormatObj = document.getElementById('fileFormat');
@@ -231,5 +234,4 @@
     }
   }
 </style>
-
 </html>
