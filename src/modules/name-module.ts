@@ -60,7 +60,7 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
   }
 
   if (name.includes('{{scaling}}')) {
-    exportName = exportName.replace('{{scaling}}', `${scaling}`);
+    exportName = exportName.replace('{{scaling}}', `${scaling}x`);
   }
 
   // return `name module has been loaded with the message: ${msg}`;

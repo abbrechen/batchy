@@ -31,6 +31,23 @@ interface exportBundle extends Array<exportObj> { }
 
 var exportBundle: exportBundle = [];
 
+const checkSelection = () => {
+  const selection = figma.currentPage.selection;
+  if(selection.length > 0) {
+    figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: false });
+  } else {
+    figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: true });
+  }
+}
+// ====== Observe if one or more layers are selected
+figma.on('selectionchange', () => {
+  checkSelection();
+});
+figma.on('run', () => {
+  checkSelection();
+});
+// ======
+
 // General message receiver
 figma.ui.onmessage = (msg: string) => {
   const Msg = JSON.parse(msg);
