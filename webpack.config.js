@@ -13,7 +13,13 @@ module.exports = (env, argv) => ({
   // This is necessary because Figma's 'eval' works differently than normal eval
   devtool: argv.mode === 'production' ? false : 'inline-source-map',
   entry: {
-    ui: ['./src/ui/test.js'],
+    ui: [
+      './src/ui/ui.js',
+      './src/ui/js/reactivity.js',
+      './src/ui/js/export-multi.js',
+      './src/ui/js/export-single.js',
+      './src/ui/js/backend-communication.js'
+    ],
     app: ['./src/app.ts'] // This is the entry point for our plugin code.
   },
   module: {
