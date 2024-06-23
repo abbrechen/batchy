@@ -5,6 +5,7 @@ const scalingObj = document.getElementById('scaling');
 const exportFrameSize = document.getElementById('exportFrameSize');
 const input = document.getElementById('name');
 const clearInputButton = document.getElementById('clearInput');
+const cursor = document.getElementById('cursor');
 
 export {
   downloadButton,
@@ -13,5 +14,6 @@ export {
   scalingObj,
   exportFrameSize,
   input,
-  clearInputButton
+  clearInputButton,
+  cursor
 }

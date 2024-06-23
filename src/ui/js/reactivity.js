@@ -14,3 +14,28 @@ const showScaling = (e) => {
   }
 }
 window.showScaling = showScaling;
+
+// set blinking cursor position, based on text length
+
+const setCursorPosition = (value) => {
+  if(value) {
+    ui.cursor.style.left = value + 20;
+  } else {
+    ui.cursor.style.left = 0;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const textLengthHelper = document.getElementById('text-length-helper');
+  setCursorPosition();
+
+  ui.input.addEventListener('keydown', () => {
+    textLengthHelper.textContent = ui.input.value;
+    var textWidth = textLengthHelper.clientWidth;
+    setCursorPosition(textWidth);
+  });
+});
+
+export {
+  setCursorPosition
+}

@@ -1,9 +1,27 @@
+:root {
+  --neutral-01: #000;
+  --neutral-02: #151715;
+  --neutral-03: #1D1F1D;
+  --neutral-04: #fff;
+  --warning-01: #D14040;
+  --accent-01: #40C5D1;
+  --secondary: #41C733;
+}
+
 .figma-dark {
-  --text: #e9e9e9;
-  --bg: #242424;
+  --text: var(--neutral-04);
+  --bg-01: var(--neutral-03);
+  --bg-02: var(--neutral-02);
+  --surface: var(--neutral-01);
+  --accent: var(--accent-01);
+  --warning: var(--warning-01);
 }
 
 .figma-light {
-  --text: #242424;
-  --bg: #e9e9e9;
+  --text: var(--neutral-04);
+  --bg-01: var(--neutral-03);
+  --bg-02: var(--neutral-02);
+  --surface: var(--neutral-01);
+  --accent: var(--accent-01);
+  --warning: var(--warning-01);
 }

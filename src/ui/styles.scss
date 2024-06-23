@@ -1,11 +1,164 @@
 @import './styles/variables';
 
+* {
+  font-size: 16px;
+  &:focus {
+    outline: none;
+  }
+}
+
 body {
-  background-color: var(--bg);
+  background-color: var(--bg-01);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body, button, input {
   color: var(--text);
 }
 
+button, input, input:focus, input:active {
+  border: none;
+}
 
+[class$="-area"] {
+  margin-bottom: 32px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+#text-length-helper {
+  position: absolute;
+  width: auto;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+#cursor {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: blink 1s step-end infinite;
+
+  @keyframes blink {
+    from, to {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+h2 {
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+select {
+  color: var(--text);
+  background-color: var(--surface);
+  border: none;
+  padding: 4px 12px;
+}
+
+.name-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > pre {
+    font-size: 24px;
+    display: flex;
+    div {
+      &:first-child {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 20px;
+        }
+      }
+    }
+    // p {
+    //   align-self: center;
+    // }
+  }
+  .name-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    position: relative;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    caret-color: transparent;
+    // caret-shape is currently not supported in any browser
+    // caret-shape: block;
+    &:focus {
+      // background-color: lightblue;
+    }
+  }
+  input, #text-length-helper {
+    font-size: 32px;
+  }
+  span {
+    display: block;
+    width: 16px;
+    height: 32px;
+    background-color: var(--text);
+    opacity: 0.6;
+  }
+  button {
+    width: 24px;
+    height: 24px;
+    background-color: var(--warning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.download-section {
+  margin: 40px 0 16px 0;
+  button {
+    width: 100%;
+    height: 38px;
+    background-color: var(--surface);
+    &:hover {
+      color: var(--accent);
+    }
+    &:active {
+      background-color: var(--accent);
+      color: var(--surface);
+    }
+  }
+}
+
+.config-section {
+  padding: 12px;
+  background-color: var(--bg-02);
+}
+
+.options-area {
+  > div {
+    margin: 0 0 8px 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    > label {
+      opacity: .6;
+    }
+  }
+}
 
 .chips {
   list-style: none;
@@ -14,14 +167,80 @@ body {
 .chips {
   li {
     display: inline-block;
-    width: 60px;
-    height: 24px;
+    padding: 8px 12px;
+    margin-right: 8px;
     text-align: center;
     border-radius: 18px;
-    background-color: hsl(0deg 0% 0% / 20%);
+    background-color: var(--surface);
 
     &:hover {
-      background-color: hsl(0deg 0% 0% / 40%);
+      cursor: pointer;
+      color: var(--bg-01);
+      background-color: var(--accent);
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
 }
+
+/* === TOGGLE START === */
+
+.frame-size-option {
+  display: flex;
+  align-items: center;
+  .switch {
+    opacity: 1;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 28px;
+  margin: 0 0 0 16px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  width: 23px;
+  height: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--text);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--surface);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* === TOGGLE END === */
