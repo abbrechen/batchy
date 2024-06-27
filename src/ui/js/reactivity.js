@@ -15,8 +15,17 @@ const showScaling = (e) => {
 }
 window.showScaling = showScaling;
 
-// set blinking cursor position, based on text length
+ui.frameSizeOption.addEventListener('click', () => {
+  if(ui.exportFrameSize.checked) {
+    ui.objectSize.removeAttribute('class', 'text-selected');
+    ui.frameSize.setAttribute('class', 'text-selected');
+  } else {
+    ui.objectSize.setAttribute('class', 'text-selected');
+    ui.frameSize.removeAttribute('class', 'text-selected');
+  }
+});
 
+// set blinking cursor position, based on text length
 const setCursorPosition = (value) => {
   if(value) {
     ui.cursor.style.left = value + 20;
@@ -32,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ui.input.addEventListener('keydown', () => {
     textLengthHelper.textContent = ui.input.value;
     var textWidth = textLengthHelper.clientWidth;
-    setCursorPosition(textWidth);
+    // setCursorPosition(textWidth);
   });
 });
 

@@ -65,12 +65,13 @@
           <option value="scaling-04">x4</option>
         </select>
       </div>
-      <div class="frame-size-option">
-        <label for="exportFrameSize">export in frame size</label>
+      <div id="frame-size-option" class="frame-size-option">
+        <label for="exportFrameSize">export in <span id="object-size" class="text-selected">object size</span></label>
         <label class="switch">
           <input type="checkbox" id="exportFrameSize" name="exportFrameSize">
           <span class="slider"></span>
         </label>
+        <label for="exportFrameSize" id="frame-size">frame size</label>
       </div>
     </div>
   </section>

@@ -2,14 +2,19 @@
   --neutral-01: #000;
   --neutral-02: #151715;
   --neutral-03: #1D1F1D;
-  --neutral-04: #fff;
+  --neutral-04: #A1A2A1;
+  --neutral-05: #d8d8d8;
+  --neutral-06: #eeeeee;
+  --neutral-07: #fff;
   --warning-01: #D14040;
   --accent-01: #40C5D1;
+  --accent-02: #2ba2ac;
   --secondary: #41C733;
 }
 
 .figma-dark {
-  --text: var(--neutral-04);
+  --text: var(--neutral-07);
+  --secondary: var(--neutral-04);
   --bg-01: var(--neutral-03);
   --bg-02: var(--neutral-02);
   --surface: var(--neutral-01);
@@ -18,10 +23,11 @@
 }
 
 .figma-light {
-  --text: var(--neutral-04);
-  --bg-01: var(--neutral-03);
-  --bg-02: var(--neutral-02);
-  --surface: var(--neutral-01);
-  --accent: var(--accent-01);
+  --text: var(--neutral-01);
+  --secondary: var(--neutral-03);
+  --bg-01: var(--neutral-06);
+  --bg-02: var(--neutral-05);
+  --surface: var(--neutral-07);
+  --accent: var(--accent-02);
   --warning: var(--warning-01);
 }

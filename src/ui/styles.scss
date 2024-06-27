@@ -10,6 +10,7 @@
 body {
   background-color: var(--bg-01);
   font-family: Arial, Helvetica, sans-serif;
+  padding: 32px;
 }
 
 body, button, input {
@@ -27,6 +28,10 @@ button, input, input:focus, input:active {
   }
 }
 
+.text-selected {
+  color: var(--accent) !important;
+}
+
 #text-length-helper {
   position: absolute;
   width: auto;
@@ -37,6 +42,11 @@ button, input, input:focus, input:active {
 }
 
 #cursor {
+  display: none;
+  width: 16px;
+  height: 32px;
+  background-color: var(--text);
+  opacity: 0.6;
   position: absolute;
   top: 50%;
   left: 0;
@@ -99,7 +109,7 @@ select {
     height: 40px;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
-    caret-color: transparent;
+    // caret-color: transparent;
     // caret-shape is currently not supported in any browser
     // caret-shape: block;
     &:focus {
@@ -108,13 +118,6 @@ select {
   }
   input, #text-length-helper {
     font-size: 32px;
-  }
-  span {
-    display: block;
-    width: 16px;
-    height: 32px;
-    background-color: var(--text);
-    opacity: 0.6;
   }
   button {
     width: 24px;
@@ -130,7 +133,10 @@ select {
 .download-section {
   margin: 40px 0 16px 0;
   button {
-    width: 100%;
+    display: block;
+    margin: 0 auto;
+    width: 100vw;
+    max-width: 480px;
     height: 38px;
     background-color: var(--surface);
     &:hover {
@@ -144,6 +150,8 @@ select {
 }
 
 .config-section {
+  width: 480px - 12*2px;
+  margin: 0 auto;
   padding: 12px;
   background-color: var(--bg-02);
 }
@@ -151,12 +159,14 @@ select {
 .options-area {
   > div {
     margin: 0 0 8px 0;
+    display: flex;
     &:last-child {
       margin-bottom: 0;
     }
-    > label {
-      opacity: .6;
-    }
+  }
+  label {
+    color: var(--secondary);
+    width: 160px;
   }
 }
 
@@ -192,15 +202,15 @@ select {
   align-items: center;
   .switch {
     opacity: 1;
+    width: 60px;
   }
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
   height: 28px;
-  margin: 0 0 0 16px;
+  margin: 0 16px 0 0;
 }
 
 .switch input { 

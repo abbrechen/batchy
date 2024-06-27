@@ -56,6 +56,7 @@ const addTextToInput = (text) => {
   }
 
   insertAtCursor(ui.input, text)
+  // setCursorPosition();
   // input.value += text
 }
 window.addTextToInput = addTextToInput;
@@ -63,7 +64,7 @@ window.addTextToInput = addTextToInput;
 // clear the name input field
 ui.clearInputButton.addEventListener('click', () => {
   ui.input.value = '';
-  setCursorPosition();
+  // setCursorPosition();
 });
 
 ui.downloadButton.addEventListener('click', () => {
