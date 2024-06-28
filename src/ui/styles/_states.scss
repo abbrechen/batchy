@@ -1,0 +1,9 @@
+@mixin hover {
+  cursor: pointer;
+  color: var(--bg-01);
+  background-color: var(--accent);
+}
+
+.text-selected {
+  color: var(--accent) !important;
+}

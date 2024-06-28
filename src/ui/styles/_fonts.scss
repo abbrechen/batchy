@@ -1,0 +1,12 @@
+// @font-face {
+//   font-family: EncodeSans;
+//   src: url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&display=swap');
+// }
+
+@mixin font-display {
+  font-family: 'Courier New', monospace;
+}
+
+@mixin font-body {
+  font-family: 'Verdana';
+}

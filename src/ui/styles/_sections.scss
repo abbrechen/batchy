@@ -1,0 +1,88 @@
+[class$="-section"] {
+  font-size: var(--fs-body);
+}
+
+.name-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > pre {
+    font-size: var(--fs-title);
+    display: flex;
+    div {
+      &:first-child {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 20px;
+        }
+      }
+    }
+    // p {
+    //   align-self: center;
+    // }
+  }
+  .name-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    position: relative;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    // caret-color: transparent;
+    // caret-shape is currently not supported in any browser
+    // caret-shape: block;
+    &:focus {
+      // background-color: lightblue;
+    }
+  }
+  input, #text-length-helper {
+    font-size: var(--fs-display);
+    @include font-display;
+  }
+  button {
+    width: 24px;
+    height: 24px;
+    color: var(--text-on-warning);
+    background-color: var(--warning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--warning-hover);
+    }
+  }
+}
+
+.download-section {
+  margin: 40px 0 16px 0;
+  button {
+    display: block;
+    margin: 0 auto;
+    width: 100vw;
+    max-width: 480px;
+    height: 38px;
+    background-color: var(--surface);
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      background-color: var(--accent);
+      color: var(--surface);
+    }
+  }
+}
+
+.config-section {
+  width: 480px - 12*2px;
+  margin: 0 auto;
+  padding: 12px;
+  background-color: var(--bg-02);
+}

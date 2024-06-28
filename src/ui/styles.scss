@@ -1,159 +1,15 @@
 @import './styles/variables';
-
-* {
-  font-size: 16px;
-  &:focus {
-    outline: none;
-  }
-}
-
-body {
-  background-color: var(--bg-01);
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 32px;
-}
-
-body, button, input {
-  color: var(--text);
-}
-
-button, input, input:focus, input:active {
-  border: none;
-}
+@import './styles/fonts';
+@import './styles/states.scss';
+@import './styles/animations.scss';
+@import './styles/tags';
+@import './styles/sections.scss';
 
 [class$="-area"] {
   margin-bottom: 32px;
   &:last-child {
     margin-bottom: 0;
   }
-}
-
-.text-selected {
-  color: var(--accent) !important;
-}
-
-#text-length-helper {
-  position: absolute;
-  width: auto;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-}
-
-#cursor {
-  display: none;
-  width: 16px;
-  height: 32px;
-  background-color: var(--text);
-  opacity: 0.6;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  animation: blink 1s step-end infinite;
-
-  @keyframes blink {
-    from, to {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-}
-
-h2 {
-  color: var(--accent);
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-select {
-  color: var(--text);
-  background-color: var(--surface);
-  border: none;
-  padding: 4px 12px;
-}
-
-.name-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  > pre {
-    font-size: 24px;
-    display: flex;
-    div {
-      &:first-child {
-        display: flex;
-        align-items: center;
-        svg {
-          margin-right: 20px;
-        }
-      }
-    }
-    // p {
-    //   align-self: center;
-    // }
-  }
-  .name-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-right: 16px;
-    position: relative;
-  }
-  input {
-    width: 100%;
-    height: 40px;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0);
-    // caret-color: transparent;
-    // caret-shape is currently not supported in any browser
-    // caret-shape: block;
-    &:focus {
-      // background-color: lightblue;
-    }
-  }
-  input, #text-length-helper {
-    font-size: 32px;
-  }
-  button {
-    width: 24px;
-    height: 24px;
-    background-color: var(--warning);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.download-section {
-  margin: 40px 0 16px 0;
-  button {
-    display: block;
-    margin: 0 auto;
-    width: 100vw;
-    max-width: 480px;
-    height: 38px;
-    background-color: var(--surface);
-    &:hover {
-      color: var(--accent);
-    }
-    &:active {
-      background-color: var(--accent);
-      color: var(--surface);
-    }
-  }
-}
-
-.config-section {
-  width: 480px - 12*2px;
-  margin: 0 auto;
-  padding: 12px;
-  background-color: var(--bg-02);
 }
 
 .options-area {
@@ -167,9 +23,12 @@ select {
   label {
     color: var(--secondary);
     width: 160px;
+    display: flex;
+    align-items: center;
   }
 }
 
+/* === CHIPS START === */
 .chips {
   list-style: none;
 }
@@ -182,21 +41,25 @@ select {
     text-align: center;
     border-radius: 18px;
     background-color: var(--surface);
+    // @for $i from 0 to 4 {
+    //   &:nth-child(#{$i}) {
+    //     animation: interactiveBackground 4s random($limit: 5)+s infinite;
+    //   }
+    // }
 
     &:hover {
-      cursor: pointer;
-      color: var(--bg-01);
-      background-color: var(--accent);
+      @include hover;
     }
 
     &:last-child {
+      // animation: interactiveBackground 4s random($limit: 5)+s infinite;
       margin-right: 0;
     }
   }
 }
+/* === CHIPS END === */
 
 /* === TOGGLE START === */
-
 .frame-size-option {
   display: flex;
   align-items: center;
@@ -209,7 +72,7 @@ select {
 .switch {
   position: relative;
   display: inline-block;
-  height: 28px;
+  height: 24px;
   margin: 0 16px 0 0;
 }
 
@@ -234,8 +97,8 @@ select {
 .slider:before {
   position: absolute;
   content: "";
-  width: 23px;
-  height: 20px;
+  width: 20px;
+  height: 16px;
   left: 4px;
   bottom: 4px;
   background-color: var(--text);
@@ -252,5 +115,28 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-
 /* === TOGGLE END === */
+
+/* === FAKE CURSOR STUFF START === */
+#text-length-helper {
+  position: absolute;
+  width: auto;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+#cursor {
+  display: none;
+  width: 16px;
+  height: 32px;
+  background-color: var(--text);
+  opacity: 0.6;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: blink 1s step-end infinite;
+}
+/* === FAKE CURSOR STUFF END === */

@@ -1,0 +1,39 @@
+* {
+  font-size: var(--fs-body);
+  &:focus {
+    outline: none;
+  }
+}
+
+body {
+  background-color: var(--bg-01);
+  padding: 32px;
+  @include font-body;
+}
+
+body, button, input {
+  color: var(--text);
+}
+
+button, input, input:focus, input:active {
+  border: none;
+}
+
+select {
+  &:hover {
+    @include hover;
+  }
+}
+
+h2 {
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+select {
+  color: var(--text);
+  background-color: var(--surface);
+  border: none;
+  padding: 4px 12px;
+}
