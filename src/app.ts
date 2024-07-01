@@ -50,6 +50,10 @@ figma.on('run', () => {
 });
 // ======
 
+// send user name to frontend
+figma.ui.postMessage({ type: 'user', user: figma.currentUser?.name });
+// 
+
 // General message receiver
 figma.ui.onmessage = (msg: string) => {
   const Msg = JSON.parse(msg);
@@ -87,7 +91,6 @@ figma.ui.onmessage = (msg: string) => {
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }
-
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
   // figma.closePlugin();

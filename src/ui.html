@@ -7,6 +7,10 @@
 </head>
 
 <body>
+  <ul>
+    <li>Wake up, <span id="username"></span>...</li>
+    <li>We must protect the assets from the agents. <span class="text-selected">Give them new names!</span></li>
+  </ul>
   <section class="name-section">
     <pre>
       <div>
@@ -27,7 +31,7 @@
     <button id="clearInput">X</button>
   </section>
   <section class="download-section">
-    <button id="download-button">Download</button>
+    <button id="download-button" class="download-button">Download</button>
   </section>
   <section class="config-section">
     <div class="syntax-area">
@@ -66,7 +70,8 @@
         </select>
       </div>
       <div id="frame-size-option" class="frame-size-option">
-        <label for="exportFrameSize"><span>export in <span id="object-size" class="text-selected">object size</span></span></label>
+        <label for="exportFrameSize"><span>export in <span id="object-size" class="text-selected">object
+              size</span></span></label>
         <label class="switch">
           <input type="checkbox" id="exportFrameSize" name="exportFrameSize">
           <span class="slider"></span>

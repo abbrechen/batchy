@@ -9,6 +9,7 @@
     "figma"
   ],
   "ui": "dist/ui.html",
+  "permissions": ["currentuser"],
   "networkAccess": {
     "allowedDomains": [
       "https://cdn.jsdelivr.net",

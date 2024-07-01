@@ -64,11 +64,14 @@
 .download-section {
   margin: 40px 0 16px 0;
   button {
+    background: none;
     display: block;
     margin: 0 auto;
     width: 100vw;
     max-width: 480px;
     height: 38px;
+  }
+  .download-button {
     background-color: var(--surface);
     &:hover {
       @include hover;

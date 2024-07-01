@@ -9,6 +9,7 @@ const cursor = document.getElementById('cursor');
 const objectSize = document.getElementById('object-size');
 const frameSize = document.getElementById('frame-size');
 const frameSizeOption = document.getElementById('frame-size-option');
+const username = document.getElementById('username');
 
 export {
   downloadButton,
@@ -21,5 +22,6 @@ export {
   cursor,
   objectSize,
   frameSize,
-  frameSizeOption
+  frameSizeOption,
+  username
 }
