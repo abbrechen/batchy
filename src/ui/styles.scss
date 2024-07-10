@@ -13,16 +13,20 @@
   }
 }
 
+.terminal-decoration {
+  margin-right: 20px;
+}
+
 .options-area {
   > div {
     margin: 0 0 32px 0;
     &:last-child {
       margin-bottom: 0;
     }
-    > label {
-      margin: 0 0 16px 0;
-      display: flex;
-    }
+    // > label {
+    //   margin: 0 0 16px 0;
+    //   display: flex;
+    // }
     input[type="radio"] {
       /* The native appearance is hidden */
       appearance: none;
@@ -50,7 +54,6 @@
 .radio-list-item {
   display: flex;
   align-items: center;
-  justify-content: center;
   input {
     margin-right: 4px;
   }

@@ -4,12 +4,15 @@
 
 .options {
   background-color: var(--surface);
+  padding: 16px 12px;
+  height: 100vh;
 }
 
 .name-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transform: translateX(-36px);
   > pre {
     font-size: var(--fs-title);
     display: flex;
@@ -17,9 +20,9 @@
       &:first-child {
         display: flex;
         align-items: center;
-        svg {
-          margin-right: 20px;
-        }
+        // svg {
+        //   margin-right: 20px;
+        // }
       }
     }
     // p {
@@ -66,11 +69,10 @@
 }
 
 .download-section {
-  margin: 40px 0 16px 0;
   button {
     background: none;
     display: block;
-    margin: 0 auto;
+    // margin: 0 auto;
     width: 100vw;
     max-width: 480px;
     height: 38px;
