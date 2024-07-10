@@ -13,8 +13,8 @@ import { fileFormat } from './modules/fileFormat-module';
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   themeColors: true,
-  width: 678,
-  height: 429
+  width: 968,
+  height: 500
 });
 
 // figma.closePlugin();

@@ -1,9 +1,10 @@
-@import './styles/variables';
-@import './styles/fonts';
-@import './styles/states.scss';
-@import './styles/animations.scss';
-@import './styles/tags';
-@import './styles/sections.scss';
+@import "./styles/variables";
+@import "./styles/fonts";
+@import "./styles/patterns";
+@import "./styles/states";
+@import "./styles/animations";
+@import "./styles/tags";
+@import "./styles/sections";
 
 [class$="-area"] {
   margin-bottom: 32px;
@@ -14,17 +15,126 @@
 
 .options-area {
   > div {
-    margin: 0 0 8px 0;
-    display: flex;
+    margin: 0 0 32px 0;
     &:last-child {
       margin-bottom: 0;
     }
+    > label {
+      margin: 0 0 16px 0;
+      display: flex;
+    }
+    input[type="radio"] {
+      /* The native appearance is hidden */
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--secondary);
+      position: relative;
+      &:checked {
+        &::after {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 8px;
+          height: 8px;
+          background-color: var(--accent);
+        }
+      }
+    }
   }
-  label {
-    color: var(--secondary);
-    width: 160px;
+}
+
+.radio-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  input {
+    margin-right: 4px;
+  }
+}
+
+/* === INTRO START === */
+.inset-box {
+  width: 16px;
+  margin-right: 20px;
+}
+
+.intro {
+  color: var(--secondary);
+  @include font-display;
+  margin-bottom: 20px;
+  li,
+  span {
     display: flex;
     align-items: center;
+  }
+}
+/* === INTRO END === */
+
+#feedback {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(
+    35deg,
+    rgba(230, 255, 0, 1),
+    rgba(0, 255, 233, 1),
+    rgba(245, 0, 192, 1),
+    rgba(0, 54, 255, 1)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: feedback 2s linear infinite;
+
+  @keyframes feedback {
+    0% {
+      background-image: linear-gradient(
+        35deg,
+        rgba(230, 255, 0, 1),
+        rgba(0, 255, 233, 1),
+        rgba(245, 0, 192, 1),
+        rgba(0, 54, 255, 1)
+      );
+    }
+    25% {
+      background-image: linear-gradient(
+        35deg,
+        rgba(0, 54, 255, 1),
+        rgba(230, 255, 0, 1),
+        rgba(0, 255, 233, 1),
+        rgba(245, 0, 192, 1)
+      );
+    }
+    50% {
+      background-image: linear-gradient(
+        35deg,
+        rgba(245, 0, 192, 1),
+        rgba(0, 54, 255, 1),
+        rgba(230, 255, 0, 1),
+        rgba(0, 255, 233, 1)
+      );
+    }
+    75% {
+      background-image: linear-gradient(
+        35deg,
+        rgba(0, 255, 233, 1),
+        rgba(245, 0, 192, 1),
+        rgba(0, 54, 255, 1),
+        rgba(230, 255, 0, 1)
+      );
+    }
+    100% {
+      background-image: linear-gradient(
+        35deg,
+        rgba(230, 255, 0, 1),
+        rgba(0, 255, 233, 1),
+        rgba(245, 0, 192, 1),
+        rgba(0, 54, 255, 1)
+      );
+    }
   }
 }
 
@@ -35,12 +145,13 @@
 
 .chips {
   li {
+    @include border();
     display: inline-block;
     padding: 8px 12px;
     margin-right: 8px;
     text-align: center;
     border-radius: 18px;
-    background-color: var(--surface);
+    // background-color: var(--surface);
     // @for $i from 0 to 4 {
     //   &:nth-child(#{$i}) {
     //     animation: interactiveBackground 4s random($limit: 5)+s infinite;
@@ -61,12 +172,7 @@
 
 /* === TOGGLE START === */
 .frame-size-option {
-  display: flex;
-  align-items: center;
-  .switch {
-    opacity: 1;
-    width: 60px;
-  }
+  // display: flex;
 }
 
 .switch {
@@ -76,22 +182,24 @@
   margin: 0 16px 0 0;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
 .slider {
+  @include border();
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--surface);
-  -webkit-transition: .4s;
-  transition: .4s;
+  // background-color: var(--surface);
+  background: none;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -101,9 +209,9 @@
   height: 16px;
   left: 4px;
   bottom: 4px;
-  background-color: var(--text);
-  -webkit-transition: .4s;
-  transition: .4s;
+  background-color: var(--accent);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {

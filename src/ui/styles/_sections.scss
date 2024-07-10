@@ -2,6 +2,10 @@
   font-size: var(--fs-body);
 }
 
+.options {
+  background-color: var(--surface);
+}
+
 .name-section {
   display: flex;
   align-items: center;
@@ -70,9 +74,13 @@
     width: 100vw;
     max-width: 480px;
     height: 38px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: none;
+    border-bottom: none;
   }
   .download-button {
     background-color: var(--surface);
+    border: none;
     &:hover {
       @include hover;
     }
@@ -87,5 +95,4 @@
   width: 480px - 12*2px;
   margin: 0 auto;
   padding: 12px;
-  background-color: var(--bg-02);
 }
