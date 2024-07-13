@@ -4,8 +4,11 @@
 
 .options {
   background-color: var(--surface);
-  padding: 16px 12px;
-  height: 100vh;
+  padding: 24px 12px;
+}
+
+#toggle-options-bar {
+  padding: 24px 0 0 0;
 }
 
 .name-section {

@@ -11,10 +11,14 @@ import { fileFormat } from './modules/fileFormat-module';
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 
 // This shows the HTML page in "ui.html".
+
+let uiWidth = 968;
+let uiHeight = 500;
+
 figma.showUI(__html__, {
   themeColors: true,
-  width: 968,
-  height: 500
+  width: uiWidth,
+  height: uiHeight
 });
 
 // figma.closePlugin();
@@ -88,6 +92,8 @@ figma.ui.onmessage = (msg: string) => {
       figma.ui.postMessage({ type: '02-export-bundle', exportBundle });
       exportBundle = [];
     })();
+  } else if (Msg.type === 'resize') {
+    figma.ui.resize(uiWidth - Msg.subtract, uiHeight);
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }

@@ -16,6 +16,30 @@ document.addEventListener('keydown', () => {
   ui.input.focus();
 });
 
+let exportBarOpen = true;
+// toggle click to show/hide the export options bar
+ui.toggleBarItem.addEventListener('click', () => {
+  let pluginMessage = JSON.stringify({
+    type: 'resize',
+    subtract: ui.optionsBar.offsetWidth
+  })
+  if (exportBarOpen) {
+    ui.optionsBar.style.display = 'none';
+    // ui.body.style.gridTemplateColumns = '0fr 0.1fr 3fr';
+    ui.toggleBarItem.style.transform = 'scale(-100%)';
+    ui.toggleBarItem.style.marginLeft = '24px';
+  } else {
+    ui.optionsBar.style.display = 'block';
+    // ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
+    ui.toggleBarItem.style.transform = 'scale(100%)';
+    ui.toggleBarItem.style.marginLeft = '0';
+  }
+  exportBarOpen = !exportBarOpen;
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+});
+
 // this function adds syntax text to the input field
 const addTextToInput = (text) => {
   // this sub function adds the text to the cursor position.

@@ -10,6 +10,9 @@ const objectSize = document.getElementById('object-size');
 const frameSize = document.getElementById('frame-size');
 const frameSizeOption = document.getElementById('frame-size-option');
 const username = document.getElementById('username');
+const toggleBarItem = document.getElementById('toggleBarItem');
+const optionsBar = document.getElementById('options');
+const body = document.querySelector('body');
 
 export {
   downloadButton,
@@ -23,5 +26,8 @@ export {
   objectSize,
   frameSize,
   frameSizeOption,
-  username
+  username,
+  toggleBarItem,
+  optionsBar,
+  body
 }
