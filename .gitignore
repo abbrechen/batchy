@@ -8,4 +8,5 @@ node_modules
 
 # Project
 out/
-dist/
+dist/*
+!dist
