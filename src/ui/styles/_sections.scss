@@ -11,7 +11,18 @@
   padding: 24px 0 0 0;
 }
 
+/* === EXPAND/COLLAPSE START === */
+.expanded {
+  cursor: w-resize;
+}
+
+.collapsed {
+  cursor: e-resize;
+}
+/* === EXPAND/COLLAPSE END === */
+
 .name-section {
+  margin: 50px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,9 +58,6 @@
     // caret-color: transparent;
     // caret-shape is currently not supported in any browser
     // caret-shape: block;
-    &:focus {
-      // background-color: lightblue;
-    }
   }
   input, #text-length-helper {
     font-size: var(--fs-display);
@@ -71,7 +79,14 @@
   }
 }
 
+.syntax-area {
+  h2 {
+    margin-bottom: 16px;
+  }
+}
+
 .download-section {
+  margin: 50px 0;
   button {
     background: none;
     display: block;

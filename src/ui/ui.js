@@ -28,11 +28,15 @@ ui.toggleBarItem.addEventListener('click', () => {
     // ui.body.style.gridTemplateColumns = '0fr 0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(-100%)';
     ui.toggleBarItem.style.marginLeft = '24px';
+    ui.toggleBarItem.classList.add('collapsed');
+    ui.toggleBarItem.classList.remove('expanded');
   } else {
     ui.optionsBar.style.display = 'block';
     // ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(100%)';
     ui.toggleBarItem.style.marginLeft = '0';
+    ui.toggleBarItem.classList.remove('collapsed');
+    ui.toggleBarItem.classList.add('expanded');
   }
   exportBarOpen = !exportBarOpen;
   parent.postMessage({

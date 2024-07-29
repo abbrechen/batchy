@@ -68,3 +68,9 @@ select {
   border: 1px solid var(--border);
   padding: 4px 12px;
 }
+
+a {
+  color: var(--text);
+  text-decoration: none;
+  cursor: alias;
+}
