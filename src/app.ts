@@ -11,8 +11,14 @@ import { fileFormat } from './modules/fileFormat-module';
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 
 // This shows the HTML page in "ui.html".
+
+let uiWidth = 968;
+let uiHeight = 500;
+
 figma.showUI(__html__, {
-  themeColors: true
+  themeColors: true,
+  width: uiWidth,
+  height: uiHeight
 });
 
 // figma.closePlugin();
@@ -48,6 +54,10 @@ figma.on('run', () => {
 });
 // ======
 
+// send user name to frontend
+figma.ui.postMessage({ type: 'user', user: figma.currentUser?.name });
+// 
+
 // General message receiver
 figma.ui.onmessage = (msg: string) => {
   const Msg = JSON.parse(msg);
@@ -82,10 +92,11 @@ figma.ui.onmessage = (msg: string) => {
       figma.ui.postMessage({ type: '02-export-bundle', exportBundle });
       exportBundle = [];
     })();
+  } else if (Msg.type === 'resize') {
+    figma.ui.resize(uiWidth - Msg.subtract, uiHeight);
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }
-
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
   // figma.closePlugin();

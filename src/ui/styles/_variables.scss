@@ -1,9 +1,47 @@
+:root {
+  --neutral-01: #000;
+  --neutral-02: #151715;
+  --neutral-03: #1A1A1A;
+  --neutral-04: #A1A2A1;
+  --neutral-05: #d8d8d8;
+  --neutral-06: #eeeeee;
+  --neutral-07: #fff;
+  --warning-01: #D14040;
+  --warning-02: #a82c2c;
+  --accent-01: #40C5D1;
+  --accent-02: #2ba2ac;
+  --accent-03: #B377FF;
+  --secondary: #41C733;
+
+  --fs-display: 24px;
+  --fs-title: 12px;
+  --fs-body: 12px;
+}
+
 .figma-dark {
-  --text: #e9e9e9;
-  --bg: #242424;
+  --text: var(--neutral-07);
+  --headline: var(--accent-01);
+  --secondary: var(--neutral-04);
+  --bg-01: var(--neutral-03);
+  --bg-02: var(--neutral-02);
+  --surface: var(--neutral-01);
+  --border: var(--neutral-04);
+  --accent: var(--accent-03);
+  --text-on-warning: var(--neutral-01);
+  --warning: var(--warning-01);
+  --warning-hover: var(--warning-02);
 }
 
 .figma-light {
-  --text: #242424;
-  --bg: #e9e9e9;
+  --text: var(--neutral-01);
+  --headline: var(--accent-03);
+  --secondary: var(--neutral-03);
+  --bg-01: var(--neutral-06);
+  --bg-02: var(--neutral-05);
+  --surface: var(--neutral-07);
+  --border: var(--neutral-04);
+  --accent: var(--accent-02);
+  --text-on-warning: var(--neutral-07);
+  --warning: var(--warning-02);
+  --warning-hover: var(--warning-01);
 }

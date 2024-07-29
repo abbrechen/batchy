@@ -1,0 +1,20 @@
+@keyframes blink {
+  from, to {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes interactiveBackground {
+  25% {
+    background-color: var(--surface);
+  }
+  50% {
+    background-color: var(--neutral-03);
+  }
+  100% {
+    background-color: var(--surface);
+  }
+}

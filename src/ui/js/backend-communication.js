@@ -17,10 +17,16 @@ window.onmessage = (msg) => {
     const isSelectionEmpty = m.isSelectionEmpty;
     if (isSelectionEmpty) {
       // ui.downloadButton.style.opacity = 0.5;
+      ui.downloadButton.removeAttribute('class', 'download-button');
       ui.downloadButton.setAttribute('disabled', '');
+      ui.downloadButton.innerHTML = 'Select layers to download them';
     } else {
       // ui.downloadButton.style.opacity = 1;
       ui.downloadButton.removeAttribute('disabled', '');
+      ui.downloadButton.setAttribute('class', 'download-button');
+      ui.downloadButton.innerHTML = 'Download';
     }
+  } else if (m.type === 'user') {
+    ui.username.innerHTML = m.user;
   }
 }

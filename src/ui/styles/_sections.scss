@@ -1,0 +1,118 @@
+[class$="-section"] {
+  font-size: var(--fs-body);
+}
+
+.options {
+  background-color: var(--surface);
+  padding: 24px 12px;
+}
+
+#toggle-options-bar {
+  padding: 24px 0 0 0;
+}
+
+/* === EXPAND/COLLAPSE START === */
+.expanded {
+  cursor: w-resize;
+}
+
+.collapsed {
+  cursor: e-resize;
+}
+/* === EXPAND/COLLAPSE END === */
+
+.name-section {
+  margin: 50px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateX(-36px);
+  > pre {
+    font-size: var(--fs-title);
+    display: flex;
+    div {
+      &:first-child {
+        display: flex;
+        align-items: center;
+        // svg {
+        //   margin-right: 20px;
+        // }
+      }
+    }
+    // p {
+    //   align-self: center;
+    // }
+  }
+  .name-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    position: relative;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    // caret-color: transparent;
+    // caret-shape is currently not supported in any browser
+    // caret-shape: block;
+  }
+  input, #text-length-helper {
+    font-size: var(--fs-display);
+    @include font-display;
+  }
+  button {
+    width: 24px;
+    height: 24px;
+    color: var(--text-on-warning);
+    background-color: var(--warning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--warning-hover);
+    }
+  }
+}
+
+.syntax-area {
+  h2 {
+    margin-bottom: 16px;
+  }
+}
+
+.download-section {
+  margin: 50px 0;
+  button {
+    background: none;
+    display: block;
+    // margin: 0 auto;
+    width: 100vw;
+    max-width: 480px;
+    height: 38px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: none;
+    border-bottom: none;
+  }
+  .download-button {
+    background-color: var(--surface);
+    border: none;
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      background-color: var(--accent);
+      color: var(--surface);
+    }
+  }
+}
+
+.config-section {
+  width: 480px - 12*2px;
+  margin: 0 auto;
+  padding: 12px;
+}

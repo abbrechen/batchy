@@ -30,7 +30,14 @@ module.exports = (env, argv) => ({
       // { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
       { test: /\.(s[ac]ss|css)$/i, use: ['style-loader', 'css-loader', 'sass-loader'] },
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
-      { test: /\.(png|jpg|gif|webp|svg)$/, use: ['url-loader'] }
+      { test: /\.(png|jpg|gif|webp|svg)$/, use: ['url-loader'] },
+      // {
+      //   test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      //   type: 'src/ui/assets/fonts',
+      //   generator: {
+      //     filename: 'fonts/[name][ext][query]', // Organize fonts into a directory
+      //   }
+      // }
     ],
   },
   // Webpack tries these extensions for you if you omit the extension like "import './file'"

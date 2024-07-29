@@ -1,27 +1,216 @@
-@import './styles/variables';
+@import "./styles/variables";
+@import "./styles/fonts";
+@import "./styles/patterns";
+@import "./styles/states";
+@import "./styles/animations";
+@import "./styles/tags";
+@import "./styles/sections";
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
+[class$="-area"] {
+  margin-bottom: 32px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-
-
-.chips {
-  list-style: none;
+.terminal-decoration {
+  margin-right: 20px;
 }
 
-.chips {
-  li {
-    display: inline-block;
-    width: 60px;
-    height: 24px;
-    text-align: center;
-    border-radius: 18px;
-    background-color: hsl(0deg 0% 0% / 20%);
-
-    &:hover {
-      background-color: hsl(0deg 0% 0% / 40%);
+.options-area {
+  > div {
+    margin: 0 0 32px 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    // > label {
+    //   margin: 0 0 16px 0;
+    //   display: flex;
+    // }
+    input[type="radio"] {
+      /* The native appearance is hidden */
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--secondary);
+      position: relative;
+      &:checked {
+        &::after {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 8px;
+          height: 8px;
+          background-color: var(--accent);
+        }
+      }
     }
   }
 }
+
+.radio-list-item {
+  display: flex;
+  align-items: center;
+  input {
+    margin-right: 4px;
+  }
+}
+
+/* === INTRO START === */
+.inset-box {
+  width: 16px;
+  margin-right: 20px;
+}
+
+.intro {
+  color: var(--secondary);
+  @include font-display;
+  li {
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  li,
+  span {
+    display: flex;
+    align-items: center;
+  }
+}
+/* === INTRO END === */
+
+.banner {
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-01);
+  p {
+    font-weight: bolder;
+  }
+  p, a {
+    color: var(--surface);
+  }
+  button {
+    background: none;
+  }
+}
+
+
+/* === CHIPS START === */
+.chips {
+  list-style: none;
+  li {
+    @include border();
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 8px;
+    text-align: center;
+    border-radius: 18px;
+    // background-color: var(--surface);
+    // @for $i from 0 to 4 {
+    //   &:nth-child(#{$i}) {
+    //     animation: interactiveBackground 4s random($limit: 5)+s infinite;
+    //   }
+    // }
+
+    &:hover {
+      @include hover;
+    }
+
+    &:last-child {
+      // animation: interactiveBackground 4s random($limit: 5)+s infinite;
+      margin-right: 0;
+    }
+  }
+}
+/* === CHIPS END === */
+
+/* === TOGGLE START === */
+.frame-size-option {
+  // display: flex;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  margin: 0 16px 0 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  @include border();
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // background-color: var(--surface);
+  background: none;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--accent);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--surface);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* === TOGGLE END === */
+
+/* === FAKE CURSOR STUFF START === */
+#text-length-helper {
+  position: absolute;
+  width: auto;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+#cursor {
+  display: none;
+  width: 16px;
+  height: 32px;
+  background-color: var(--text);
+  opacity: 0.6;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: blink 1s step-end infinite;
+}
+/* === FAKE CURSOR STUFF END === */

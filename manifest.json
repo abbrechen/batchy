@@ -9,9 +9,11 @@
     "figma"
   ],
   "ui": "dist/ui.html",
+  "permissions": ["currentuser"],
   "networkAccess": {
     "allowedDomains": [
-      "https://cdn.jsdelivr.net"
+      "https://cdn.jsdelivr.net",
+      "https://fonts.googleapis.com"
     ]
   },
   "documentAccess": "dynamic-page"
