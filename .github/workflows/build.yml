@@ -39,4 +39,5 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: app-build
-      - run: ls dist
+      - run: |
+          mkdir dist && ls dist
