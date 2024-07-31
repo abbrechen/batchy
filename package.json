@@ -33,8 +33,6 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.3",
     "url-loader": "^4.1.1",
-    "vue-loader": "^17.4.2",
-    "vue-template-compiler": "^2.7.16",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   },
@@ -67,6 +65,5 @@
     "client-zip": "^2.4.4",
     "file-saver": "^2.0.5",
     "reset-css": "^5.0.2",
-    "vue": "^3.4.28"
   }
 }
