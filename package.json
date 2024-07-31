@@ -11,6 +11,9 @@
   },
   "author": "",
   "license": "",
+  "resolutions": {
+    "braces": ">=3.0.3"
+  },
   "devDependencies": {
     "@figma/eslint-plugin-figma-plugins": "*",
     "@figma/plugin-typings": "*",
@@ -64,6 +67,6 @@
     "adm-zip": "^0.5.12",
     "client-zip": "^2.4.4",
     "file-saver": "^2.0.5",
-    "reset-css": "^5.0.2",
+    "reset-css": "^5.0.2"
   }
 }
