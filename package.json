@@ -4,6 +4,7 @@
   "description": "Your Figma Plugin",
   "main": "app.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build": "webpack",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
@@ -12,7 +13,7 @@
   "author": "",
   "license": "",
   "resolutions": {
-    "braces": ">=3.0.3"
+    "braces": "3.0.3"
   },
   "devDependencies": {
     "@figma/eslint-plugin-figma-plugins": "*",
@@ -37,7 +38,8 @@
     "typescript": "^5.4.3",
     "url-loader": "^4.1.1",
     "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "npm-force-resolutions": "^0.0.3"
   },
   "eslintConfig": {
     "extends": [
