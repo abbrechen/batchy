@@ -55,8 +55,15 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
 
     while (node && node !== topLevelParent) {
       if ('x' in node && 'y' in node) {
-        x += node.x;
-        y += node.y;
+        // += works for groups and = for frames
+        if (node.type === 'FRAME') {
+          x += node.x;
+          y += node.y;
+        } else {
+          x = node.x;
+          y = node.y;
+        }
+        console.log(`${node.name}, x: ${x}, y: ${y}`)
       }
       node = node.parent as SceneNode;
     }
