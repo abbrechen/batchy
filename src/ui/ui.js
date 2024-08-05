@@ -7,6 +7,7 @@ import '../../node_modules/reset-css/sass/_reset.scss';
 import './styles.scss';
 import * as ui from './js/_helpers/ui-elements';
 import { setCursorPosition } from './js/reactivity';
+import Store from './js/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   ui.input.focus();
@@ -113,3 +114,26 @@ ui.downloadButton.addEventListener('click', () => {
   }, '*');
 });
 
+ui.selectionListButton.addEventListener('click', () => {
+  const pluginMessage = JSON.stringify({
+    type: 'add-to-selection-list'
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+});
+
+function deleteSelf(item) {
+  var list = Store.getSelectionList();
+  var listObj = list.find((el) => { return el.id == item.getAttribute('id') });
+  // const listEl = ui.selectionList;
+  // listEl.removeChild(item);
+  const pluginMessage = JSON.stringify({
+    type: 'remove-from-selection-list',
+    itemToDelete: listObj
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+}
+window.deleteSelf = deleteSelf;

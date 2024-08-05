@@ -87,16 +87,20 @@
 
 .download-section {
   margin: 50px 0;
+  display: flex;
   button {
     background: none;
     display: block;
     // margin: 0 auto;
-    width: 100vw;
+    width: 40%;
     max-width: 480px;
     height: 38px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-top: none;
     border-bottom: none;
+    &:first-child {
+      margin-right: 16px;
+    }
   }
   .download-button {
     background-color: var(--surface);
@@ -107,6 +111,22 @@
     &:active {
       background-color: var(--accent);
       color: var(--surface);
+    }
+  }
+}
+
+.selection-list-section {
+  width: 84%;
+  // border: 1px solid gray;
+  ul {
+    height: 220px;
+    overflow-y: auto;
+    li {
+      &:hover {
+        text-decoration: line-through;
+        color: var(--warning-hover);
+        cursor: pointer;
+      }
     }
   }
 }

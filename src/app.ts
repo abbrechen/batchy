@@ -1,6 +1,8 @@
 import message from './modules/name-module';
 import { parentSize } from './modules/parentSize-module';
 import { fileFormat } from './modules/fileFormat-module';
+import { preview } from './modules/preview-module';
+import Store from './modules/store-module'
 
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
@@ -13,13 +15,14 @@ import { fileFormat } from './modules/fileFormat-module';
 // This shows the HTML page in "ui.html".
 
 let uiWidth = 968;
-let uiHeight = 500;
+let uiHeight = 700;
 
 figma.showUI(__html__, {
   themeColors: true,
   width: uiWidth,
   height: uiHeight
 });
+
 
 // figma.closePlugin();
 // Calls to "parent.postMessage" from within the HTML page will trigger this
@@ -94,6 +97,32 @@ figma.ui.onmessage = (msg: string) => {
     })();
   } else if (Msg.type === 'resize') {
     figma.ui.resize(uiWidth - Msg.subtract, uiHeight);
+  } else if (Msg.type === 'add-to-selection-list') {
+    const selection = figma.currentPage.selection;
+    // let list = preview(selection);
+    selection.forEach((item: SceneNode) => {
+      Store.addToSelectionList(item);
+    });
+    let list: any[]= new Array;
+    Store.getSelectionList().forEach((item: SceneNode) => {
+      let listItem = {
+        name: item.name,
+        id: item.id
+      }
+      list.push(listItem);
+    });
+    figma.ui.postMessage({ type: 'receive-preview', list });
+  } else if (Msg.type === 'remove-from-selection-list') {
+    Store.removeFromSelectionList(Msg.itemToDelete);
+    let list: any[]= new Array;
+    Store.getSelectionList().forEach((item: SceneNode) => {
+      let listItem = {
+        name: item.name,
+        id: item.id
+      }
+      list.push(listItem);
+    });
+    figma.ui.postMessage({ type: 'receive-preview', list });
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }
