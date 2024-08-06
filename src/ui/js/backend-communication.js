@@ -3,6 +3,7 @@
 // ======
 
 import * as ui from './_helpers/ui-elements';
+import Store from './store';
 
 // General message receiver
 window.onmessage = (msg) => {
@@ -28,5 +29,25 @@ window.onmessage = (msg) => {
     }
   } else if (m.type === 'user') {
     ui.username.innerHTML = m.user;
+  } else if (m.type === 'receive-preview') {
+    const listEl = ui.selectionList;
+    while (listEl.firstChild) {
+      listEl.removeChild(listEl.lastChild);
+    }
+    Store.replaceSelectionList((m.list));
+    let elements = Store.getSelectionList();
+    elements.forEach((el) => {
+      var wrapper = document.createElement('div');
+      var li = document.createElement('li');
+      var btn = document.createElement('button');
+      li.setAttribute('onclick', 'deleteSelf(this)');
+      li.setAttribute('id', el.id);
+      li.innerHTML = el.name;
+      btn.innerHTML = '>';
+      wrapper.appendChild(li);
+      wrapper.appendChild(btn);
+      btn.setAttribute('onclick', `goToLayer('${el.id}')`)
+      listEl.appendChild(wrapper);
+    });
   }
 }

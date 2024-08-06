@@ -1,4 +1,5 @@
 // import DateFormatter from '@date-js/date-formatter';
+import Store from './store-module';
 
 const message = (name: string, index: number, dateFormat: number, scaling: number) => {
   let date: string;
@@ -50,7 +51,12 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
   }
 
   if (name.includes('{{name}}')) {
-    layerName = figma.currentPage.selection[index].name;
+    let layerName = '';
+    if (Store.getSelectionList().length > 0) {
+      layerName = Store.getSelectionList()[index].name;
+    } else {
+      layerName = figma.currentPage.selection[index].name;
+    }
     exportName = exportName.replace('{{name}}', layerName)
   }
 

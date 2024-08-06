@@ -7,6 +7,7 @@ import '../../node_modules/reset-css/sass/_reset.scss';
 import './styles.scss';
 import * as ui from './js/_helpers/ui-elements';
 import { setCursorPosition } from './js/reactivity';
+import Store from './js/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   ui.input.focus();
@@ -25,14 +26,14 @@ ui.toggleBarItem.addEventListener('click', () => {
   })
   if (exportBarOpen) {
     ui.optionsBar.style.display = 'none';
-    // ui.body.style.gridTemplateColumns = '0fr 0.1fr 3fr';
+    ui.body.style.gridTemplateColumns = '0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(-100%)';
     ui.toggleBarItem.style.marginLeft = '24px';
     ui.toggleBarItem.classList.add('collapsed');
     ui.toggleBarItem.classList.remove('expanded');
   } else {
     ui.optionsBar.style.display = 'block';
-    // ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
+    ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(100%)';
     ui.toggleBarItem.style.marginLeft = '0';
     ui.toggleBarItem.classList.remove('collapsed');
@@ -113,3 +114,37 @@ ui.downloadButton.addEventListener('click', () => {
   }, '*');
 });
 
+ui.selectionListButton.addEventListener('click', () => {
+  const pluginMessage = JSON.stringify({
+    type: 'add-to-selection-list'
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+});
+
+function deleteSelf(item) {
+  var list = Store.getSelectionList();
+  var listObj = list.find((el) => { return el.id == item.getAttribute('id') });
+  // const listEl = ui.selectionList;
+  // listEl.removeChild(item);
+  const pluginMessage = JSON.stringify({
+    type: 'remove-from-selection-list',
+    itemToDelete: listObj
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+}
+window.deleteSelf = deleteSelf;
+
+function goToLayer(id) {
+  const pluginMessage = JSON.stringify({
+    type: 'go-to-layer',
+    goToLayerID: id
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+}
+window.goToLayer = goToLayer;

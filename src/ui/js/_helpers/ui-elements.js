@@ -1,4 +1,6 @@
 const downloadButton = document.getElementById('download-button');
+const selectionListButton = document.getElementById('selection-list-button');
+const selectionList = document.querySelector('.selection-list-section > ul');
 const dateFormatObj = document.getElementById('dateFormat');
 const fileFormatObj = document.getElementById('fileFormat');
 const scalingObj = document.getElementById('scaling');
@@ -16,6 +18,8 @@ const body = document.querySelector('body');
 
 export {
   downloadButton,
+  selectionListButton,
+  selectionList,
   dateFormatObj,
   fileFormatObj,
   scalingObj,
