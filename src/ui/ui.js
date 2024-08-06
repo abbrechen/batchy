@@ -26,14 +26,14 @@ ui.toggleBarItem.addEventListener('click', () => {
   })
   if (exportBarOpen) {
     ui.optionsBar.style.display = 'none';
-    // ui.body.style.gridTemplateColumns = '0fr 0.1fr 3fr';
+    ui.body.style.gridTemplateColumns = '0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(-100%)';
     ui.toggleBarItem.style.marginLeft = '24px';
     ui.toggleBarItem.classList.add('collapsed');
     ui.toggleBarItem.classList.remove('expanded');
   } else {
     ui.optionsBar.style.display = 'block';
-    // ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
+    ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
     ui.toggleBarItem.style.transform = 'scale(100%)';
     ui.toggleBarItem.style.marginLeft = '0';
     ui.toggleBarItem.classList.remove('collapsed');
@@ -137,3 +137,14 @@ function deleteSelf(item) {
   }, '*');
 }
 window.deleteSelf = deleteSelf;
+
+function goToLayer(id) {
+  const pluginMessage = JSON.stringify({
+    type: 'go-to-layer',
+    goToLayerID: id
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
+}
+window.goToLayer = goToLayer;

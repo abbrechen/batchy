@@ -34,15 +34,20 @@ window.onmessage = (msg) => {
     while (listEl.firstChild) {
       listEl.removeChild(listEl.lastChild);
     }
-    console.log(m.list)
     Store.replaceSelectionList((m.list));
     let elements = Store.getSelectionList();
     elements.forEach((el) => {
+      var wrapper = document.createElement('div');
       var li = document.createElement('li');
+      var btn = document.createElement('button');
       li.setAttribute('onclick', 'deleteSelf(this)');
       li.setAttribute('id', el.id);
       li.innerHTML = el.name;
-      listEl.appendChild(li);
+      btn.innerHTML = '>';
+      wrapper.appendChild(li);
+      wrapper.appendChild(btn);
+      btn.setAttribute('onclick', `goToLayer('${el.id}')`)
+      listEl.appendChild(wrapper);
     });
   }
 }

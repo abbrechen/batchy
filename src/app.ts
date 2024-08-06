@@ -42,7 +42,8 @@ var exportBundle: exportBundle = [];
 
 const checkSelection = () => {
   const selection = figma.currentPage.selection;
-  if(selection.length > 0) {
+  const selectionList = Store.getSelectionList();
+  if(selection.length > 0 || selectionList.length > 0) {
     figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: false });
   } else {
     figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: true });
@@ -70,7 +71,12 @@ figma.ui.onmessage = (msg: string) => {
       // this variable manages the exportAsync settings
       let settings: ExportSettings;
       settings = await fileFormat(Msg.fileFormat, Msg.scaling);
-      var selection = figma.currentPage.selection;
+      var selection;
+      if (Store.getSelectionList().length > 0) {
+        selection = Store.getSelectionList();
+      } else {
+        selection = figma.currentPage.selection;
+      }
       // get the image binary data
       for (let i = 0; i < selection.length; i++) {
         var bytes;
@@ -81,7 +87,6 @@ figma.ui.onmessage = (msg: string) => {
         }
         var binaryData = [];
         binaryData.push(bytes);
-
         // create an asset set, including the image and config data and push it to the bundle, that will later be exported
         var name = message(Msg.name, i, Msg.dateFormat, Msg.scaling);
         exportBundle.push({
@@ -118,11 +123,23 @@ figma.ui.onmessage = (msg: string) => {
     Store.getSelectionList().forEach((item: SceneNode) => {
       let listItem = {
         name: item.name,
-        id: item.id
+        id: item.id,
       }
       list.push(listItem);
     });
     figma.ui.postMessage({ type: 'receive-preview', list });
+    checkSelection();
+  } else if (Msg.type === 'go-to-layer') {
+    // USE LAYER ID TO JUMP TO LAYER AND MAKE IT SELECTION
+    let selectionList = Store.getSelectionList();
+    let el = selectionList.find((item) => { return item.id === Msg.goToLayerID });
+    if (el !== undefined) {
+      // figma.currentPage.selection = figma.currentPage.selection.concat(el)
+      let selection = figma.currentPage.selection = [el];
+      figma.viewport.scrollAndZoomIntoView(selection);
+    } else {
+      console.error('no selection list items')
+    }
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }

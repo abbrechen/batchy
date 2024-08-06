@@ -121,6 +121,9 @@
   ul {
     height: 220px;
     overflow-y: auto;
+    > div {
+      display: flex;
+    }
     li {
       &:hover {
         text-decoration: line-through;
