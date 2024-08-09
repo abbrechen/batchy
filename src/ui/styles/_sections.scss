@@ -87,20 +87,19 @@
 
 .download-section {
   margin: 50px 0;
-  display: flex;
+  // display: flex;
   button {
-    background: none;
+    @include button-primary;
+    @include button-disabled;
+    // background: none;
     display: block;
     // margin: 0 auto;
-    width: 40%;
-    max-width: 480px;
-    height: 38px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: none;
-    border-bottom: none;
-    &:first-child {
-      margin-right: 16px;
-    }
+    width: 60%;
+    // max-width: 480px;
+    // height: 38px;
+    // border: 2px solid rgba(255, 255, 255, 0.3);
+    // border-top: none;
+    // border-bottom: none;
   }
   .download-button {
     background-color: var(--surface);
@@ -118,13 +117,30 @@
 .selection-list-section {
   width: 84%;
   // border: 1px solid gray;
+  > button {
+    @include button-primary;
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
   ul {
-    height: 220px;
+    height: 180px;
     overflow-y: auto;
     > div {
       display: flex;
+      margin-bottom: 16px;
+      align-items: center;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      > button {
+        margin: 1px 0;
+        &:hover {
+          margin: 0;
+        }
+      }
     }
     li {
+      margin-right: 12px;
       &:hover {
         text-decoration: line-through;
         color: var(--warning-hover);
