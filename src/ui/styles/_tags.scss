@@ -27,7 +27,10 @@ button, input, input:focus, input:active {
 }
 
 button {
-  background: var(--surface);
+  background-color: var(--surface);
+  &:hover {
+    @include hover;
+  }
 }
 
 main {
