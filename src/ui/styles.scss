@@ -95,14 +95,10 @@
   align-items: center;
   justify-content: center;
   background-color: var(--accent-01);
-  p {
-    font-weight: bolder;
-  }
-  p, a {
+  a {
     color: var(--surface);
-  }
-  button {
-    background: none;
+    width: 100%;
+    text-align: center;
   }
 }
 
