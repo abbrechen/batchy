@@ -16,16 +16,21 @@ window.onmessage = (msg) => {
     // react if there is no selection
   } else if (m.type === 'selection-empty') {
     const isSelectionEmpty = m.isSelectionEmpty;
-    if (isSelectionEmpty) {
+    const isSelectionListEmpty = m.isSelectionListEmpty;
+    if (isSelectionEmpty && isSelectionListEmpty) {
       // ui.downloadButton.style.opacity = 0.5;
       ui.downloadButton.removeAttribute('class', 'download-button');
       ui.downloadButton.setAttribute('disabled', '');
-      ui.downloadButton.innerHTML = 'Select layers to download them';
-    } else {
+      ui.downloadButton.innerHTML = 'Select layers to download them or add them to the list';
+    } else if(!isSelectionEmpty) {
       // ui.downloadButton.style.opacity = 1;
       ui.downloadButton.removeAttribute('disabled', '');
       ui.downloadButton.setAttribute('class', 'download-button');
-      ui.downloadButton.innerHTML = 'Download';
+      ui.downloadButton.innerHTML = 'Download LIVE selections';
+    } else if(isSelectionEmpty && !isSelectionListEmpty) {
+      ui.downloadButton.removeAttribute('disabled', '');
+      ui.downloadButton.setAttribute('class', 'download-button');
+      ui.downloadButton.innerHTML = 'Download LIST selections';
     }
   } else if (m.type === 'user') {
     ui.username.innerHTML = m.user;

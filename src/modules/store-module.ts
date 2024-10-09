@@ -1,9 +1,11 @@
 class Store {
   private static instance: Store;
   private selectionList: SceneNode[];
+  private isSelectionEmpty: Boolean;
 
   constructor() {
     this.selectionList = [];
+    this.isSelectionEmpty = true;
   }
 
   public static getInstance(): Store {
@@ -35,6 +37,14 @@ class Store {
 
   public getSelectionList(): SceneNode[] {
     return this.selectionList;
+  }
+
+  public setIsSelectionEmpty(bool: Boolean) {
+    this.isSelectionEmpty = bool;
+  }
+
+  public getIsSelectionEmpty() {
+    return this.isSelectionEmpty;
   }
 }
 

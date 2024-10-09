@@ -52,7 +52,7 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
 
   if (name.includes('{{name}}')) {
     let layerName = '';
-    if (Store.getSelectionList().length > 0) {
+    if (Store.getSelectionList().length > 0 && Store.getIsSelectionEmpty()) {
       layerName = Store.getSelectionList()[index].name;
     } else {
       layerName = figma.currentPage.selection[index].name;

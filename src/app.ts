@@ -43,11 +43,23 @@ var exportBundle: exportBundle = [];
 const checkSelection = () => {
   const selection = figma.currentPage.selection;
   const selectionList = Store.getSelectionList();
-  if(selection.length > 0 || selectionList.length > 0) {
-    figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: false });
-  } else {
-    figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: true });
-  }
+  const isSelectionEmpty = () => {
+    if(selection.length <= 0) {
+      Store.setIsSelectionEmpty(true);
+      return true;
+    } else {
+      Store.setIsSelectionEmpty(false);
+      return false;
+    }
+  };
+  const isSelectionListEmpty = () => {
+    if(selectionList.length <= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  figma.ui.postMessage({ type: 'selection-empty', isSelectionEmpty: isSelectionEmpty(), isSelectionListEmpty: isSelectionListEmpty() });
 }
 // ====== Observe if one or more layers are selected
 figma.on('selectionchange', () => {
@@ -72,9 +84,12 @@ figma.ui.onmessage = (msg: string) => {
       let settings: ExportSettings;
       settings = await fileFormat(Msg.fileFormat, Msg.scaling);
       var selection;
-      if (Store.getSelectionList().length > 0) {
-        selection = Store.getSelectionList();
+      var selectionList = Store.getSelectionList();
+      var isSelectionEmpty = Store.getIsSelectionEmpty();
+      if (selectionList.length > 0 && isSelectionEmpty) {
+        selection = selectionList;
       } else {
+        console.log('PING')
         selection = figma.currentPage.selection;
       }
       // get the image binary data
