@@ -8,6 +8,7 @@ import './styles.scss';
 import * as ui from './js/_helpers/ui-elements';
 import { setCursorPosition } from './js/reactivity';
 import Store from './js/store';
+import { checkDuplicatedNames } from './js/_helpers/checkDuplicatedNames';
 
 document.addEventListener('DOMContentLoaded', () => {
   ui.input.focus();
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('keydown', () => {
   ui.input.focus();
+  checkDuplicatedNames();
 });
 
 let controls = true;
@@ -100,13 +102,15 @@ const addTextToInput = (text) => {
   insertAtCursor(ui.input, text)
   // setCursorPosition();
   // input.value += text
+  checkDuplicatedNames(ui.input.value);
 }
 window.addTextToInput = addTextToInput;
 
 // clear the name input field
 ui.clearInputButton.addEventListener('click', () => {
-  ui.input.value = '';
   // setCursorPosition();
+  ui.input.value = '';
+  checkDuplicatedNames(ui.input.value);
 });
 
 ui.downloadButton.addEventListener('click', () => {

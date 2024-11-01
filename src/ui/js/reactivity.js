@@ -1,6 +1,7 @@
 // ====== REACTIVITY FUNCTIONS ======
 // Might be that some reactivity functions are living in window.onmessage();
 
+import { checkDuplicatedNames } from './_helpers/checkDuplicatedNames';
 import * as ui from './_helpers/ui-elements';
 
 // enable / disable scaling option if not supported by the selected file format
@@ -16,7 +17,7 @@ const showScaling = (e) => {
 window.showScaling = showScaling;
 
 ui.frameSizeOption.addEventListener('click', () => {
-  if(ui.exportFrameSize.checked) {
+  if (ui.exportFrameSize.checked) {
     ui.objectSize.removeAttribute('class', 'text-selected');
     ui.frameSize.setAttribute('class', 'text-selected');
   } else {
@@ -27,7 +28,7 @@ ui.frameSizeOption.addEventListener('click', () => {
 
 // set blinking cursor position, based on text length
 const setCursorPosition = (value) => {
-  if(value) {
+  if (value) {
     ui.cursor.style.left = value + 20;
   } else {
     ui.cursor.style.left = 0;
@@ -37,12 +38,6 @@ const setCursorPosition = (value) => {
 document.addEventListener('DOMContentLoaded', () => {
   const textLengthHelper = document.getElementById('text-length-helper');
   setCursorPosition();
-
-  ui.input.addEventListener('keydown', () => {
-    textLengthHelper.textContent = ui.input.value;
-    var textWidth = textLengthHelper.clientWidth;
-    // setCursorPosition(textWidth);
-  });
 });
 
 export {

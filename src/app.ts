@@ -3,6 +3,7 @@ import { parentSize } from './modules/parentSize-module';
 import { fileFormat } from './modules/fileFormat-module';
 import { preview } from './modules/preview-module';
 import Store from './modules/store-module'
+import addSuffixToDuplicates from './modules/duplicates-module';
 
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
@@ -114,7 +115,8 @@ figma.ui.onmessage = (msg: string) => {
       }
 
       // Start the next step by providing config+image information to the frontend
-      figma.ui.postMessage({ type: '02-export-bundle', exportBundle });
+      const checkedExportBundle = addSuffixToDuplicates(exportBundle, 'name');
+      figma.ui.postMessage({ type: '02-export-bundle', exportBundle: checkedExportBundle });
       exportBundle = [];
     })();
   } else if (Msg.type === 'resize') {

@@ -17,6 +17,7 @@ const body = document.querySelector('body');
 const controls = document.getElementById('controls');
 const collapsed = document.getElementById('collapsed');
 const expanded = document.getElementById('expanded');
+const notification = document.getElementById('notification');
 
 export {
   downloadButton,
@@ -37,5 +38,6 @@ export {
   body,
   controls,
   collapsed,
-  expanded
+  expanded,
+  notification
 }
