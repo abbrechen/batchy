@@ -18,3 +18,8 @@
     cursor: not-allowed;
   }
 }
+
+@mixin background {
+  background-color: var(--bg-02);
+  border-radius: var(--radius-m);
+}

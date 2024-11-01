@@ -7,14 +7,9 @@
 body {
   @include font-body;
   background-color: var(--bg-01);
-  // padding: 32px;
+  padding: 20px 58px;
   position: relative;
   accent-color: var(--accent);
-  display: grid;
-  grid-template-columns: 1fr 0.1fr 3fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 12px;
-  grid-row-gap: 0px;
 }
 
 body, button, input {
@@ -34,13 +29,7 @@ button {
 }
 
 main {
-  padding: 24px 0 0 48px;
-}
-
-select {
-  &:hover {
-    @include hover;
-  }
+  padding: 24px 48px 0 48px;
 }
 
 h2 {
@@ -69,7 +58,11 @@ select {
   background: none;
   // background-color: var(--surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-s);
   padding: 4px 12px;
+  &:hover {
+    @include hover;
+  }
 }
 
 a {

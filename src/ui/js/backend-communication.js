@@ -26,11 +26,11 @@ window.onmessage = (msg) => {
       // ui.downloadButton.style.opacity = 1;
       ui.downloadButton.removeAttribute('disabled', '');
       ui.downloadButton.setAttribute('class', 'download-button');
-      ui.downloadButton.innerHTML = 'Download LIVE selections';
+      ui.downloadButton.innerHTML = 'Download <span class="highlight">LIVE</span> selections';
     } else if(isSelectionEmpty && !isSelectionListEmpty) {
       ui.downloadButton.removeAttribute('disabled', '');
       ui.downloadButton.setAttribute('class', 'download-button');
-      ui.downloadButton.innerHTML = 'Download LIST selections';
+      ui.downloadButton.innerHTML = 'Download <span class="highlight">LIST</span> selections';
     }
   } else if (m.type === 'user') {
     ui.username.innerHTML = m.user;

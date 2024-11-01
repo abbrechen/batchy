@@ -11,35 +11,48 @@ import Store from './js/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   ui.input.focus();
+
+  // sends the body size to the backend to generate dynamic window dimensions
+  const pluginMessage = JSON.stringify({
+    type: 'body-size',
+    bodyWidth: ui.body.offsetWidth,
+    bodyHeight: ui.body.offsetHeight
+  })
+  parent.postMessage({
+    pluginMessage
+  }, '*');
 });
 
 document.addEventListener('keydown', () => {
   ui.input.focus();
 });
 
-let exportBarOpen = true;
+let controls = true;
 // toggle click to show/hide the export options bar
 ui.toggleBarItem.addEventListener('click', () => {
-  let pluginMessage = JSON.stringify({
-    type: 'resize',
-    subtract: ui.optionsBar.offsetWidth
-  })
-  if (exportBarOpen) {
-    ui.optionsBar.style.display = 'none';
-    ui.body.style.gridTemplateColumns = '0.1fr 3fr';
-    ui.toggleBarItem.style.transform = 'scale(-100%)';
-    ui.toggleBarItem.style.marginLeft = '24px';
-    ui.toggleBarItem.classList.add('collapsed');
-    ui.toggleBarItem.classList.remove('expanded');
+  let pluginMessage;
+  // ui.body.style.display = 'flex';
+  // ui.body.style.flexDirection = 'column';
+  if (controls) {
+    pluginMessage = JSON.stringify({
+      type: 'resize',
+      subtract: -ui.controls.offsetHeight,
+    })
+
+    ui.controls.style.display = 'none';
+    ui.expanded.style.display = 'block';
+    ui.collapsed.style.display = 'none';
   } else {
-    ui.optionsBar.style.display = 'block';
-    ui.body.style.gridTemplateColumns = '1fr 0.1fr 3fr';
-    ui.toggleBarItem.style.transform = 'scale(100%)';
-    ui.toggleBarItem.style.marginLeft = '0';
-    ui.toggleBarItem.classList.remove('collapsed');
-    ui.toggleBarItem.classList.add('expanded');
+    pluginMessage = JSON.stringify({
+      type: 'resize',
+      subtract: ui.controls.offsetHeight,
+    })
+
+    ui.controls.style.display = 'grid';
+    ui.expanded.style.display = 'none';
+    ui.collapsed.style.display = 'block';
   }
-  exportBarOpen = !exportBarOpen;
+  controls = !controls;
   parent.postMessage({
     pluginMessage
   }, '*');

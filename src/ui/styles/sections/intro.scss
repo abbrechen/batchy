@@ -1,0 +1,23 @@
+.intro-section {
+  position: relative;
+  user-select: none;
+}
+
+.intro {
+  padding: 24px;
+}
+
+/* === EXPAND/COLLAPSE START === */
+
+#expanded {
+  display: none;
+}
+
+#toggleBarItem {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: context-menu;
+}
+
+/* === EXPAND/COLLAPSE END === */

@@ -63,7 +63,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
           x = node.x;
           y = node.y;
         }
-        console.log(`${node.name}, x: ${x}, y: ${y}`)
+        // console.log(`${node.name}, x: ${x}, y: ${y}`)
       }
       node = node.parent as SceneNode;
     }

@@ -5,58 +5,22 @@
 @import "./styles/animations";
 @import "./styles/tags";
 @import "./styles/sections";
+@import "./styles/sections/controls";
+@import "./styles/sections/intro";
+@import "./styles/sections/name";
+@import "./styles/sections/download";
+@import "./styles/sections/input";
 
-[class$="-area"] {
-  margin-bottom: 32px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
+// [class$="-area"] {
+//   margin-bottom: 32px;
+//   &:last-child {
+//     margin-bottom: 0;
+//   }
+// }
 
 .terminal-decoration {
   margin-right: 20px;
-}
-
-.options-area {
-  > div {
-    margin: 0 0 32px 0;
-    &:last-child {
-      margin-bottom: 0;
-    }
-    // > label {
-    //   margin: 0 0 16px 0;
-    //   display: flex;
-    // }
-    input[type="radio"] {
-      /* The native appearance is hidden */
-      appearance: none;
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border: 1px solid var(--secondary);
-      position: relative;
-      &:checked {
-        &::after {
-          position: absolute;
-          content: "";
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 8px;
-          height: 8px;
-          background-color: var(--accent);
-        }
-      }
-    }
-  }
-}
-
-.radio-list-item {
-  display: flex;
-  align-items: center;
-  input {
-    margin-right: 4px;
-  }
+  width: 16px;
 }
 
 /* === INTRO START === */
@@ -112,7 +76,7 @@
     padding: 8px 12px;
     margin-right: 8px;
     text-align: center;
-    border-radius: 18px;
+    border-radius: var(--radius-s);
     // background-color: var(--surface);
     // @for $i from 0 to 4 {
     //   &:nth-child(#{$i}) {

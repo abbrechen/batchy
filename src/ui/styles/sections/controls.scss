@@ -1,0 +1,88 @@
+.controls-section {
+  display: grid;
+  height: 260px;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  // grid-row-gap: 20px;
+}
+
+.export-area, .settings-area {
+  @include background;
+  padding: 24px;
+}
+
+.export-area {
+  // border: 1px solid gray;
+  > button {
+    @include button-primary;
+    padding: 0 16px;
+    margin: 0 0 12px 0;
+    width: 100%;
+  }
+  ul {
+    height: 90px;
+    overflow-y: auto;
+    > div {
+      display: flex;
+      margin-bottom: 4px;
+      align-items: center;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      > button {
+        margin: 1px 0;
+        &:hover {
+          margin: 0;
+        }
+      }
+    }
+    li {
+      margin-right: 12px;
+      &:hover {
+        text-decoration: line-through;
+        color: var(--warning-hover);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.options-area {
+  display: flex;
+  > div {
+    margin-right: 48px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  input[type="radio"] {
+    /* The native appearance is hidden */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--secondary);
+    position: relative;
+    &:checked {
+      &::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent);
+      }
+    }
+  }
+}
+
+.radio-list-item {
+  display: flex;
+  align-items: center;
+  input {
+    margin-right: 4px;
+  }
+}

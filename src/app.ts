@@ -14,8 +14,11 @@ import Store from './modules/store-module'
 
 // This shows the HTML page in "ui.html".
 
-let uiWidth = 968;
-let uiHeight = 700;
+// Can I receive the DOM body size to use it for the plugin window?
+// That way, the window would be dynamic
+
+let uiWidth = 953;
+let uiHeight = 642;
 
 figma.showUI(__html__, {
   themeColors: true,
@@ -89,7 +92,6 @@ figma.ui.onmessage = (msg: string) => {
       if (selectionList.length > 0 && isSelectionEmpty) {
         selection = selectionList;
       } else {
-        console.log('PING')
         selection = figma.currentPage.selection;
       }
       // get the image binary data
@@ -116,7 +118,7 @@ figma.ui.onmessage = (msg: string) => {
       exportBundle = [];
     })();
   } else if (Msg.type === 'resize') {
-    figma.ui.resize(uiWidth - Msg.subtract, uiHeight);
+    figma.ui.resize(uiWidth, uiHeight + Msg.subtract);
   } else if (Msg.type === 'add-to-selection-list') {
     const selection = figma.currentPage.selection;
     // let list = preview(selection);
@@ -155,6 +157,11 @@ figma.ui.onmessage = (msg: string) => {
     } else {
       console.error('no selection list items')
     }
+  } else if (Msg.type === 'body-size') {
+    // receives the body size to generate dynamic window dimensions
+    uiWidth = Msg.bodyWidth;
+    uiHeight = Msg.bodyHeight + 10
+    figma.ui.resize(uiWidth, uiHeight);
   } else {
     console.error(`unknown onmessage type "${Msg.type}"`);
   }
