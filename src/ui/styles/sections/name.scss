@@ -9,6 +9,7 @@
   // transform: translateX(-36px);
   @include background;
   padding: 24px;
+  position: relative;
   pre {
     font-size: var(--fs-display);
     color: var(--headline);

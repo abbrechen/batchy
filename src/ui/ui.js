@@ -38,19 +38,21 @@ ui.toggleBarItem.addEventListener('click', () => {
   if (controls) {
     pluginMessage = JSON.stringify({
       type: 'resize',
-      subtract: -ui.controls.offsetHeight,
+      subtract: -(ui.controls.offsetHeight + ui.introSection.offsetHeight),
     })
 
     ui.controls.style.display = 'none';
+    ui.introSection.style.display = 'none';
     ui.expanded.style.display = 'block';
     ui.collapsed.style.display = 'none';
   } else {
     pluginMessage = JSON.stringify({
       type: 'resize',
-      subtract: ui.controls.offsetHeight,
+      subtract: ui.controls.offsetHeigh + ui.introSection.offsetHeight,
     })
 
     ui.controls.style.display = 'grid';
+    ui.introSection.style.display = 'block';
     ui.expanded.style.display = 'none';
     ui.collapsed.style.display = 'block';
   }

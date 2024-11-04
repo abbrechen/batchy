@@ -175,3 +175,19 @@ input:checked + .slider:before {
   animation: blink 1s step-end infinite;
 }
 /* === FAKE CURSOR STUFF END === */
+
+
+/* === EXPAND/COLLAPSE START === */
+
+#expanded {
+  display: none;
+}
+
+#toggleBarItem {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  cursor: context-menu;
+}
+
+/* === EXPAND/COLLAPSE END === */
