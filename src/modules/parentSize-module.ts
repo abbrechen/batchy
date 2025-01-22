@@ -19,7 +19,9 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
       const clone = selection[index].clone();
       const newFrame = figma.createFrame();
       newFrame.resize(parent.width, parent.height);
+
       // frame position is somewhere in the nowhere, so there is no visual appear/disappear on the canvas for the user
+      newFrame.name = 'TEMPORARY FRAME';
       newFrame.x = -99999;
       newFrame.y = -99999;
       newFrame.fills = [];
@@ -30,7 +32,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
       var bytes = await newFrame.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
-      newFrame.remove();
+      // newFrame.remove();
 
       return bytes; // Await the async function
 
@@ -41,7 +43,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
 
   // Identify the top-level parent of the selected item
   function getMainParent(node: SceneNode): SceneNode | null {
-    while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP')) {
+    while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP' || node.parent.type === 'COMPONENT' || node.parent.type === 'INSTANCE')) {
       node = node.parent;
     }
     // If the node.parent is a PAGE or undefined, then node is the top-level parent
@@ -56,7 +58,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
     while (node && node !== topLevelParent) {
       if ('x' in node && 'y' in node) {
         // = works for groups and += for frames
-        if (node.type === 'FRAME') {
+        if (node.type === 'FRAME' || node.type === 'INSTANCE') {
           x += node.x;
           y += node.y;
         } else {

@@ -19,6 +19,26 @@
 //   }
 // }
 
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--text);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 .terminal-decoration {
   margin-right: 20px;
   width: 16px;
