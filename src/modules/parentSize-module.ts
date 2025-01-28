@@ -16,20 +16,78 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
     if (parent) {
       // console.log(`Layer ${selection[index].name} is in top-level frame/section: ${parent.name}`);
       const positionInParent = getRelativePosition(selection[index], parent);
-      const clone = selection[index].clone();
-      const newFrame = figma.createFrame();
-      newFrame.resize(parent.width, parent.height);
+      const selectionClone = selection[index].clone();
+      const parentClone: any = parent.clone();
+      // const newFrame = figma.createFrame();
+      // newFrame.resize(parent.width, parent.height);
 
-      // frame position is somewhere in the nowhere, so there is no visual appear/disappear on the canvas for the user
-      newFrame.name = 'TEMPORARY FRAME';
-      newFrame.x = -99999;
-      newFrame.y = -99999;
-      newFrame.fills = [];
-      newFrame.appendChild(clone);
-      clone.x = positionInParent.x;
-      clone.y = positionInParent.y;
+      // frame position is somewhere in the nowhere, so there is no visual appearance/disappearance for the user on the canvas
+      // newFrame.name = 'TEMPORARY FRAME';
+      // newFrame.x = -99999;
+      // newFrame.y = -99999;
+      // newFrame.fills = [];
+      // newFrame.appendChild(selectionClone);
+      // selectionClone.x = positionInParent.x;
+      // selectionClone.y = positionInParent.y;
 
-      var bytes = await newFrame.exportAsync(exportSettings);
+      parentClone.name = 'TEMPORARY FRAME';
+      parentClone.x = -99999;
+      parentClone.y = -99999;
+
+      for(let i = 0; i < parentClone.children.length; i++) {
+        parentClone.children[i].remove();
+      }
+
+      // if(parentClone.type === 'INSTANCE') {
+      //   parentClone.detachInstance();
+      // }
+
+          // if (parentClone.type === 'INSTANCE') {
+
+    //   parentClone.detachInstance()
+
+    //   // @ts-ignore
+    //   for(let i = 0; i < parentClone.children.length; i++) {
+        
+    //     // @ts-ignore
+    //     parentClone.children[i].remove();
+    //   }
+    // }
+
+      parentClone.appendChild(selectionClone);
+      selectionClone.x = positionInParent.x;
+      selectionClone.y = positionInParent.y;
+
+      console.log(selectionClone.name)
+
+      parentClone.fills = [];
+      parentClone.strokes = [];
+      parentClone.effects = [];
+      parentClone.blendMode= 'PASS_THROUGH';
+      parentClone.layoutMode = 'NONE';
+
+      /*
+      Idee für top-level frame export mit variable modes
+      1. Clone selection
+      2. Clone top level
+      3. Paste top level on -9999
+      4. remove all content in top-level
+      5. clear all properties in top-level
+        5.1 fills
+        5.2 strokes
+        5.3 effects
+        5.4 blend mode
+        5.5 opacity
+        5.6 layout
+      6. paste selection in top level
+      */
+
+      // newFrame.appendChild(parentClone);
+      // parentClone.x = 0;
+      // parentClone.y = 0;
+
+      // var bytes = await newFrame.exportAsync(exportSettings);
+      var bytes = await parentClone.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
       // newFrame.remove();
