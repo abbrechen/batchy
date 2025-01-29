@@ -51,7 +51,6 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
       parentClone.blendMode= 'PASS_THROUGH';
       parentClone.layoutMode = 'NONE';
 
-      // var bytes = await newFrame.exportAsync(exportSettings);
       var bytes = await parentClone.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
