@@ -13,84 +13,49 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
 
     // settings = await fileFormat(exportSettings.format, exportSettings.scaling);
 
+    /*
+    Some words for the following if parent process. It might be confusing why there is this
+    clone and removal process instead of creating a new frame and pasting the selection in it.
+    Unfortunately, the Figma API (date: Jan 2025) is not providing information about a frames appearance.
+    This means I cannot determine an obects active variable mode, which is needed for the
+    correct appearance of the selection in its parent for the parent size export.
+    */
     if (parent) {
       // console.log(`Layer ${selection[index].name} is in top-level frame/section: ${parent.name}`);
       const positionInParent = getRelativePosition(selection[index], parent);
       const selectionClone = selection[index].clone();
-      const parentClone: any = parent.clone();
-      // const newFrame = figma.createFrame();
-      // newFrame.resize(parent.width, parent.height);
+      let parentClone: any = parent.clone();
 
       // frame position is somewhere in the nowhere, so there is no visual appearance/disappearance for the user on the canvas
-      // newFrame.name = 'TEMPORARY FRAME';
-      // newFrame.x = -99999;
-      // newFrame.y = -99999;
-      // newFrame.fills = [];
-      // newFrame.appendChild(selectionClone);
-      // selectionClone.x = positionInParent.x;
-      // selectionClone.y = positionInParent.y;
-
       parentClone.name = 'TEMPORARY FRAME';
       parentClone.x = -99999;
       parentClone.y = -99999;
 
-      for(let i = 0; i < parentClone.children.length; i++) {
-        parentClone.children[i].remove();
-      }
+      // instances need to be detached to remove the children in the next step
+      parentClone = parentClone.type === 'INSTANCE' ? parentClone.detachInstance() : parentClone;
 
-      // if(parentClone.type === 'INSTANCE') {
-      //   parentClone.detachInstance();
-      // }
+      // remove all children, before placing the selection.
+      parentClone.children.forEach((child: SceneNode, i: number) => {
+        child.remove();
+      });
 
-          // if (parentClone.type === 'INSTANCE') {
-
-    //   parentClone.detachInstance()
-
-    //   // @ts-ignore
-    //   for(let i = 0; i < parentClone.children.length; i++) {
-        
-    //     // @ts-ignore
-    //     parentClone.children[i].remove();
-    //   }
-    // }
-
+      // placing the selection in its parent with the relative position
       parentClone.appendChild(selectionClone);
       selectionClone.x = positionInParent.x;
       selectionClone.y = positionInParent.y;
 
-      console.log(selectionClone.name)
-
+      // clean-up the parent styles that might effect the export
       parentClone.fills = [];
       parentClone.strokes = [];
       parentClone.effects = [];
       parentClone.blendMode= 'PASS_THROUGH';
       parentClone.layoutMode = 'NONE';
 
-      /*
-      Idee für top-level frame export mit variable modes
-      1. Clone selection
-      2. Clone top level
-      3. Paste top level on -9999
-      4. remove all content in top-level
-      5. clear all properties in top-level
-        5.1 fills
-        5.2 strokes
-        5.3 effects
-        5.4 blend mode
-        5.5 opacity
-        5.6 layout
-      6. paste selection in top level
-      */
-
-      // newFrame.appendChild(parentClone);
-      // parentClone.x = 0;
-      // parentClone.y = 0;
-
       // var bytes = await newFrame.exportAsync(exportSettings);
       var bytes = await parentClone.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
-      // newFrame.remove();
+      parentClone.remove();
 
       return bytes; // Await the async function
 
