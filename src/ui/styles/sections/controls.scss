@@ -10,6 +10,7 @@
 .export-area, .settings-area {
   @include background;
   padding: 24px;
+  width: 100%;
 }
 
 .export-area {
@@ -29,6 +30,9 @@
       align-items: center;
       &:last-child {
         margin-bottom: 0;
+      }
+      &:nth-child(2n) {
+        opacity: 0.5;
       }
       > button {
         margin: 1px 0;
@@ -51,7 +55,7 @@
 .options-area {
   display: flex;
   > div {
-    margin-right: 48px;
+    margin-right: 32px;
     &:last-child {
       margin-right: 0;
     }

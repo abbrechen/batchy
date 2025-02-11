@@ -13,24 +13,48 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
 
     // settings = await fileFormat(exportSettings.format, exportSettings.scaling);
 
+    /*
+    Some words for the following if parent process. It might be confusing why there is this
+    clone and removal process instead of creating a new frame and pasting the selection in it.
+    Unfortunately, the Figma API (date: Jan 2025) is not providing information about a frames appearance.
+    This means I cannot determine an obects active variable mode, which is needed for the
+    correct appearance of the selection in its parent for the parent size export.
+    */
     if (parent) {
       // console.log(`Layer ${selection[index].name} is in top-level frame/section: ${parent.name}`);
       const positionInParent = getRelativePosition(selection[index], parent);
-      const clone = selection[index].clone();
-      const newFrame = figma.createFrame();
-      newFrame.resize(parent.width, parent.height);
-      // frame position is somewhere in the nowhere, so there is no visual appear/disappear on the canvas for the user
-      newFrame.x = -99999;
-      newFrame.y = -99999;
-      newFrame.fills = [];
-      newFrame.appendChild(clone);
-      clone.x = positionInParent.x;
-      clone.y = positionInParent.y;
+      const selectionClone = selection[index].clone();
+      let parentClone: any = parent.clone();
 
-      var bytes = await newFrame.exportAsync(exportSettings);
+      // frame position is somewhere in the nowhere, so there is no visual appearance/disappearance for the user on the canvas
+      parentClone.name = 'TEMPORARY FRAME';
+      parentClone.x = -99999;
+      parentClone.y = -99999;
+
+      // instances need to be detached to remove the children in the next step
+      parentClone = parentClone.type === 'INSTANCE' ? parentClone.detachInstance() : parentClone;
+
+      // remove all children, before placing the selection.
+      parentClone.children.forEach((child: SceneNode, i: number) => {
+        child.remove();
+      });
+
+      // placing the selection in its parent with the relative position
+      parentClone.appendChild(selectionClone);
+      selectionClone.x = positionInParent.x;
+      selectionClone.y = positionInParent.y;
+
+      // clean-up the parent styles that might effect the export
+      parentClone.fills = [];
+      parentClone.strokes = [];
+      parentClone.effects = [];
+      parentClone.blendMode= 'PASS_THROUGH';
+      parentClone.layoutMode = 'NONE';
+
+      var bytes = await parentClone.exportAsync(exportSettings);
 
       // Remove the new frame after exporting
-      newFrame.remove();
+      parentClone.remove();
 
       return bytes; // Await the async function
 
@@ -41,7 +65,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
 
   // Identify the top-level parent of the selected item
   function getMainParent(node: SceneNode): SceneNode | null {
-    while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP')) {
+    while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP' || node.parent.type === 'COMPONENT' || node.parent.type === 'INSTANCE')) {
       node = node.parent;
     }
     // If the node.parent is a PAGE or undefined, then node is the top-level parent
@@ -56,7 +80,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
     while (node && node !== topLevelParent) {
       if ('x' in node && 'y' in node) {
         // = works for groups and += for frames
-        if (node.type === 'FRAME') {
+        if (node.type === 'FRAME' || node.type === 'INSTANCE') {
           x += node.x;
           y += node.y;
         } else {
