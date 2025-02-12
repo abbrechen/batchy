@@ -19,21 +19,21 @@ window.onmessage = (msg) => {
     const isSelectionListEmpty = m.isSelectionListEmpty;
     if (isSelectionEmpty && isSelectionListEmpty) {
       // ui.downloadButton.style.opacity = 0.5;
-      ui.downloadButton.removeAttribute('class', 'download-button');
+      // ui.downloadButton.removeAttribute('class', 'download-button');
       ui.downloadButton.setAttribute('disabled', '');
       ui.downloadButton.innerHTML = 'Select layers to download them or add them to the list';
     } else if(!isSelectionEmpty) {
       // ui.downloadButton.style.opacity = 1;
       ui.downloadButton.removeAttribute('disabled', '');
-      ui.downloadButton.setAttribute('class', 'download-button');
+      // ui.downloadButton.setAttribute('class', 'download-button');
       ui.downloadButton.innerHTML = 'Download <span class="highlight">LIVE</span> selections';
     } else if(isSelectionEmpty && !isSelectionListEmpty) {
       ui.downloadButton.removeAttribute('disabled', '');
-      ui.downloadButton.setAttribute('class', 'download-button');
+      // ui.downloadButton.setAttribute('class', 'download-button');
       ui.downloadButton.innerHTML = 'Download <span class="highlight">LIST</span> selections';
     }
   } else if (m.type === 'user') {
-    ui.username.innerHTML = m.user;
+    // ui.username.innerHTML = m.user;
   } else if (m.type === 'receive-preview') {
     const listEl = ui.selectionList;
     while (listEl.firstChild) {
@@ -48,9 +48,9 @@ window.onmessage = (msg) => {
       li.setAttribute('onclick', 'deleteSelf(this)');
       li.setAttribute('id', el.id);
       li.innerHTML = el.name;
-      btn.innerHTML = '>';
-      wrapper.appendChild(li);
+      btn.innerHTML = '<';
       wrapper.appendChild(btn);
+      wrapper.appendChild(li);     
       btn.setAttribute('onclick', `goToLayer('${el.id}')`)
       listEl.appendChild(wrapper);
     });

@@ -11,6 +11,7 @@
 @import "./styles/sections/download";
 @import "./styles/sections/input";
 @import "./styles/notification";
+@import "./styles/buttons";
 
 // [class$="-area"] {
 //   margin-bottom: 32px;
@@ -66,26 +67,6 @@
   }
 }
 /* === INTRO END === */
-
-.banner {
-  position: absolute;
-  z-index: 99;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--accent-01);
-  a {
-    color: var(--surface);
-    width: 100%;
-    text-align: center;
-  }
-}
 
 
 /* === CHIPS START === */

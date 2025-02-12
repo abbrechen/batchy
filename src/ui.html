@@ -7,164 +7,108 @@
 </head>
 
 <body>
-  <div id="toggleBarItem" title="Focus mode">
-      <svg id="collapsed" class="collapsed" width="25" height="24" viewBox="0 0 25 24" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <mask id="mask0_189_44" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
-          <rect x="0.23291" width="24" height="24" fill="#D9D9D9" />
-        </mask>
-        <g mask="url(#mask0_189_44)">
-          <path d="M11.2329 13V19H9.23291V15H5.23291V13H11.2329ZM15.2329 5V9H19.2329V11H13.2329V5H15.2329Z"
-            fill="white" />
-        </g>
-      </svg>
-      <svg id="expanded" class="expanded" width="25" height="25" viewBox="0 0 25 25" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <mask id="mask0_189_50" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
-          <rect x="0.23291" y="0.426086" width="24" height="24" fill="#D9D9D9" />
-        </mask>
-        <g mask="url(#mask0_189_50)">
-          <path
-            d="M5.23291 19.4261V13.4261H7.23291V17.4261H11.2329V19.4261H5.23291ZM17.2329 11.4261V7.42609H13.2329V5.42609H19.2329V11.4261H17.2329Z"
-            fill="white" />
-        </g>
-      </svg>
-    </div>
   <div id="notification" class="notification"></div>
-  <section id="intro-section" class="intro-section">
-    <ul class="intro">
-      <li>
-        <span>
-          <!-- <div class="inset-box"></div>
-          <div class="inset-box">
-            <svg width="17" height="7" viewBox="0 0 17 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0.542614 6.09091C0.519886 4.83333 0.724432 3.82197 1.15625 3.05682C1.58807 2.29167 2.14867 1.73485 2.83807 1.38636C3.53504 1.03788 4.26989 0.863636 5.04261 0.863636C5.81534 0.863636 6.51989 1.03409 7.15625 1.375C7.80019 1.70833 8.53504 2.23485 9.3608 2.95455C9.9214 3.43939 10.3684 3.7803 10.7017 3.97727C11.0426 4.17424 11.4138 4.27273 11.8153 4.27273C12.4669 4.27273 12.982 4.03788 13.3608 3.56818C13.7396 3.09091 13.9214 2.40151 13.9062 1.5H16.3608C16.3835 2.75758 16.179 3.76894 15.7472 4.53409C15.3229 5.29924 14.7623 5.85606 14.0653 6.20455C13.3684 6.55303 12.6335 6.72727 11.8608 6.72727C11.0881 6.72727 10.3835 6.56061 9.74716 6.22727C9.1108 5.88636 8.37595 5.35606 7.54261 4.63636C6.98958 4.15152 6.54261 3.81061 6.2017 3.61364C5.8608 3.41667 5.48958 3.31818 5.08807 3.31818C4.47443 3.31818 3.96686 3.53409 3.56534 3.96591C3.1714 4.39015 2.98201 5.09848 2.99716 6.09091H0.542614Z"
-                fill="#40C5D1" />
-            </svg>
-          </div> -->
-          <!-- <span class="terminal-decoration"></span>
-          <svg class="terminal-decoration" width="17" height="7" viewBox="0 0 17 7" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0.542614 6.09091C0.519886 4.83333 0.724432 3.82197 1.15625 3.05682C1.58807 2.29167 2.14867 1.73485 2.83807 1.38636C3.53504 1.03788 4.26989 0.863636 5.04261 0.863636C5.81534 0.863636 6.51989 1.03409 7.15625 1.375C7.80019 1.70833 8.53504 2.23485 9.3608 2.95455C9.9214 3.43939 10.3684 3.7803 10.7017 3.97727C11.0426 4.17424 11.4138 4.27273 11.8153 4.27273C12.4669 4.27273 12.982 4.03788 13.3608 3.56818C13.7396 3.09091 13.9214 2.40151 13.9062 1.5H16.3608C16.3835 2.75758 16.179 3.76894 15.7472 4.53409C15.3229 5.29924 14.7623 5.85606 14.0653 6.20455C13.3684 6.55303 12.6335 6.72727 11.8608 6.72727C11.0881 6.72727 10.3835 6.56061 9.74716 6.22727C9.1108 5.88636 8.37595 5.35606 7.54261 4.63636C6.98958 4.15152 6.54261 3.81061 6.2017 3.61364C5.8608 3.41667 5.48958 3.31818 5.08807 3.31818C4.47443 3.31818 3.96686 3.53409 3.56534 3.96591C3.1714 4.39015 2.98201 5.09848 2.99716 6.09091H0.542614Z"
-              fill="#40C5D1" />
-          </svg> -->
-        </span>
-        > Nice to see you, <span id="username"></span>!
-      </li>
-      <li>
-        <span>
-          <!-- <div class="inset-box"></div>
-          <div class="inset-box">
-            <svg width="17" height="7" viewBox="0 0 17 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0.542614 6.09091C0.519886 4.83333 0.724432 3.82197 1.15625 3.05682C1.58807 2.29167 2.14867 1.73485 2.83807 1.38636C3.53504 1.03788 4.26989 0.863636 5.04261 0.863636C5.81534 0.863636 6.51989 1.03409 7.15625 1.375C7.80019 1.70833 8.53504 2.23485 9.3608 2.95455C9.9214 3.43939 10.3684 3.7803 10.7017 3.97727C11.0426 4.17424 11.4138 4.27273 11.8153 4.27273C12.4669 4.27273 12.982 4.03788 13.3608 3.56818C13.7396 3.09091 13.9214 2.40151 13.9062 1.5H16.3608C16.3835 2.75758 16.179 3.76894 15.7472 4.53409C15.3229 5.29924 14.7623 5.85606 14.0653 6.20455C13.3684 6.55303 12.6335 6.72727 11.8608 6.72727C11.0881 6.72727 10.3835 6.56061 9.74716 6.22727C9.1108 5.88636 8.37595 5.35606 7.54261 4.63636C6.98958 4.15152 6.54261 3.81061 6.2017 3.61364C5.8608 3.41667 5.48958 3.31818 5.08807 3.31818C4.47443 3.31818 3.96686 3.53409 3.56534 3.96591C3.1714 4.39015 2.98201 5.09848 2.99716 6.09091H0.542614Z"
-                fill="#40C5D1" />
-            </svg>
-          </div> -->
-          <!-- <span class="terminal-decoration"></span>
-          <svg class="terminal-decoration" width="17" height="7" viewBox="0 0 17 7" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0.542614 6.09091C0.519886 4.83333 0.724432 3.82197 1.15625 3.05682C1.58807 2.29167 2.14867 1.73485 2.83807 1.38636C3.53504 1.03788 4.26989 0.863636 5.04261 0.863636C5.81534 0.863636 6.51989 1.03409 7.15625 1.375C7.80019 1.70833 8.53504 2.23485 9.3608 2.95455C9.9214 3.43939 10.3684 3.7803 10.7017 3.97727C11.0426 4.17424 11.4138 4.27273 11.8153 4.27273C12.4669 4.27273 12.982 4.03788 13.3608 3.56818C13.7396 3.09091 13.9214 2.40151 13.9062 1.5H16.3608C16.3835 2.75758 16.179 3.76894 15.7472 4.53409C15.3229 5.29924 14.7623 5.85606 14.0653 6.20455C13.3684 6.55303 12.6335 6.72727 11.8608 6.72727C11.0881 6.72727 10.3835 6.56061 9.74716 6.22727C9.1108 5.88636 8.37595 5.35606 7.54261 4.63636C6.98958 4.15152 6.54261 3.81061 6.2017 3.61364C5.8608 3.41667 5.48958 3.31818 5.08807 3.31818C4.47443 3.31818 3.96686 3.53409 3.56534 3.96591C3.1714 4.39015 2.98201 5.09848 2.99716 6.09091H0.542614Z"
-              fill="#40C5D1" />
-          </svg> -->
-        </span>
-        > Be creative and give your assets dynamic names
-      </li>
-    </ul>
-  </section>
-  <div class="gradient-wrapper">
-  <section class="name-section">
-    <div class="name-area">
-      <pre>
+    <section class="name-section">
+      <div class="name-area">
+        <pre>
         <div>></div>
-        <!-- <svg class="terminal-decoration" width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.67081 13L7.57706 11.9205L12.0799 7.41761H0.417969V5.85511H12.0799L7.57706 1.36648L8.67081 0.272727L15.0344 6.63636L8.67081 13Z" fill="#41C733"/>
-        </svg>
-        <svg class="terminal-decoration" width="17" height="7" viewBox="0 0 17 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.542614 6.09091C0.519886 4.83333 0.724432 3.82197 1.15625 3.05682C1.58807 2.29167 2.14867 1.73485 2.83807 1.38636C3.53504 1.03788 4.26989 0.863636 5.04261 0.863636C5.81534 0.863636 6.51989 1.03409 7.15625 1.375C7.80019 1.70833 8.53504 2.23485 9.3608 2.95455C9.9214 3.43939 10.3684 3.7803 10.7017 3.97727C11.0426 4.17424 11.4138 4.27273 11.8153 4.27273C12.4669 4.27273 12.982 4.03788 13.3608 3.56818C13.7396 3.09091 13.9214 2.40151 13.9062 1.5H16.3608C16.3835 2.75758 16.179 3.76894 15.7472 4.53409C15.3229 5.29924 14.7623 5.85606 14.0653 6.20455C13.3684 6.55303 12.6335 6.72727 11.8608 6.72727C11.0881 6.72727 10.3835 6.56061 9.74716 6.22727C9.1108 5.88636 8.37595 5.35606 7.54261 4.63636C6.98958 4.15152 6.54261 3.81061 6.2017 3.61364C5.8608 3.41667 5.48958 3.31818 5.08807 3.31818C4.47443 3.31818 3.96686 3.53409 3.56534 3.96591C3.1714 4.39015 2.98201 5.09848 2.99716 6.09091H0.542614Z" fill="#40C5D1"/>
-        </svg> -->
     </pre>
-      <div class="name-container">
-        <input type="text" name="nameField" id="name" placeholder="Type name here">
-        <span id="text-length-helper"></span>
-        <span id="cursor"></span>
+        <div class="name-container">
+          <input type="text" name="nameField" id="name" placeholder="Type name here">
+          <span id="text-length-helper"></span>
+          <span id="cursor"></span>
+        </div>
+        <button class="btn-flat" id="clearInput"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2 0H0V2H2V4H4V6H6V8H4V10H2V12H0V14H2V12H4V10H6V8H8V10H10V12H12V14H14V12H12V10H10V8H8V6H10V4H12V2H14V0H12V2H10V4H8V6H6V4H4V2H2V0Z" fill="#D14040"/>
+          </svg>
+          </button>
+        <div id="toggleBarItem" title="Focus mode">
+          <svg id="collapsed" class="collapsed" width="25" height="24" viewBox="0 0 25 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_189_44" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25"
+              height="24">
+              <rect x="0.23291" width="24" height="24" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_189_44)">
+              <path d="M11.2329 13V19H9.23291V15H5.23291V13H11.2329ZM15.2329 5V9H19.2329V11H13.2329V5H15.2329Z"
+                fill="white" />
+            </g>
+          </svg>
+          <svg id="expanded" class="expanded" width="25" height="25" viewBox="0 0 25 25" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_189_50" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25"
+              height="25">
+              <rect x="0.23291" y="0.426086" width="24" height="24" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_189_50)">
+              <path
+                d="M5.23291 19.4261V13.4261H7.23291V17.4261H11.2329V19.4261H5.23291ZM17.2329 11.4261V7.42609H13.2329V5.42609H19.2329V11.4261H17.2329Z"
+                fill="white" />
+            </g>
+          </svg>
+        </div>
       </div>
-      <button id="clearInput">X</button>
-    </div>
-    <div class="syntax-area">
-      <h4>[ Use tags to make your names dynamic ]</h4>
-      <ul class="chips">
-        <li onclick="addTextToInput('{{name}}')">name</li>
-        <li onclick="addTextToInput('{{date}}')">date</li>
-        <li onclick="addTextToInput('{{file}}')">file</li>
-        <li onclick="addTextToInput('{{scaling}}')">scaling</li>
-      </ul>
-    </div>
-  </section>
-</div>
-  <section class="download-section">
+      <div class="syntax-area">
+        <h4>[ Use tags to make your names dynamic ]</h4>
+        <ul class="chips">
+          <li onclick="addTextToInput('{{name}}')">name</li>
+          <li onclick="addTextToInput('{{date}}')">date</li>
+          <li onclick="addTextToInput('{{file}}')">file</li>
+          <li onclick="addTextToInput('{{scaling}}')">scaling</li>
+        </ul>
+      </div>
+    </section>
+<section class="download-section">
     <button id="download-button" class="download-button">Download</button>
   </section>
   <section id="controls" class="controls-section">
-    <div class="gradient-wrapper">
-    <div class="export-area">
-      <h3>Export List</h3>
-      <h4>[ Your list will only be exported if you have no layer selected ]</h4>
-      <button id="selection-list-button" class="selection-list-button">Add selection to list</button>
-      <ul>
-      </ul>
-    </div>
-  </div>
-  <div class="gradient-wrapper">
-    <div class="settings-area">
-      <h3>Settings</h3>
-      <div class="options-area">
-        <div>
-          <h4>[ Date format ]</h4>
-          <select name="dateFormat" id="dateFormat">
-            <option value="date-01">YYMMDD</option>
-            <option value="date-02">YYYY-MM-DD</option>
-            <option value="date-03">DD-MM-YYYY</option>
-            <option value="date-04">MM-DD-YYYY</option>
-          </select>
-        </div>
-        <div>
-          <h4>[ File format ]</h4>
-          <select name="fileFormat" id="fileFormat" onchange="showScaling(this.options[this.selectedIndex].value)">
-            <option value="png">PNG</option>
-            <option value="jpg">JPG</option>
-            <option value="svg">SVG</option>
-            <option value="pdf">PDF</option>
-          </select>
-          <select name="scaling" id="scaling">
-            <option value="scaling-01">x1</option>
-            <option value="scaling-02">x2</option>
-            <option value="scaling-03">x3</option>
-            <option value="scaling-04">x4</option>
-          </select>
-        </div>
-        <div id="frame-size-option">
-          <h4>[ Export in ]</h4>
-          <div class="radio-list-item">
-            <input type="radio" name="exportFrameSize" id="exportObjectSize" checked>
-            <label for="exportObjectSize" id="object-size" class="text-selected">object size</label>
+      <div class="export-area">
+        <h3>Export List</h3>
+        <h4>[ Your list will only be exported if you have no layer selected ]</h4>
+        <button id="selection-list-button" class="selection-list-button">Add selection to list</button>
+        <ul>
+        </ul>
+      </div>
+      <div class="settings-area">
+        <h3>Settings</h3>
+        <div class="options-area">
+          <div>
+            <h4>[ Date format ]</h4>
+            <select name="dateFormat" id="dateFormat">
+              <option value="date-01">YYMMDD</option>
+              <option value="date-02">YYYY-MM-DD</option>
+              <option value="date-03">DD-MM-YYYY</option>
+              <option value="date-04">MM-DD-YYYY</option>
+            </select>
           </div>
-          <div class="radio-list-item">
-            <input type="radio" name="exportFrameSize" id="exportFrameSize">
-            <label for="exportFrameSize" id="frame-size">top-level frame size</label>
+          <div>
+            <h4>[ File format ]</h4>
+            <select name="fileFormat" id="fileFormat" onchange="showScaling(this.options[this.selectedIndex].value)">
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+              <option value="svg">SVG</option>
+              <option value="pdf">PDF</option>
+            </select>
+            <select name="scaling" id="scaling">
+              <option value="scaling-01">x1</option>
+              <option value="scaling-02">x2</option>
+              <option value="scaling-03">x3</option>
+              <option value="scaling-04">x4</option>
+            </select>
+          </div>
+          <div id="frame-size-option">
+            <h4>[ Export in ]</h4>
+            <div class="radio-list-item">
+              <input type="radio" name="exportFrameSize" id="exportObjectSize" checked>
+              <label for="exportObjectSize" id="object-size" class="text-selected">object size</label>
+            </div>
+            <div class="radio-list-item">
+              <input type="radio" name="exportFrameSize" id="exportFrameSize">
+              <label for="exportFrameSize" id="frame-size">top-level frame size</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
   </section>
-  <!-- <div class="banner">
-    <a href="https://github.com/abbrechen/batchy/issues" target="_blank">GIVE ME FEEDBACK</a>
-    </a>
-  </div> -->
 </body>
-
 </html>

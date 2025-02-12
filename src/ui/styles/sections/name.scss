@@ -10,7 +10,6 @@
   @include background;
   padding: 24px;
   position: relative;
-  width: 100%;
   pre {
     font-size: var(--fs-display);
     color: var(--headline);
@@ -53,19 +52,5 @@
   input, #text-length-helper {
     font-size: var(--fs-display);
     @include font-display;
-  }
-  button {
-    width: 24px;
-    height: 24px;
-    color: var(--text-on-warning);
-    background-color: var(--warning);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      cursor: pointer;
-      background-color: var(--warning-hover);
-    }
   }
 }

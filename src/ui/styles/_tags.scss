@@ -7,7 +7,7 @@
 body {
   @include font-body;
   background-color: var(--bg-01);
-  padding: 20px 58px;
+  padding: 20px;
   position: relative;
   accent-color: var(--accent);
 }
@@ -19,13 +19,6 @@ body, button, input {
 
 button, input, input:focus, input:active {
   border: none;
-}
-
-button {
-  background-color: var(--surface);
-  &:hover {
-    @include hover;
-  }
 }
 
 main {
@@ -43,6 +36,7 @@ h3 {
 
 h4 {
   margin: 0 0 16px 0;
+  font-size: var(--fs-conditional);
 }
 
 h2, h4 {
