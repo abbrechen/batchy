@@ -3,6 +3,9 @@
   height: 24px;
   background: none;
   border-radius: 0;
+  display: flex;
+  place-items: center;
+  padding: 2px;
   path {
     fill: var(--text);
   }
@@ -24,11 +27,17 @@ button {
   &:disabled {
     opacity: 0.5;
   }
-  &:hover {
-    @include hover;
+  &:not([disabled]) {
+    &:hover {
+      @include hover;
+    } 
   }
 }
 
 .download-button {
   padding: 22px;
+}
+
+#toggleBarItem {
+  cursor: context-menu;
 }

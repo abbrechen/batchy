@@ -10,6 +10,7 @@ body {
   padding: 20px;
   position: relative;
   accent-color: var(--accent);
+  overflow: hidden; // used to hide the scroll bar that temporarily appears when toggling the options
 }
 
 body, button, input {

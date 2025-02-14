@@ -120,7 +120,7 @@ figma.ui.onmessage = (msg: string) => {
       exportBundle = [];
     })();
   } else if (Msg.type === 'resize') {
-    figma.ui.resize(uiWidth, uiHeight + Msg.subtract);
+    figma.ui.resize(uiWidth, uiHeight + Msg.uiWindowValue);
   } else if (Msg.type === 'add-to-selection-list') {
     const selection = figma.currentPage.selection;
     // let list = preview(selection);

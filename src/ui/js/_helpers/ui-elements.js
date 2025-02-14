@@ -18,7 +18,6 @@ const controls = document.getElementById('controls');
 const collapsed = document.getElementById('collapsed');
 const expanded = document.getElementById('expanded');
 const notification = document.getElementById('notification');
-const introSection = document.getElementById('intro-section');
 
 export {
   downloadButton,
@@ -40,6 +39,5 @@ export {
   controls,
   collapsed,
   expanded,
-  notification,
-  introSection
+  notification
 }

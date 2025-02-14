@@ -33,7 +33,7 @@
         margin-bottom: 0;
       }
       &:nth-child(2n) {
-        opacity: 0.5;
+        opacity: 0.5; // change to a different color
       }
       > button {
         margin: 1px 0;
@@ -74,6 +74,7 @@
     height: 14px;
     border: 1px solid var(--secondary);
     position: relative;
+    border-radius: 4px;
     &:checked {
       &::after {
         position: absolute;
@@ -84,6 +85,7 @@
         width: 8px;
         height: 8px;
         background-color: var(--accent);
+        border-radius: 2px;
       }
     }
   }

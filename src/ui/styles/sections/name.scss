@@ -15,6 +15,11 @@
     color: var(--headline);
     display: flex;
     align-items: center;
+    > div {
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+    }
   }
   // > pre {
   //   font-size: var(--fs-title);
@@ -37,7 +42,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    margin-right: 16px;
+    margin: 0 16px 0 8px;
     position: relative;
   }
   input {
@@ -52,5 +57,11 @@
   input, #text-length-helper {
     font-size: var(--fs-display);
     @include font-display;
+  }
+
+  .name-controls {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;  
   }
 }
