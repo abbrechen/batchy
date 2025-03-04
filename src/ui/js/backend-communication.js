@@ -17,6 +17,9 @@ window.onmessage = (msg) => {
   } else if (m.type === 'selection-empty') {
     const isSelectionEmpty = m.isSelectionEmpty;
     const isSelectionListEmpty = m.isSelectionListEmpty;
+
+    Store.setIsSelectionEmpty(isSelectionEmpty);
+
     if (isSelectionEmpty && isSelectionListEmpty) {
       // ui.downloadButton.style.opacity = 0.5;
       // ui.downloadButton.removeAttribute('class', 'download-button');

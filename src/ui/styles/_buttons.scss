@@ -36,6 +36,10 @@ button {
 
 .download-button {
   padding: 22px;
+  &:disabled {
+    opacity: 1;
+    background-color: transparent;
+  }
 }
 
 #toggleBarItem {

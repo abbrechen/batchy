@@ -1,7 +1,15 @@
 .download-section {
+  position: relative;
   margin: 10px 0;
   // display: flex;
   .highlight {
     color: var(--accent-01);
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
   }
 }
