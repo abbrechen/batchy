@@ -12,6 +12,12 @@
   &:hover {
     background-color: var(--surface);
     path {
+      fill: var(--accent);
+    }
+  }
+  &[id="clearInput"]:hover {
+    cursor: pointer;
+    path {
       fill: var(--warning-01);
     }
   }
@@ -25,9 +31,10 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   &:disabled {
-    opacity: 0.5;
+    background-color: var(--bg-01);
+    cursor: not-allowed;
   }
-  &:not([disabled]) {
+  &:not([disabled]):not(.btn-flat):not(.download-button) {
     &:hover {
       @include hover;
     } 
@@ -36,12 +43,12 @@ button {
 
 .download-button {
   padding: 22px;
+  background-color: transparent;
   &:disabled {
-    opacity: 1;
     background-color: transparent;
   }
 }
 
 #toggleBarItem {
-  cursor: context-menu;
+  cursor: row-resize;
 }

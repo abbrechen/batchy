@@ -4,6 +4,7 @@ import * as rive from "@rive-app/webgl2";
 import { Rive } from "@rive-app/canvas";
 
 import Store from '../store';
+import * as ui from '../_helpers/ui-elements';
 
 /* RIVE */
 // In your plugin's UI code (frontend)
@@ -33,6 +34,7 @@ fetch(downloadButtonRivUrl)
         const okTrigger = inputs.find(i => i.name === 'ok');
         const errorTrigger = inputs.find(i => i.name === 'error');
         const workingTrigger = inputs.find(i => i.name === 'working');
+        let hover = inputs.find(i => i.name === 'hover');
 
         let isSelectionEmpty = null;
         let selectionListLength = 0;
@@ -46,6 +48,14 @@ fetch(downloadButtonRivUrl)
             okTrigger.fire();
           }
         }
+
+        const downloadButton = ui.downloadButton;
+        downloadButton.addEventListener('mouseover', () => {
+          hover.value = true;
+        });
+        downloadButton.addEventListener('mouseout', () => {
+          hover.value = false;
+        });
 
         isSelectionEmpty = Store.getIsSelectionEmpty();
         selectionListLength = Store.getSelectionList().length;
