@@ -64,6 +64,8 @@
     }
   },
   "dependencies": {
+    "@rive-app/canvas": "^2.26.3",
+    "@rive-app/webgl2": "^2.26.4",
     "@types/jszip": "^3.4.1",
     "@zip.js/zip.js": "^2.7.40",
     "adm-zip": "^0.5.12",

@@ -30,29 +30,26 @@ document.addEventListener('keydown', () => {
 });
 
 let controls = true;
-// toggle click to show/hide the export options bar
+// toggle click to show/hide the options
 ui.toggleBarItem.addEventListener('click', () => {
   let pluginMessage;
-  // ui.body.style.display = 'flex';
-  // ui.body.style.flexDirection = 'column';
   if (controls) {
     pluginMessage = JSON.stringify({
       type: 'resize',
-      subtract: -(ui.controls.offsetHeight + ui.introSection.offsetHeight),
+      uiWindowValue: -ui.controls.offsetHeight,
     })
 
     ui.controls.style.display = 'none';
-    ui.introSection.style.display = 'none';
     ui.expanded.style.display = 'block';
     ui.collapsed.style.display = 'none';
+
   } else {
     pluginMessage = JSON.stringify({
       type: 'resize',
-      subtract: ui.controls.offsetHeigh + ui.introSection.offsetHeight,
+      uiWindowValue: ui.controls.offsetHeight,
     })
 
     ui.controls.style.display = 'grid';
-    ui.introSection.style.display = 'block';
     ui.expanded.style.display = 'none';
     ui.collapsed.style.display = 'block';
   }

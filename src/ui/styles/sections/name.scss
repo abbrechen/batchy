@@ -10,12 +10,16 @@
   @include background;
   padding: 24px;
   position: relative;
-  width: 100%;
   pre {
     font-size: var(--fs-display);
     color: var(--headline);
     display: flex;
     align-items: center;
+    > div {
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+    }
   }
   // > pre {
   //   font-size: var(--fs-title);
@@ -38,7 +42,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    margin-right: 16px;
+    margin: 0 16px 0 8px;
     position: relative;
   }
   input {
@@ -54,18 +58,10 @@
     font-size: var(--fs-display);
     @include font-display;
   }
-  button {
-    width: 24px;
-    height: 24px;
-    color: var(--text-on-warning);
-    background-color: var(--warning);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      cursor: pointer;
-      background-color: var(--warning-hover);
-    }
+
+  .name-controls {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;  
   }
 }

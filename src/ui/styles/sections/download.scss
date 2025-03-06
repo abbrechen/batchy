@@ -1,37 +1,15 @@
 .download-section {
-  margin: 20px 0;
+  position: relative;
+  margin: 10px 0;
   // display: flex;
-  button {
-    @include button-primary;
-    @include button-disabled;
-    border-radius: var(--radius-s);
-    // background: none;
-    display: block;
-    margin: 0 auto;
-    // margin: 0 auto;
-    width: 400px;
-    // max-width: 480px;
-    // height: 38px;
-    // border: 2px solid rgba(255, 255, 255, 0.3);
-    // border-top: none;
-    // border-bottom: none;
-    &:disabled {
-      border-radius: 0;
-    }
-  }
-  .download-button {
-    background-color: var(--surface);
-    border: none;
-    border-radius: var(--radius-s);
-    &:hover {
-      @include hover;
-    }
-    &:active {
-      background-color: var(--accent);
-      color: var(--surface);
-    }
-  }
   .highlight {
     color: var(--accent-01);
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    // pointer-events: none;
   }
 }

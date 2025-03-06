@@ -1,0 +1,54 @@
+.btn-flat {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border-radius: 0;
+  display: flex;
+  place-items: center;
+  padding: 2px;
+  path {
+    fill: var(--text);
+  }
+  &:hover {
+    background-color: var(--surface);
+    path {
+      fill: var(--accent);
+    }
+  }
+  &[id="clearInput"]:hover {
+    cursor: pointer;
+    path {
+      fill: var(--warning-01);
+    }
+  }
+}
+
+button {
+  background-color: var(--bg-03);
+  // justify-content: center;
+  // align-content: center;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  &:disabled {
+    background-color: var(--bg-01);
+    cursor: not-allowed;
+  }
+  &:not([disabled]):not(.btn-flat):not(.download-button) {
+    &:hover {
+      @include hover;
+    } 
+  }
+}
+
+.download-button {
+  padding: 22px;
+  background-color: transparent;
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+#toggleBarItem {
+  cursor: row-resize;
+}

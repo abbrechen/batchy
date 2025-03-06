@@ -18,8 +18,8 @@ import addSuffixToDuplicates from './modules/duplicates-module';
 // Can I receive the DOM body size to use it for the plugin window?
 // That way, the window would be dynamic
 
-let uiWidth = 953;
-let uiHeight = 642;
+let uiWidth = 890;
+let uiHeight = 512;
 
 figma.showUI(__html__, {
   themeColors: true,
@@ -120,7 +120,7 @@ figma.ui.onmessage = (msg: string) => {
       exportBundle = [];
     })();
   } else if (Msg.type === 'resize') {
-    figma.ui.resize(uiWidth, uiHeight + Msg.subtract);
+    figma.ui.resize(uiWidth, uiHeight + Msg.uiWindowValue);
   } else if (Msg.type === 'add-to-selection-list') {
     const selection = figma.currentPage.selection;
     // let list = preview(selection);

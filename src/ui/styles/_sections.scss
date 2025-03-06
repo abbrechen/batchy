@@ -1,11 +1,5 @@
 [class$="-section"] {
   font-size: var(--fs-body);
+  box-sizing: border-box;
   // background-color: lightblue;
-}
-
-.gradient-wrapper {
-  background: linear-gradient(180deg, rgba(46,46,46,1) 0%, rgba(8,8,8,1) 100%);
-  padding: 1px;
-  border-radius: var(--radius-m);
-  display: flex;
 }

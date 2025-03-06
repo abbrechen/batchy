@@ -1,4 +1,5 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
@@ -15,10 +16,12 @@ module.exports = (env, argv) => ({
   entry: {
     ui: [
       './src/ui/ui.js',
-      './src/ui/js/reactivity.js',
-      './src/ui/js/export-multi.js',
-      './src/ui/js/export-single.js',
-      './src/ui/js/backend-communication.js'
+      // './src/ui/js/reactivity.js',
+      // './src/ui/js/export-multi.js',
+      // './src/ui/js/export-single.js',
+      // './src/ui/js/backend-communication.js',
+      // ...glob.sync('./src/ui/js/animations/**/*.js')
+      ...glob.sync('./src/ui/js/**/*.js')
     ],
     app: ['./src/app.ts'] // This is the entry point for our plugin code.
   },
@@ -31,6 +34,21 @@ module.exports = (env, argv) => ({
       { test: /\.(s[ac]ss|css)$/i, use: ['style-loader', 'css-loader', 'sass-loader'] },
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
       { test: /\.(png|jpg|gif|webp|svg)$/, use: ['url-loader'] },
+      {
+        test: /\.riv$/,
+        loader: 'url-loader',
+        options: {
+          /* data table
+          8kb = 8192
+          5mb = 5_242_880
+          */
+          // Inline files smaller than the value as base64 data URIs.
+          // Adjust the limit as needed.
+          limit: 5_242_880,
+          // Name pattern for files larger than the limit.
+          name: 'assets/riv/[name].[hash].[ext]',
+        },
+      },
       // {
       //   test: /\.(woff|woff2|eot|ttf|otf)$/i,
       //   type: 'src/ui/assets/fonts',

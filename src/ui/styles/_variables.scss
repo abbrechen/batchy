@@ -1,7 +1,7 @@
 :root {
   --neutral-01: #000;
-  --neutral-02: #151715;
-  --neutral-03: #1A1A1A;
+  --neutral-02: #161616;
+  --neutral-03: #252525;
   --neutral-04: #A1A2A1;
   --neutral-05: #d8d8d8;
   --neutral-06: #eeeeee;
@@ -16,6 +16,7 @@
   --fs-display: 24px;
   --fs-title: 12px;
   --fs-body: 12px;
+  --fs-conditional: 8px;
 
   --radius-s: 4px;
   --radius-m: 12px;
@@ -26,9 +27,10 @@
   --text: var(--neutral-07);
   --headline: var(--accent-01);
   --secondary: var(--neutral-04);
-  --bg-01: var(--neutral-03);
+  --bg-01: var(--neutral-01); /* maybe rename the bg-0# to bg-lvl or something more concrete */
   --bg-02: var(--neutral-02);
-  --surface: var(--neutral-01);
+  --bg-03: var(--neutral-03);
+  --surface: var(--neutral-01); /* rename to bg-03 */
   --border: var(--neutral-04);
   --accent: var(--accent-03);
   --text-on-warning: var(--neutral-01);
