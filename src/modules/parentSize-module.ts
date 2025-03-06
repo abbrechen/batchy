@@ -5,6 +5,8 @@ Means, if the top-level frame of a 50x50px rectangle is 200x200px large, the exp
 ======
 */
 
+import getMainParent from './_helpers/main-parent';
+
 export async function parentSize(selection: SceneNode[], exportSettings: ExportSettings) {
   const highestParents = selection.map(getMainParent);
 
@@ -64,13 +66,13 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
   }
 
   // Identify the top-level parent of the selected item
-  function getMainParent(node: SceneNode): SceneNode | null {
-    while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP' || node.parent.type === 'COMPONENT' || node.parent.type === 'INSTANCE')) {
-      node = node.parent;
-    }
-    // If the node.parent is a PAGE or undefined, then node is the top-level parent
-    return node;
-  }
+  // function getMainParent(node: SceneNode): SceneNode | null {
+  //   while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP' || node.parent.type === 'COMPONENT' || node.parent.type === 'INSTANCE')) {
+  //     node = node.parent;
+  //   }
+  //   // If the node.parent is a PAGE or undefined, then node is the top-level parent
+  //   return node;
+  // }
 
   // Get the relative position of the selected item to its top-level parent
   function getRelativePosition(node: SceneNode, topLevelParent: SceneNode | null): { x: number, y: number } {

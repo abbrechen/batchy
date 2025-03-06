@@ -1,18 +1,33 @@
-#notification {
-  display: none;
-}
-
-.notification {
-  padding: 8px 24px;
-  width: fit-content;
-  background-color: var(--warning);
-  border-radius: var(--radius-s);
-  text-align: center;
+.notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   z-index: 999;
   left: 0;
   right: 0;
   bottom: 24px;
   margin: 0 auto;
+  > div {
+    margin-bottom: 4px;
+    &:last-child() {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.notification {
+  padding: 8px 24px;
+  width: fit-content;
+  border-radius: var(--radius-s);
+  text-align: center;
   box-shadow: 0 4px 20px rgba(0,0,0, 0.6);
+}
+
+.warning {
+  background-color: var(--warning);
+}
+
+.critical {
+  background-color: var(--error);
 }
