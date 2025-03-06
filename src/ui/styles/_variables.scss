@@ -8,6 +8,7 @@
   --neutral-07: #fff;
   --warning-01: #D14040;
   --warning-02: #a82c2c;
+  --warning-03: #de8500;
   --accent-01: #40C5D1;
   --accent-02: #2ba2ac;
   --accent-03: #B377FF;
@@ -34,8 +35,10 @@
   --border: var(--neutral-04);
   --accent: var(--accent-03);
   --text-on-warning: var(--neutral-01);
-  --warning: var(--warning-01);
-  --warning-hover: var(--warning-02);
+  --delete: var(--warning-01);
+  --error: var(--warning-01);
+  --error-hover: var(--warning-02);
+  --warning: var(--warning-03);
 }
 
 .figma-light {

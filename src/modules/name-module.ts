@@ -1,9 +1,12 @@
 // import DateFormatter from '@date-js/date-formatter';
 import Store from './store-module';
+import getMainParent from './_helpers/main-parent';
 
 const message = (name: string, index: number, dateFormat: number, scaling: number) => {
   let date: string;
+  let layer: SceneNode;
   let layerName: string;
+  let topLevelName: string;
   let fileName: string;
   let exportName: string = name;
 
@@ -50,14 +53,16 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
     exportName = exportName.replace('{{date}}', date);
   }
 
-  if (name.includes('{{name}}')) {
-    let layerName = '';
     if (Store.getSelectionList().length > 0 && Store.getIsSelectionEmpty()) {
-      layerName = Store.getSelectionList()[index].name;
+      layer = Store.getSelectionList()[index]
+      layerName = layer.name;
     } else {
-      layerName = figma.currentPage.selection[index].name;
+      layer  = figma.currentPage.selection[index];
+      layerName = layer.name;
     }
-    exportName = exportName.replace('{{name}}', layerName)
+
+  if (name.includes('{{layerName}}')) {
+    exportName = exportName.replace('{{layerName}}', layerName)
   }
 
   if (name.includes('{{file}}')) {
@@ -67,6 +72,21 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
 
   if (name.includes('{{scaling}}')) {
     exportName = exportName.replace('{{scaling}}', `${scaling}x`);
+  }
+
+  if (name.includes('{{index}}')) {
+    exportName = exportName.replace('{{index}}', `${index + 1}`);
+  }
+
+  if (name.includes('{{userName}}')) {
+    const userName = figma?.currentUser?.name || '';
+    exportName = exportName.replace('{{userName}}', `${userName}`);
+  }
+
+  if (name.includes('{{topLevel}}')) {
+    topLevelName = getMainParent(layer)?.name ?? '';
+    topLevelName === layerName ? topLevelName = '' : topLevelName;
+    exportName = exportName.replace('{{topLevel}}', `${topLevelName}`);
   }
 
   // return `name module has been loaded with the message: ${msg}`;

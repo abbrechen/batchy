@@ -102,14 +102,64 @@ const addTextToInput = (text) => {
   // setCursorPosition();
   // input.value += text
   checkDuplicatedNames(ui.input.value);
+  adjustFontSize();
 }
 window.addTextToInput = addTextToInput;
+
+const adjustFontSize = () => {
+  const input = ui.input;
+
+  // Reset to the base size if input is empty
+  if (!input.value) {
+    input.style.fontSize = "24px";
+    return;
+  }
+
+  // Get the available width inside the input field
+  let availableWidth = input.clientWidth;
+
+  // Create a hidden span element for text measurement
+  let span = document.createElement("span");
+  span.style.visibility = "hidden";
+  span.style.position = "absolute";
+  span.style.whiteSpace = "nowrap";
+
+  // Use the base font size (24px) for the measurement
+  span.style.fontSize = "24px";
+  // Copy the input's font-family and font-weight to the span
+  let computedStyle = window.getComputedStyle(input);
+  span.style.fontFamily = computedStyle.fontFamily;
+  span.style.fontWeight = computedStyle.fontWeight;
+
+  span.innerText = input.value;
+  document.body.appendChild(span);
+
+  // Get the width of the text at the base font size (24px)
+  let textWidth = span.offsetWidth;
+  document.body.removeChild(span);
+
+  // Calculate the ratio to determine the new font size.
+  // If the text fits, ratio will be > 1, so we cap it at 1.
+  let ratio = availableWidth / textWidth;
+  let newSize = 24 * Math.min(1, ratio);
+
+  // Ensure the font size doesn't go below 12px
+  if (newSize < 12) {
+    newSize = 12;
+  }
+
+  // Set the input font size to the new calculated size
+  input.style.fontSize = newSize + "px";
+}
+
+window.adjustFontSize = adjustFontSize;
 
 // clear the name input field
 ui.clearInputButton.addEventListener('click', () => {
   // setCursorPosition();
   ui.input.value = '';
   checkDuplicatedNames(ui.input.value);
+  adjustFontSize();
 });
 
 ui.downloadButton.addEventListener('click', () => {

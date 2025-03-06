@@ -51,7 +51,7 @@
       margin-right: 12px;
       &:hover {
         text-decoration: line-through;
-        color: var(--warning-hover);
+        color: var(--error-hover);
         cursor: pointer;
       }
     }
