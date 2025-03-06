@@ -21,7 +21,7 @@
   width: fit-content;
   border-radius: var(--radius-s);
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0, 0.6);
+  box-shadow: var(--dropshadow);
 }
 
 .warning {
