@@ -10,7 +10,7 @@
     fill: var(--text);
   }
   &:hover {
-    background-color: var(--surface);
+    background-color: var(--bg-lvl-01);
     path {
       fill: var(--accent);
     }
@@ -24,14 +24,14 @@
 }
 
 button {
-  background-color: var(--bg-03);
+  background-color: var(--surface);
   // justify-content: center;
   // align-content: center;
   width: 100%;
   border-radius: 8px;
   border: 1px solid transparent;
   &:disabled {
-    background-color: var(--bg-01);
+    background-color: var(--bg-lvl-01);
     cursor: not-allowed;
   }
   &:not([disabled]):not(.btn-flat):not(.download-button) {
@@ -43,8 +43,10 @@ button {
 
 .download-button {
   padding: 22px;
+  color: var(--download-btn-txt-active);
   background-color: transparent;
   &:disabled {
+    color: var(--text);
     background-color: transparent;
   }
 }

@@ -1,14 +1,17 @@
 :root {
-  --neutral-01: #000;
+  --neutral-000: #000;
   --neutral-02: #161616;
   --neutral-03: #252525;
   --neutral-04: #A1A2A1;
   --neutral-05: #d8d8d8;
   --neutral-06: #eeeeee;
-  --neutral-07: #fff;
+  --neutral-06: #efefef;
+  --neutral-100: #fff;
+  --warning-00: #ff4d4d;
   --warning-01: #D14040;
   --warning-02: #a82c2c;
   --warning-03: #de8500;
+  --warning-04: #ffab2d;
   --accent-01: #40C5D1;
   --accent-02: #2ba2ac;
   --accent-03: #B377FF;
@@ -25,32 +28,45 @@
 }
 
 .figma-dark {
-  --text: var(--neutral-07);
+  // COLORS
+  --text: var(--neutral-100);
   --headline: var(--accent-01);
+  --download-btn-txt-active: var(--neutral-100);
   --secondary: var(--neutral-04);
-  --bg-01: var(--neutral-01); /* maybe rename the bg-0# to bg-lvl or something more concrete */
-  --bg-02: var(--neutral-02);
-  --bg-03: var(--neutral-03);
-  --surface: var(--neutral-01); /* rename to bg-03 */
+  --bg-lvl-01: var(--neutral-000);
+  --bg-lvl-02: var(--neutral-02);
+  --bg-lvl-03: var(--neutral-03);
+  --surface: var(--neutral-03);
   --border: var(--neutral-04);
   --accent: var(--accent-03);
-  --text-on-warning: var(--neutral-01);
+  --text-on-warning: var(--neutral-000);
   --delete: var(--warning-01);
   --error: var(--warning-01);
   --error-hover: var(--warning-02);
   --warning: var(--warning-03);
+
+  // SHADOWS
+  --dropshadow: 0 4px 20px rgba(0,0,0, 0.6);
 }
 
 .figma-light {
-  --text: var(--neutral-01);
+  // COLORS
+  --text: var(--neutral-000);
   --headline: var(--accent-03);
+  --download-btn-txt-active: var(--neutral-100);
   --secondary: var(--neutral-03);
-  --bg-01: var(--neutral-06);
-  --bg-02: var(--neutral-05);
-  --surface: var(--neutral-07);
+  --bg-lvl-01: var(--neutral-100);
+  --bg-lvl-02: var(--neutral-06);
+  --bg-lvl-03: var(--neutral-07);
+  --surface: var(--neutral-100);
   --border: var(--neutral-04);
   --accent: var(--accent-02);
-  --text-on-warning: var(--neutral-07);
-  --warning: var(--warning-02);
-  --warning-hover: var(--warning-01);
+  --text-on-warning: var(--neutral-100);
+  --delete: var(--warning-00);
+  --error: var(--warning-00);
+  --error-hover: var(--warning-01);
+  --warning: var(--warning-04);
+
+  // SHADOWS
+  --dropshadow: 0 4px 20px rgba(0,0,0, 0.2);
 }

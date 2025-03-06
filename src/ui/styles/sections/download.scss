@@ -4,6 +4,9 @@
   // display: flex;
   .highlight {
     color: var(--accent-01);
+    font-weight: bolder;
+    letter-spacing: 1vw;
+    padding-left: 8px;
   }
   canvas {
     position: absolute;
