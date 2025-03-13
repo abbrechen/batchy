@@ -104,6 +104,7 @@ const addTextToInput = (text) => {
   checkDuplicatedNames(ui.input.value);
   adjustFontSize();
 }
+
 window.addTextToInput = addTextToInput;
 
 const adjustFontSize = () => {

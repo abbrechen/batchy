@@ -36,8 +36,8 @@ const setCursorPosition = (value) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const textLengthHelper = document.getElementById('text-length-helper');
-  setCursorPosition();
+  // const textLengthHelper = document.getElementById('text-length-helper');
+  // setCursorPosition();
 });
 
 export {
