@@ -10,7 +10,22 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
   let fileName: string;
   let exportName: string = name;
 
-  if (name.includes('{{date}}')) {
+  const prefix: string = '\\$';
+
+  function containsWord(keyword: string): boolean {
+    // Remove spaces from the name (but keep the prefix and other special chars)
+    const cleanedName: string = name.replace(new RegExp(`\\s`, 'g'), '');
+    // Create a regular expression to match the keyword with the prefix and optional special chars
+    const regex = new RegExp(`${prefix}[a-zA-Z0-9-_]*${keyword}[a-zA-Z0-9-_]*\\b`, 'gi');
+    // Test the regex against the name without white spaces
+    return regex.test(cleanedName);
+  }
+
+  function replaceWord(keyword: string, replacement: string): void {
+    exportName = exportName.replace(new RegExp(`${prefix}${keyword}`, 'g'), replacement);
+  }
+
+  if (containsWord('date')) {
     /* --- DATE START --- */
     const newDate = new Date();
     var year: string | number;
@@ -48,45 +63,43 @@ const message = (name: string, index: number, dateFormat: number, scaling: numbe
         date = `${month}-${day}-${year}`;
     }
 
-    /* --- DATE END --- */
-
-    exportName = exportName.replace('{{date}}', date);
+    replaceWord('date', date);
   }
 
-    if (Store.getSelectionList().length > 0 && Store.getIsSelectionEmpty()) {
-      layer = Store.getSelectionList()[index]
-      layerName = layer.name;
-    } else {
-      layer  = figma.currentPage.selection[index];
-      layerName = layer.name;
-    }
-
-  if (name.includes('{{layerName}}')) {
-    exportName = exportName.replace('{{layerName}}', layerName)
+  if (Store.getSelectionList().length > 0 && Store.getIsSelectionEmpty()) {
+    layer = Store.getSelectionList()[index]
+    layerName = layer.name;
+  } else {
+    layer = figma.currentPage.selection[index];
+    layerName = layer.name;
   }
 
-  if (name.includes('{{file}}')) {
+  if (containsWord('layer')) {
+    replaceWord('layer', layerName);
+  }
+
+  if (containsWord('file')) {
     fileName = figma.root.name;
-    exportName = exportName.replace('{{file}}', fileName);
+    replaceWord('file', fileName);
   }
 
-  if (name.includes('{{scaling}}')) {
-    exportName = exportName.replace('{{scaling}}', `${scaling}x`);
+  if (containsWord('scaling')) {
+    replaceWord('scaling', `${scaling}x`)
   }
 
-  if (name.includes('{{index}}')) {
-    exportName = exportName.replace('{{index}}', `${index + 1}`);
+  if (containsWord('index')) {
+    replaceWord('index', `${index + 1}`);
   }
 
-  if (name.includes('{{userName}}')) {
-    const userName = figma?.currentUser?.name || '';
-    exportName = exportName.replace('{{userName}}', `${userName}`);
+  if (containsWord('user')) {
+    const userName = figma?.currentUser?.name || '';
+    replaceWord('user', userName);
   }
 
-  if (name.includes('{{topLevel}}')) {
+  if (containsWord('topLevel')) {
     topLevelName = getMainParent(layer)?.name ?? '';
     topLevelName === layerName ? topLevelName = '' : topLevelName;
-    exportName = exportName.replace('{{topLevel}}', `${topLevelName}`);
+    replaceWord('topLevel', topLevelName);
   }
 
   // return `name module has been loaded with the message: ${msg}`;

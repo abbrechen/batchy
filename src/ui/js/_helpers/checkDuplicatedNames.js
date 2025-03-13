@@ -8,10 +8,10 @@ const invalidChars = ["\\", "/", ":", "*","?", '"', "<", ">", "|"]
 
 const check = (value) => {
 
-  if (value.includes('{{layerName}}') ||  value.includes('{{index}}') || value.length <= 0) {
+  if (value.includes('$layer') ||  value.includes('$index') || value.length <= 0) {
     overrideAssetsNotification.text("");
     overrideAssetsNotification.remove();
-  } else if (value.includes('{{topLevel}}')) {
+  } else if (value.includes('$topLevel')) {
     overrideAssetsNotification.create('warning');
     overrideAssetsNotification.text('Assets could have the same name and would override each other');
   } else {
