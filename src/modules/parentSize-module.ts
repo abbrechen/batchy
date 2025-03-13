@@ -24,7 +24,7 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
     */
     if (parent) {
       // console.log(`Layer ${selection[index].name} is in top-level frame/section: ${parent.name}`);
-      const positionInParent = getRelativePosition(selection[index], parent);
+      const positionInParent = getRelativePosition(selection[index]);
       const selectionClone = selection[index].clone();
       let parentClone: any = parent.clone();
 
@@ -65,36 +65,25 @@ export async function parentSize(selection: SceneNode[], exportSettings: ExportS
     }
   }
 
-  // Identify the top-level parent of the selected item
-  // function getMainParent(node: SceneNode): SceneNode | null {
-  //   while (node.parent && (node.parent.type === 'FRAME' || node.parent.type === 'GROUP' || node.parent.type === 'COMPONENT' || node.parent.type === 'INSTANCE')) {
-  //     node = node.parent;
-  //   }
-  //   // If the node.parent is a PAGE or undefined, then node is the top-level parent
-  //   return node;
-  // }
-
   // Get the relative position of the selected item to its top-level parent
-  function getRelativePosition(node: SceneNode, topLevelParent: SceneNode | null): { x: number, y: number } {
-    let x = 0;
-    let y = 0;
-
-    while (node && node !== topLevelParent) {
-      if ('x' in node && 'y' in node) {
-        // = works for groups and += for frames
-        if (node.type === 'FRAME' || node.type === 'INSTANCE') {
-          x += node.x;
-          y += node.y;
-        } else {
-          x = node.x;
-          y = node.y;
-        }
-        // console.log(`${node.name}, x: ${x}, y: ${y}`)
-      }
-      node = node.parent as SceneNode;
+  function getRelativePosition(node: SceneNode): { x: number, y: number } {
+    // Get the node's absolute position.
+    const absoluteX = node.absoluteTransform[0][2];
+    const absoluteY = node.absoluteTransform[1][2];
+  
+    // Traverse up to find the highest parent that is not a PAGE.
+    let currentNode: SceneNode = node;
+    while (currentNode.parent && currentNode.parent.type !== 'PAGE' && currentNode.parent.type !== 'SECTION') {
+      currentNode = currentNode.parent as SceneNode;
     }
-
-    return { x, y };
+    
+    // currentNode now represents the highest parent that isn’t a PAGE.
+    const frameX = currentNode.absoluteTransform[0][2];
+    const frameY = currentNode.absoluteTransform[1][2];
+  
+    // Return the node's position relative to this highest frame.
+    return { x: absoluteX - frameX, y: absoluteY - frameY };
   }
+  
 }
 
