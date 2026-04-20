@@ -16,7 +16,8 @@
     "braces": "3.0.3"
   },
   "devDependencies": {
-    "@figma/eslint-plugin-figma-plugins": "*",
+    "@figma/eslint-plugin-figma-plugins": "^1.0.0",
+    "typescript-eslint": "^8.58.2",
     "@figma/plugin-typings": "*",
     "@types/file-saver": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
@@ -40,6 +41,9 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.105.4",
     "webpack-cli": "^5.1.4"
+  },
+  "overrides": {
+    "minimatch": "10.2.3"
   },
   "eslintConfig": {
     "extends": [
